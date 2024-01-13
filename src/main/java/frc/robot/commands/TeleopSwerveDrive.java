@@ -2,7 +2,7 @@ package frc.robot.commands;
 
 
 import SushiFrcLib.Controllers.ControllerMath;
-import SushiFrcLib.Swerve.BaseSwerve;
+import SushiFrcLib.Swerve.SwerveTemplates.BaseSwerve;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
@@ -66,12 +66,9 @@ public class TeleopSwerveDrive extends Command {
 
         Translation2d translation = new Translation2d(forwardBack, leftRight);
 
-        rot = ControllerMath.cube(rot);
-        rot *= Constants.Swerve.MAX_ANGULAR_VELOCITY;
-
         swerve.drive(
-            (new Translation2d(ControllerMath.cube(translation.getNorm()), translation.getAngle())).times(Constants.Swerve.MAX_SPEED), 
-            rot
+            (new Translation2d(ControllerMath.cube(translation.getNorm()), translation.getAngle())), 
+            ControllerMath.cube(rot)
         );
     }
 }
