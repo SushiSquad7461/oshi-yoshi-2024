@@ -55,6 +55,6 @@ public class Swerve extends CustomBaseSwerve {
             rotation = rotationLockPID.calculate(getGyro().getAngle().getDegrees());
         }
 
-        drive(translation, rotation);
+        super.drive(translation, rotation);
     }
 }
