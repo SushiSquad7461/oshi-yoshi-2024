@@ -45,11 +45,20 @@ public final class Constants {
                                 new Translation2d(WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
                                 new Translation2d(-WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0));
 
+<<<<<<< HEAD
                 public static final MotorConfig ANGLE_CONFIG = new MotorConfig(
                                 20,
                                 false, // Make true if we have a stroke
                                 PIDConfig.getPid(0.5), // TODO: retune
                                 MotorConfig.Mode.COAST);
+=======
+        public static final MotorConfig ANGLE_CONFIG = new MotorConfig(
+            20,
+            false, // Make true if we have a stroke
+            PIDConfig.getPid(0.01), 
+            MotorConfig.Mode.COAST 
+        );
+>>>>>>> e33fea5 (oh really whos goat is munchin on grass rn)
 
                 public static final MotorConfig DRIVE_CONFIG = new MotorConfig(
                                 60,
@@ -59,6 +68,7 @@ public final class Constants {
 
                 public static final PIDConfig autoRotate = PIDConfig.getPid(0.1);
 
+<<<<<<< HEAD
                 public static final SDSModules MODULE_TYPE = SDSModules.MK4i;
 
                 public static final SwerveModuleConstants[] SWERVE_MODULE_CONSTANTS = SwerveModuleConstants
@@ -96,6 +106,46 @@ public final class Constants {
                         PIDConfig.getPid(0.1, 0),
                         MotorConfig.Mode.BRAKE);
 
+=======
+         public static final boolean SWERVE_TUNNING_MODE = true;
+
+        public static final SwerveModuleConstants[] SWERVE_MODULE_CONSTANTS = SwerveModuleConstants.generateConstants(
+            new Rotation2d[]{
+                Rotation2d.fromDegrees(158.8), 
+                Rotation2d.fromDegrees(331.52),
+                Rotation2d.fromDegrees(176.0),
+                Rotation2d.fromDegrees(104.76)
+            },
+            SDSModules.MK4i,
+            SWERVE_TUNNING_MODE,
+            DRIVE_CONFIG,
+            ANGLE_CONFIG
+        );
+    }
+
+    public static final class Manipulator {
+
+        public static final MotorConfig KICKER_CONFIG = new MotorConfig(
+                        0,
+                        20,
+                        false,
+                        MotorConfig.Mode.BRAKE);
+
+        public static final MotorConfig PIVOT_CONFIG = new MotorConfig(
+                        0,
+                        20,
+                        false,
+                        PIDConfig.getPid(0.1),
+                        MotorConfig.Mode.BRAKE);
+
+        public static final MotorConfig SHOOTER_CONFIG = new MotorConfig(
+                        0,
+                        20,
+                        false,
+                        PIDConfig.getPid(0.1, 0),
+                        MotorConfig.Mode.BRAKE);
+
+>>>>>>> e33fea5 (oh really whos goat is munchin on grass rn)
         public static final int ENCODER_ID = 0;// set this
         public static final double ENCODER_OFFSET = 0;// set this
         public static final double PIVOT_GEAR_RATIO = 0; // set ratio
@@ -103,6 +153,10 @@ public final class Constants {
         public static final double KG = 0;// set this
         public static final double KV = 0;// set this
         public static final double KICKER_SPEED = 0;// set this
+<<<<<<< HEAD
         public static final double SHOOTER_SPEED = 0;// set this
     }
+=======
+  }
+>>>>>>> e33fea5 (oh really whos goat is munchin on grass rn)
 }
