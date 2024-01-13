@@ -4,8 +4,11 @@
 
 package frc.robot;
 
+<<<<<<< HEAD
 import com.pathplanner.lib.util.PIDConstants;
 
+=======
+>>>>>>> db76e4b (wrist code)
 import SushiFrcLib.Control.PIDConfig;
 import SushiFrcLib.Motor.MotorConfig;
 import SushiFrcLib.Swerve.SwerveConstants.SDSModules;
@@ -103,5 +106,6 @@ public final class Constants {
         public static final double KG = 0;// set this
         public static final double KV = 0;// set this
         public static final double KICKER_SPEED = 0;// set this
-  }
+        public static final double SHOOTER_SPEED = 0;// set this
+    }
 }
