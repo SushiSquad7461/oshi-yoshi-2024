@@ -7,7 +7,6 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import frc.robot.Constants;
 
-
 public class Swerve extends CustomBaseSwerve {
     private static Swerve instance;
 
@@ -55,6 +54,6 @@ public class Swerve extends CustomBaseSwerve {
             rotation = rotationLockPID.calculate(getGyro().getAngle().getDegrees());
         }
 
-        drive(translation, rotation);
+        super.drive(translation, rotation);
     }
 }
