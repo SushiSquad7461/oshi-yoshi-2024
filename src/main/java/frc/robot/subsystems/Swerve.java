@@ -1,8 +1,8 @@
 package frc.robot.subsystems;
 
 import SushiFrcLib.Sensors.gyro.Pigeon;
-import SushiFrcLib.Swerve.CustomBaseSwerve;
-import SushiFrcLib.Swerve.SwerveModules.SwerveModuleNeoFalcon;
+import SushiFrcLib.Swerve.SwerveModules.SwerveModuleNeoTalon;
+import SushiFrcLib.Swerve.SwerveTemplates.CustomBaseSwerve;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import frc.robot.Constants;
@@ -24,16 +24,14 @@ public class Swerve extends CustomBaseSwerve {
 
     private Swerve() {
         super(
-            new SwerveModuleNeoFalcon[]{
-                new SwerveModuleNeoFalcon(Constants.Swerve.MOD0_CONSTANTS),
-                new SwerveModuleNeoFalcon(Constants.Swerve.MOD1_CONSTANTS),
-                new SwerveModuleNeoFalcon(Constants.Swerve.MOD2_CONSTANTS),
-                new SwerveModuleNeoFalcon(Constants.Swerve.MOD3_CONSTANTS),
+            new SwerveModuleNeoTalon[]{
+                new SwerveModuleNeoTalon(Constants.Swerve.SWERVE_MODULE_CONSTANTS[0]),
+                new SwerveModuleNeoTalon(Constants.Swerve.SWERVE_MODULE_CONSTANTS[1]),
+                new SwerveModuleNeoTalon(Constants.Swerve.SWERVE_MODULE_CONSTANTS[2]),
+                new SwerveModuleNeoTalon(Constants.Swerve.SWERVE_MODULE_CONSTANTS[3]),
             },
             new Pigeon(Constants.Ports.PIGEON_ID, Constants.Swerve.GYRO_INVERSION, Constants.Ports.CANIVORE_NAME),
-            Constants.Swerve.SWERVE_KINEMATICS,
-            Constants.Swerve.MAX_SPEED,
-            Constants.Swerve.SWERVE_TUNNING_MODE
+            Constants.Swerve.SWERVE_KINEMATICS
         );
 
         locationLock = false;
