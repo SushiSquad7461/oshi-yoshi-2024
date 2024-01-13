@@ -43,8 +43,8 @@ public final class Constants {
         public static final MotorConfig ANGLE_CONFIG = new MotorConfig(
             20,
             false, // Make true if we have a stroke
-            PIDConfig.getPid(0.1), 
-            MotorConfig.Mode.BRAKE 
+            PIDConfig.getPid(0.01), 
+            MotorConfig.Mode.COAST 
         );
 
         public static final MotorConfig DRIVE_CONFIG = new MotorConfig(
@@ -56,14 +56,20 @@ public final class Constants {
 
         public static final PIDConfig autoRotate = PIDConfig.getPid(0.1);
 
-         public static final boolean SWERVE_TUNNING_MODE = false;
+         public static final boolean SWERVE_TUNNING_MODE = true;
 
         public static final SwerveModuleConstants[] SWERVE_MODULE_CONSTANTS = SwerveModuleConstants.generateConstants(
+            // new Rotation2d[]{
+            //     Rotation2d.fromDegrees(159.9), 
+            //     Rotation2d.fromDegrees(338.291),
+            //     Rotation2d.fromDegrees(178.33),
+            //     Rotation2d.fromDegrees(104.58)
+            // },
             new Rotation2d[]{
-                Rotation2d.fromDegrees(159.9), 
-                Rotation2d.fromDegrees(338.291),
-                Rotation2d.fromDegrees(178.33),
-                Rotation2d.fromDegrees(104.58)
+                Rotation2d.fromDegrees(158.8), 
+                Rotation2d.fromDegrees(331.52),
+                Rotation2d.fromDegrees(176.0),
+                Rotation2d.fromDegrees(104.76)
             },
             SDSModules.MK4i,
             SWERVE_TUNNING_MODE,
