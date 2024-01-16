@@ -30,9 +30,9 @@ public final class Constants {
 
     public static final class Swerve {
         public static final boolean GYRO_INVERSION = false; // Always ensure Gyro is CCW+ CW-
-
-        public static final PIDConstants AUTO_TRANSLATION = new PIDConstants(0);
-        public static final PIDConstants AUTO_ROTATION = new PIDConstants(0);
+ 
+        public static final PIDConstants AUTO_TRANSLATION = new PIDConstants(0); // TODO: find pid
+        public static final PIDConstants AUTO_ROTATION = new PIDConstants(0); // TODO: find pid
 
         /* Drivetrain Constants */
         public static final double TRACK_WIDTH = Units.inchesToMeters(28);
@@ -49,20 +49,19 @@ public final class Constants {
         public static final MotorConfig ANGLE_CONFIG = new MotorConfig(
             20,
             false, // Make true if we have a stroke
-            PIDConfig.getPid(0.01), 
+            PIDConfig.getPid(0.01), // TODO: retune
             MotorConfig.Mode.COAST 
         );
 
         public static final MotorConfig DRIVE_CONFIG = new MotorConfig(
             60,
             false, 
-            PIDConfig.getPid(0.1, 0.0458), 
+            PIDConfig.getPid(0.1, 0.0458), // TODO: retune
             MotorConfig.Mode.BRAKE 
         );
 
         public static final PIDConfig autoRotate = PIDConfig.getPid(0.1);
 
-        public static final boolean SWERVE_TUNNING_MODE = true;
         public static final SDSModules MODULE_TYPE = SDSModules.MK4i;
 
         public static final SwerveModuleConstants[] SWERVE_MODULE_CONSTANTS = SwerveModuleConstants.generateConstants(
@@ -73,7 +72,7 @@ public final class Constants {
                 Rotation2d.fromDegrees(104.76)
             },
             MODULE_TYPE,
-            SWERVE_TUNNING_MODE,
+            true,
             DRIVE_CONFIG,
             ANGLE_CONFIG
         );
