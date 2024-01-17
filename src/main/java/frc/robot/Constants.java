@@ -17,16 +17,16 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 
 public final class Constants {
-    public static final boolean TUNING_MODE = false;
+        public static final boolean TUNING_MODE = false;
 
-    public static final class OI {
-        public static final double STICK_DEADBAND = 0.1;
-    }
+        public static final class OI {
+                public static final double STICK_DEADBAND = 0.1;
+        }
 
-    public static class Ports {
-        public static final String CANIVORE_NAME = "Sussy Squad";
-        public static final int PIGEON_ID = 13;
-    }
+        public static class Ports {
+                public static final String CANIVORE_NAME = "Sussy Squad";
+                public static final int PIGEON_ID = 13;
+        }
 
     public static final class Swerve {
         public static final boolean GYRO_INVERSION = false; // Always ensure Gyro is CCW+ CW-
@@ -60,7 +60,7 @@ public final class Constants {
             MotorConfig.Mode.BRAKE 
         );
 
-        public static final PIDConfig autoRotate = PIDConfig.getPid(0.1);
+                public static final PIDConfig autoRotate = PIDConfig.getPid(0.1);
 
         public static final SDSModules MODULE_TYPE = SDSModules.MK4i;
 
