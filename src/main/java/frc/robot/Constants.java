@@ -4,11 +4,8 @@
 
 package frc.robot;
 
-<<<<<<< HEAD
 import com.pathplanner.lib.util.PIDConstants;
 
-=======
->>>>>>> db76e4b (wrist code)
 import SushiFrcLib.Control.PIDConfig;
 import SushiFrcLib.Motor.MotorConfig;
 import SushiFrcLib.Swerve.SwerveConstants.SDSModules;
