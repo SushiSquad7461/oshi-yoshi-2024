@@ -4,6 +4,7 @@ import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.ControlType;
 
+import SushiFrcLib.Motor.MotorHelper;
 import SushiFrcLib.Sensors.absoluteEncoder.AbsoluteEncoder;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,13 +34,17 @@ public class Wrist extends SubsystemBase {
     private Wrist() {
         kicker = Manipulator.KICKER_CONFIG.createSparkMax();
         pivot = Manipulator.PIVOT_CONFIG.createSparkMax();
+        MotorHelper.setConversionFactor(pivot, Manipulator.PIVOT_GEAR_RATIO);
         shooter = Manipulator.SHOOTER_CONFIG.createSparkMax();
+
         absoluteEncoder = new AbsoluteEncoder(Manipulator.ENCODER_ID, Manipulator.ENCODER_OFFSET);
         wristFeedforward = new ArmFeedforward(Manipulator.KS, Manipulator.KG, Manipulator.KV);
     }
 
-    public void setPivotPos(double pos) {
-        pivotPos = pos;
+    public Command setPivotPos(double pos) {
+        return runOnce(() -> {
+            pivotPos = pos;
+        });
     }
 
     public Command runKicker() {
@@ -56,13 +61,17 @@ public class Wrist extends SubsystemBase {
 
     public Command runShooter(double speed) {
         return runOnce(() -> {
-            shooter.getPIDController().setReference(speed, CANSparkBase.ControlType.kCurrent);
+            shooter.getPIDController().setReference(speed, CANSparkBase.ControlType.kVelocity);
         });
     }
 
     @Override
     public void periodic() {
-        pivot.set(pivotPos);
+        pivot.getPIDController().setReference(
+                pivotPos,
+                CANSparkBase.ControlType.kPosition,
+                0,
+                wristFeedforward.calculate(pivot.getEncoder().getPosition(), 0));
     }
 
 }
