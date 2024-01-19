@@ -13,15 +13,12 @@ import frc.robot.Constants;
 import com.revrobotics.CANSparkMax;
 
 public class Intake extends SubsystemBase {
-    private final CANSparkMax spin1Motor;
-    private final CANSparkMax spin2Motor;
+    private final CANSparkMax indexerMotor;
+    private final CANSparkMax rollerMotor;
     private final CANSparkMax pivotMotor;
     private static Intake instance;
     private final ArmFeedforward intakeFeedforward;
     private final AbsoluteEncoder absoluteEncoder;
-    private final double currentPos;
-    private MotorConfig intakePID;
-
     private double pivotPos;
 
     public static Intake getInstance() {
@@ -32,15 +29,24 @@ public class Intake extends SubsystemBase {
     }
 
     private Intake() {
-        spin1Motor = Constants.Intake.INTAKE_SPIN1_CONFIG.createSparkMax();
-        spin2Motor = Constants.Intake.INTAKE_SPIN2_CONFIG.createSparkMax();
+        indexerMotor = Constants.Intake.INTAKE_INDEXER_CONFIG.createSparkMax();
+        rollerMotor = Constants.Intake.INTAKE_UPRIGHT_ROLLERS_CONFIG.createSparkMax();
         pivotMotor = Constants.Intake.INTAKE_PIVOT_CONFIG.createSparkMax();
         intakeFeedforward = new ArmFeedforward(0.0, Constants.Intake.G, 0.0);
         absoluteEncoder = new AbsoluteEncoder(Constants.Intake.ENCODER_CHANNEL, Constants.Intake.ENCODER_ANGLE_OFFSET);
         MotorHelper.setDegreeConversionFactor(pivotMotor, Constants.Intake.INTAKE_GEAR_RATIO);
-        MotorHelper.setConversionFactor(pivotMotor, Constants.Intake.INTAKE_GEAR_RATIO);
-        intakePID = Constants.Intake.INTAKE_PIVOT_CONFIG;
-        currentPos = absoluteEncoder.getPosition();
+    }
+
+    public void resetPosition() {
+        pivotMotor.getEncoder().setPosition(getPosition());
+    }
+
+    public double getPosition() {
+        return absoluteEncoder.getPosition();
+    }
+
+    public double getAbsoluteError() {
+        return Math.abs(getPosition() - absoluteEncoder.getNormalizedPosition());
     }
 
     public Command setPosition(double pivotPos) {
@@ -51,24 +57,35 @@ public class Intake extends SubsystemBase {
 
     public Command runMotor() {
         return runOnce(() -> {
-            spin1Motor.set(Constants.Intake.SPIN_SPEED);
-            spin2Motor.set(Constants.Intake.SPIN_SPEED);
+            indexerMotor.set(Constants.Intake.SPIN_SPEED);
+            rollerMotor.set(Constants.Intake.SPIN_SPEED);
         });
     }
 
     public Command stopMotor() {
         return runOnce(() -> {
-            spin1Motor.set(0);
-            spin2Motor.set(0);
+            indexerMotor.set(0);
+            rollerMotor.set(0);
+        });
+    }
+
+    public Command reverseMotor() {
+        return runOnce(() -> {
+            indexerMotor.set(Constants.Intake.SPIN_SPEED * -1);
+            rollerMotor.set(Constants.Intake.SPIN_SPEED * -1);
         });
     }
 
     @Override
     public void periodic() {
+        if (getAbsoluteError() > Constants.Intake.ERROR_LIMIT) {
+            resetPosition();
+        }
         pivotMotor.getPIDController().setReference(
                 pivotPos,
                 ControlType.kPosition,
                 0,
-                intakeFeedforward.calculate(Math.toRadians(currentPos), 0.0));
+                intakeFeedforward.calculate(Math.toRadians(getPosition()), 0.0));
+
     }
 }

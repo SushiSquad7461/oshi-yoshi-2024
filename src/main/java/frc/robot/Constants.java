@@ -70,27 +70,28 @@ public final class Constants {
         }
 
         public static final class Intake {
-                public static final double G = 0.2;
-                public static final int ENCODER_CHANNEL = 5;
-                public static final double ENCODER_ANGLE_OFFSET = -153.77;
-                public static final double INTAKE_GEAR_RATIO = 160 / 3; // 160:3
-                public static final double SPIN_SPEED = 0.0;
+                public static final double G = 0.0; // set later
+                public static final int ENCODER_CHANNEL = 0; // set later
+                public static final double ENCODER_ANGLE_OFFSET = 0.0; // set later
+                public static final double INTAKE_GEAR_RATIO = 0.0; // set later
+                public static final double SPIN_SPEED = 0.0; // set later
+                public static final double ERROR_LIMIT = 0.0; // set later
 
-                public static final MotorConfig INTAKE_SPIN1_CONFIG = new MotorConfig(
-                                20,
+                public static final MotorConfig INTAKE_INDEXER_CONFIG = new MotorConfig(
+                                0, // set canID later
+                                0, // set later
                                 false, // spin motor
-                                PIDConfig.getPid(0.1),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final MotorConfig INTAKE_PIVOT_CONFIG = new MotorConfig(
-                                20,
+                                0, // set later
                                 false, // position motor
                                 PIDConfig.getPid(0.1),
                                 MotorConfig.Mode.BRAKE);
-                public static final MotorConfig INTAKE_SPIN2_CONFIG = new MotorConfig(
-                                20,
+                public static final MotorConfig INTAKE_UPRIGHT_ROLLERS_CONFIG = new MotorConfig(
+                                0, // set canID later
+                                0, // set later
                                 false, // position motor
-                                PIDConfig.getPid(0.1),
                                 MotorConfig.Mode.BRAKE);
         }
 
