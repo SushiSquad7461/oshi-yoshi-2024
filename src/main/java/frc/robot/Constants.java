@@ -76,13 +76,18 @@ public final class Constants {
                 public static final double INTAKE_GEAR_RATIO = 160 / 3; // 160:3
                 public static final double SPIN_SPEED = 0.0;
 
-                public static final MotorConfig INTAKE_SPIN_CONFIG = new MotorConfig(
+                public static final MotorConfig INTAKE_SPIN1_CONFIG = new MotorConfig(
                                 20,
                                 false, // spin motor
                                 PIDConfig.getPid(0.1),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final MotorConfig INTAKE_PIVOT_CONFIG = new MotorConfig(
+                                20,
+                                false, // position motor
+                                PIDConfig.getPid(0.1),
+                                MotorConfig.Mode.BRAKE);
+                public static final MotorConfig INTAKE_SPIN2_CONFIG = new MotorConfig(
                                 20,
                                 false, // position motor
                                 PIDConfig.getPid(0.1),

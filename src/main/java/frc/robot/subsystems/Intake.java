@@ -1,4 +1,5 @@
 package frc.robot.subsystems;
+
 import com.revrobotics.CANSparkBase.ControlType;
 
 import SushiFrcLib.Motor.MotorConfig;
@@ -12,7 +13,8 @@ import frc.robot.Constants;
 import com.revrobotics.CANSparkMax;
 
 public class Intake extends SubsystemBase {
-    private final CANSparkMax spinMotor;
+    private final CANSparkMax spin1Motor;
+    private final CANSparkMax spin2Motor;
     private final CANSparkMax pivotMotor;
     private static Intake instance;
     private final ArmFeedforward intakeFeedforward;
@@ -22,7 +24,6 @@ public class Intake extends SubsystemBase {
 
     private double pivotPos;
 
-
     public static Intake getInstance() {
         if (instance == null) {
             return new Intake();
@@ -31,7 +32,8 @@ public class Intake extends SubsystemBase {
     }
 
     private Intake() {
-        spinMotor = Constants.Intake.INTAKE_SPIN_CONFIG.createSparkMax();
+        spin1Motor = Constants.Intake.INTAKE_SPIN1_CONFIG.createSparkMax();
+        spin2Motor = Constants.Intake.INTAKE_SPIN2_CONFIG.createSparkMax();
         pivotMotor = Constants.Intake.INTAKE_PIVOT_CONFIG.createSparkMax();
         intakeFeedforward = new ArmFeedforward(0.0, Constants.Intake.G, 0.0);
         absoluteEncoder = new AbsoluteEncoder(Constants.Intake.ENCODER_CHANNEL, Constants.Intake.ENCODER_ANGLE_OFFSET);
@@ -46,15 +48,18 @@ public class Intake extends SubsystemBase {
             this.pivotPos = pivotPos;
         });
     }
-    public Command runMotor(){
+
+    public Command runMotor() {
         return runOnce(() -> {
-            spinMotor.set(Constants.Intake.SPIN_SPEED);
+            spin1Motor.set(Constants.Intake.SPIN_SPEED);
+            spin2Motor.set(Constants.Intake.SPIN_SPEED);
         });
     }
 
-    public Command stopMotor(){
+    public Command stopMotor() {
         return runOnce(() -> {
-            spinMotor.set(0);
+            spin1Motor.set(0);
+            spin2Motor.set(0);
         });
     }
 
