@@ -37,9 +37,10 @@ public class Intake extends SubsystemBase {
         intakeFeedforward = new ArmFeedforward(0.0, Constants.Intake.G, 0.0);
         absoluteEncoder = new AbsoluteEncoder(Constants.Intake.ENCODER_CHANNEL, Constants.Intake.ENCODER_ANGLE_OFFSET);
         MotorHelper.setDegreeConversionFactor(pivotMotor, Constants.Intake.INTAKE_GEAR_RATIO);
+        resetToAbsolutePosition();
     }
 
-    public void resetPosition() {
+    public void resetToAbsolutePosition() {
         pivotMotor.getEncoder().setPosition(getPosition());
     }
 
@@ -47,12 +48,16 @@ public class Intake extends SubsystemBase {
         return absoluteEncoder.getPosition();
     }
 
+    public double getAbsolutePosition() {
+        return absoluteEncoder.getNormalizedPosition();
+    }
+
     public BooleanSupplier closeToSetpoint(double setpoint) {
         return () -> (getError(setpoint) < Constants.Intake.MAX_ERROR);
     }
 
     public double getAbsoluteError() {
-        return Math.abs(getPosition() - absoluteEncoder.getNormalizedPosition());
+        return Math.abs(getPosition() - getAbsolutePosition());
     }
 
     public double getError(double setpoint) {
@@ -89,7 +94,7 @@ public class Intake extends SubsystemBase {
     @Override
     public void periodic() {
         if (getAbsoluteError() > Constants.Intake.ERROR_LIMIT) {
-            resetPosition();
+            resetToAbsolutePosition();
         }
         pivotMotor.getPIDController().setReference(
                 pivotPos,
