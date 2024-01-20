@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.function.BooleanSupplier;
+
 import com.revrobotics.CANSparkBase.ControlType;
 
 import SushiFrcLib.Motor.MotorConfig;
@@ -45,8 +47,16 @@ public class Intake extends SubsystemBase {
         return absoluteEncoder.getPosition();
     }
 
+    public BooleanSupplier closeToSetpoint(double setpoint) {
+        return () -> (getError(setpoint) < Constants.Intake.MAX_ERROR);
+    }
+
     public double getAbsoluteError() {
         return Math.abs(getPosition() - absoluteEncoder.getNormalizedPosition());
+    }
+
+    public double getError(double setpoint) {
+        return Math.abs(getPosition() - setpoint);
     }
 
     public Command setPosition(double pivotPos) {

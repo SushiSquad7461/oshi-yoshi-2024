@@ -76,6 +76,7 @@ public final class Constants {
                 public static final double INTAKE_GEAR_RATIO = 0.0; // set later
                 public static final double SPIN_SPEED = 0.0; // set later
                 public static final double ERROR_LIMIT = 0.0; // set later
+                public static final double MAX_ERROR = 0.0; // set later
 
                 public static final MotorConfig INTAKE_INDEXER_CONFIG = new MotorConfig(
                                 0, // set canID later
