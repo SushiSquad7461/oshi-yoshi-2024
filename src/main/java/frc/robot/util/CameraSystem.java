@@ -10,18 +10,16 @@ import java.util.List;
 
 import org.photonvision.EstimatedRobotPose;
 
-
-public class CameraSystem  {
+public class CameraSystem {
     public final AprilTagFieldLayout fieldLayout;
     public final CameraFeed[] cameras;
 
     public CameraSystem(String[] cameraNames, Transform3d[] robotToCam, String fileName) {
         try {
             fieldLayout = new AprilTagFieldLayout(Filesystem
-                        .getDeployDirectory()
-                        .toPath()
-                        .resolve(fileName)
-            );
+                    .getDeployDirectory()
+                    .toPath()
+                    .resolve(fileName));
         } catch (IOException e) {
             e.printStackTrace();
             throw new Error(fileName + " does not exists in the deploy directory");
@@ -29,16 +27,16 @@ public class CameraSystem  {
 
         cameras = new CameraFeed[cameraNames.length];
 
-        for (int i=0; i < cameraNames.length; ++i) {
+        for (int i = 0; i < cameraNames.length; ++i) {
             cameras[i] = new CameraFeed(cameraNames[i], robotToCam[i], fieldLayout);
         }
     }
 
-    public List<EstimatedRobotPose> getEstimatedPoses() {
+    public ArrayList<EstimatedRobotPose> getEstimatedPoses() {
         ArrayList<EstimatedRobotPose> ret = new ArrayList<EstimatedRobotPose>();
 
-        for (int i=0; i < cameras.length; ++i) {
-            EstimatedRobotPose pose = cameras[i].getEstimatedPose(); 
+        for (int i = 0; i < cameras.length; ++i) {
+            EstimatedRobotPose pose = cameras[i].getEstimatedPose();
 
             if (pose != null) {
                 ret.add(cameras[i].getEstimatedPose());
