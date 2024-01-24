@@ -17,6 +17,7 @@ public class Wrist extends SubsystemBase {
     private final CANSparkMax shooter;
 
     private double pivotPos;
+    private double shooterSpeed;
 
     private final AbsoluteEncoder absoluteEncoder;
     private final ArmFeedforward wristFeedforward;
@@ -39,6 +40,20 @@ public class Wrist extends SubsystemBase {
 
         absoluteEncoder = new AbsoluteEncoder(Manipulator.ENCODER_ID, Manipulator.ENCODER_OFFSET);
         wristFeedforward = new ArmFeedforward(Manipulator.KS, Manipulator.KG, Manipulator.KV);
+        pivotPos = absoluteEncoder.getPosition();
+        resetEncoder();
+    }
+
+    public void resetEncoder() {
+        pivot.getEncoder().setPosition(absoluteEncoder.getPosition());
+    }
+
+    public boolean shooterAtSpeed() {
+        return (Math.abs(shooter.getEncoder().getVelocity() - shooterSpeed) < 5);
+    }
+
+    public boolean pivotAtPos() {
+        return (Math.abs(absoluteEncoder.getPosition() - pivotPos) < .1);
     }
 
     public Command setPivotPos(double pos) {
@@ -50,6 +65,12 @@ public class Wrist extends SubsystemBase {
     public Command runKicker() {
         return runOnce(() -> {
             kicker.set(Manipulator.KICKER_SPEED);
+        });
+    }
+
+    public Command reverseKicker() {
+        return runOnce(() -> {
+            kicker.set(-Manipulator.KICKER_SPEED);
         });
     }
 
