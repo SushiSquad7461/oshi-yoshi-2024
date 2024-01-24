@@ -1,7 +1,7 @@
 package frc.robot.subsystems;
 
 import SushiFrcLib.Sensors.gyro.Pigeon;
-import SushiFrcLib.Swerve.SwerveModules.SwerveModuleNeoTalon;
+import SushiFrcLib.Swerve.SwerveModules.SwerveModuleTalon;
 import SushiFrcLib.Swerve.SwerveTemplates.VisionBaseSwerve;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -24,11 +24,11 @@ public class Swerve extends VisionBaseSwerve {
 
     private Swerve() {
         super(
-            new SwerveModuleNeoTalon[]{
-                new SwerveModuleNeoTalon(Constants.Swerve.SWERVE_MODULE_CONSTANTS[0]),
-                new SwerveModuleNeoTalon(Constants.Swerve.SWERVE_MODULE_CONSTANTS[1]),
-                new SwerveModuleNeoTalon(Constants.Swerve.SWERVE_MODULE_CONSTANTS[2]),
-                new SwerveModuleNeoTalon(Constants.Swerve.SWERVE_MODULE_CONSTANTS[3]),
+            new SwerveModuleTalon[]{
+                new SwerveModuleTalon(Constants.Swerve.SWERVE_MODULE_CONSTANTS[0]),
+                new SwerveModuleTalon(Constants.Swerve.SWERVE_MODULE_CONSTANTS[1]),
+                new SwerveModuleTalon(Constants.Swerve.SWERVE_MODULE_CONSTANTS[2]),
+                new SwerveModuleTalon(Constants.Swerve.SWERVE_MODULE_CONSTANTS[3]),
             },
             new Pigeon(Constants.Ports.PIGEON_ID, Constants.Swerve.GYRO_INVERSION, Constants.Ports.CANIVORE_NAME),
             Constants.Swerve.SWERVE_KINEMATICS
