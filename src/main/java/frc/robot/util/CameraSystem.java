@@ -1,12 +1,12 @@
 package frc.robot.util;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.wpilibj.Filesystem;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.photonvision.EstimatedRobotPose;
 
@@ -26,20 +26,22 @@ public class CameraSystem {
         }
 
         cameras = new CameraFeed[cameraNames.length];
-
+        System.out.println("Cameras" + cameraNames.length);
         for (int i = 0; i < cameraNames.length; ++i) {
             cameras[i] = new CameraFeed(cameraNames[i], robotToCam[i], fieldLayout);
         }
     }
 
-    public ArrayList<EstimatedRobotPose> getEstimatedPoses() {
+    public ArrayList<EstimatedRobotPose> getEstimatedPoses(Pose2d previousePose) {
         ArrayList<EstimatedRobotPose> ret = new ArrayList<EstimatedRobotPose>();
 
         for (int i = 0; i < cameras.length; ++i) {
-            EstimatedRobotPose pose = cameras[i].getEstimatedPose();
+            EstimatedRobotPose pose = cameras[i].getEstimatedPose(previousePose);
+
+            System.out.println("Pose: " + pose);
 
             if (pose != null) {
-                ret.add(cameras[i].getEstimatedPose());
+                ret.add(pose);
             }
         }
 

@@ -26,24 +26,24 @@ public class CameraFeed {
     private double lastUpdateTimeMicro;
 
     private PhotonPoseEstimator photonPoseEstimator;
-
+ 
     private ArrayList<VisionMeasurement> cachedMesurments;
     private AprilTagFieldLayout aprilTagFieldLayout;
 
     public CameraFeed(String name, Transform3d robotToCam, AprilTagFieldLayout aprilTagFieldLayout) {
         camera = new PhotonCamera(name);
-        
-        rawBytesEntry = NetworkTableInstance.getDefault()
-            .getTable("photonvision")
-            .getSubTable(name)
-            .getEntry("rawBytes");
 
+        rawBytesEntry = NetworkTableInstance.getDefault()
+                .getTable("photonvision")
+                .getSubTable(name)
+                .getEntry("rawBytes");
 
         this.lastUpdateTimeMicro = -1;
         cachedMesurments = new ArrayList<VisionMeasurement>();
         this.aprilTagFieldLayout = aprilTagFieldLayout;
 
-        photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_RIO, camera, robotToCam); // Change later to process on orange pi
+        photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.LOWEST_AMBIGUITY, camera,
+                robotToCam); // Change later to process on orange pi
     }
 
     public ArrayList<VisionMeasurement> getMesurments() {
@@ -59,8 +59,6 @@ public class CameraFeed {
             cachedMesurments.clear();
             return cachedMesurments;
         }
-
-
         cachedMesurments.clear();
 
         for (PhotonTrackedTarget target : res.targets) {
@@ -72,32 +70,35 @@ public class CameraFeed {
 
             // Add to measurement
             cachedMesurments.add(new VisionMeasurement(
-                target,
-                new Pose2d(
-                    estRobotPose.getX(),
-                    estRobotPose.getY(),
-                    new Rotation2d(estRobotPose.getRotation().getZ())), 
+                    target,
+                    new Pose2d(estRobotPose.getX(),
+                            estRobotPose.getY(),
+                            new Rotation2d(estRobotPose.getRotation().getZ())),
                     res.getTimestampSeconds(),
-                target.getPoseAmbiguity())); 
+                    target.getPoseAmbiguity()));
         }
-
         return cachedMesurments;
+
     }
 
-    public EstimatedRobotPose getEstimatedPose() {
+    public EstimatedRobotPose getEstimatedPose(Pose2d previsouePose) {
+        photonPoseEstimator.setReferencePose(previsouePose);
+ 
         Optional<EstimatedRobotPose> res = photonPoseEstimator.update();
+
+        System.out.println("Camera: " + camera.getLatestResult().getTimestampSeconds());
 
         if (res.isEmpty()) {
             return null;
         }
 
-        return res.get(); 
+        return res.get();
     }
 
-
-    /**
-     * Using an april tag location locate the relative position of the robot.
-     */
+    // TODO: Figure out why protobuf sucks ass and is crashing the commented code
+    // /**
+    // * Using an april tag location locate the relative position of the robot.
+    // */
     public Pose3d getRobotPoseFromTarget(PhotonTrackedTarget target) {
         // Get transform that converts from camera pose to target pose
         Transform3d cameraToTarget = target.getBestCameraToTarget();
@@ -111,9 +112,8 @@ public class CameraFeed {
         }
 
         return PhotonUtils.estimateFieldToRobotAprilTag(
-            cameraToTarget,
-            feducialPos.get(), 
-            cameraToTarget
-        );
+                cameraToTarget,
+                feducialPos.get(),
+                cameraToTarget);
     }
 }

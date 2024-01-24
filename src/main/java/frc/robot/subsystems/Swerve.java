@@ -9,6 +9,7 @@ import SushiFrcLib.Sensors.gyro.Pigeon;
 import SushiFrcLib.Swerve.SwerveModules.SwerveModuleNeoTalon;
 import SushiFrcLib.Swerve.SwerveTemplates.VisionBaseSwerve;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -44,7 +45,7 @@ public class Swerve extends VisionBaseSwerve {
         locationLock = false;
         rotationLockPID = Constants.Swerve.autoRotate.getPIDController();
 
-        cameraSystem = new CameraSystem(new String[] { "camera1" }, new Transform3d[] { new Transform3d() },
+        cameraSystem = new CameraSystem(new String[] { "camera1" }, new Transform3d[] { new Transform3d(0,0,0, new Rotation3d(0,0,0)) },
                 "apriltags.json");
     }
 
@@ -65,7 +66,7 @@ public class Swerve extends VisionBaseSwerve {
             rotation = rotationLockPID.calculate(getGyro().getAngle().getDegrees());
         }
 
-        drive(translation, rotation);
+        super.drive(translation, rotation);
     }
 
     @Override
@@ -77,7 +78,7 @@ public class Swerve extends VisionBaseSwerve {
     public void periodic() {
         super.periodic();
 
-        ArrayList<EstimatedRobotPose> list = cameraSystem.getEstimatedPoses();
+        ArrayList<EstimatedRobotPose> list = cameraSystem.getEstimatedPoses(getOdomPose());
 
         field.getObject("April Tag").setPoses(
                 list.stream().map(
