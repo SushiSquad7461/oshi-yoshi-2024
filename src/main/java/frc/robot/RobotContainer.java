@@ -7,6 +7,7 @@ package frc.robot;
 import SushiFrcLib.Controllers.OI;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.TeleopSwerveDrive;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Swerve;
 
 /**
@@ -18,10 +19,12 @@ import frc.robot.subsystems.Swerve;
 public class RobotContainer {
   OI oi;
   Swerve swerve;
+  Intake intake;
 
   public RobotContainer() {
     oi = OI.getInstance();
     swerve = Swerve.getInstance();
+    intake = new Intake();
     configureBindings();
   }
 
