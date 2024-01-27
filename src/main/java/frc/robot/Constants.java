@@ -77,4 +77,34 @@ public final class Constants {
             ANGLE_CONFIG
         );
     }
+
+    public static final class Manipulator {
+        public static final MotorConfig KICKER_CONFIG = new MotorConfig(
+                        0,
+                        20,
+                        false,
+                        MotorConfig.Mode.BRAKE);
+
+        public static final MotorConfig PIVOT_CONFIG = new MotorConfig(
+                        0,
+                        20,
+                        false,
+                        PIDConfig.getPid(0.1),
+                        MotorConfig.Mode.BRAKE);
+
+        public static final MotorConfig SHOOTER_CONFIG = new MotorConfig(
+                        0,
+                        20,
+                        false,
+                        PIDConfig.getPid(0.1, 0),
+                        MotorConfig.Mode.BRAKE);
+
+        public static final int ENCODER_ID = 0;// set this
+        public static final double ENCODER_OFFSET = 0;// set this
+        public static final double PIVOT_GEAR_RATIO = 0; // set ratio
+        public static final double KS = 0;// set this
+        public static final double KG = 0;// set this
+        public static final double KV = 0;// set this
+        public static final double KICKER_SPEED = 0;// set this
+  }
 }
