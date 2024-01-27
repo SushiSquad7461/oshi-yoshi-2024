@@ -79,7 +79,6 @@ public final class Constants {
     }
 
     public static final class Manipulator {
-
         public static final MotorConfig KICKER_CONFIG = new MotorConfig(
                         0,
                         20,
