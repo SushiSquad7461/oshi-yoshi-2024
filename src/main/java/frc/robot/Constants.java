@@ -53,7 +53,7 @@ public final class Constants {
         public static final MotorConfig DRIVE_CONFIG = new MotorConfig(
                 60,
                 false,
-                PIDConfig.getPid(0.1, 0.458), // TODO: retune
+                PIDConfig.getPid(0.0, 0.0), // TODO: retune
                 MotorConfig.Mode.BRAKE);
 
         public static final PIDConfig autoRotate = PIDConfig.getPid(0.1);
