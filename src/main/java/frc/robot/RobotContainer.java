@@ -8,6 +8,8 @@ import SushiFrcLib.Controllers.OI;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.TeleopSwerveDrive;
 import frc.robot.subsystems.Swerve;
+import frc.robot.subsystems.Intake.AlphaIntake;
+import frc.robot.subsystems.Intake.Intake;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -18,20 +20,25 @@ import frc.robot.subsystems.Swerve;
 public class RobotContainer {
   OI oi;
   Swerve swerve;
+  Intake intake;
 
   public RobotContainer() {
     oi = OI.getInstance();
-    swerve = Swerve.getInstance();
+    // swerve = Swerve.getInstance();
+    intake = AlphaIntake.getInstance();
     configureBindings();
   }
 
   private void configureBindings() {
-    swerve.setDefaultCommand(new TeleopSwerveDrive(
-      swerve,
-      () -> oi.getDriveTrainTranslationX(),
-      () -> oi.getDriveTrainTranslationY(),
-      () -> oi.getDriveTrainRotation()
-    ));
+    // swerve.setDefaultCommand(new TeleopSwerveDrive(
+    //   swerve,
+    //   () -> oi.getDriveTrainTranslationX(),
+    //   () -> oi.getDriveTrainTranslationY(),
+    //   () -> oi.getDriveTrainRotation()
+    // ));
+
+    oi.getDriverController().a().onTrue(intake.runMotor()).onFalse(intake.stopMotor());
+    oi.getDriverController().b().onTrue(intake.reverseMotor()).onFalse(intake.stopMotor());
   }
 
 

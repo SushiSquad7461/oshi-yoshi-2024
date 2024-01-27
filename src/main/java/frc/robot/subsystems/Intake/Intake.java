@@ -7,36 +7,36 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 abstract public class Intake extends SubsystemBase {
-    private final CANSparkMax intakeMotorLeft;
-    private final CANSparkMax intakeMotorRight;
+    private final CANSparkMax indexerMotor;
+    private final CANSparkMax intakeMotor;
     private final CANSparkMax uprightRollers;
 
     public Intake() {
-        intakeMotorLeft = Constants.Intake.INTAKE_LEFT_CONFIG.createSparkMax();
-        intakeMotorRight = Constants.Intake.INTAKE_RIGHT_CONFIG.createSparkMax();
+        indexerMotor = Constants.Intake.INDEXER_CONFIG.createSparkMax();
+        intakeMotor = Constants.Intake.INTAKE_CONFIG.createSparkMax();
         uprightRollers = Constants.Intake.UPRIGHT_ROLLERS_CONFIG.createSparkMax();
     }
 
     public Command runMotor() {
         return runOnce(() -> {
-            intakeMotorLeft.set(Constants.Intake.SPIN_SPEED);
-            intakeMotorRight.set(Constants.Intake.SPIN_SPEED);
+            indexerMotor.set(Constants.Intake.SPIN_SPEED);
+            intakeMotor.set(Constants.Intake.SPIN_SPEED);
             uprightRollers.set(Constants.Intake.SPIN_SPEED);
         });
     }
 
     public Command stopMotor() {
         return runOnce(() -> {
-            intakeMotorLeft.set(0);
-            intakeMotorRight.set(0);
+            indexerMotor.set(0);
+            intakeMotor.set(0);
             uprightRollers.set(0);
         });
     }
 
     public Command reverseMotor() {
         return runOnce(() -> {
-            intakeMotorLeft.set(Constants.Intake.SPIN_SPEED * -1);
-            intakeMotorRight.set(Constants.Intake.SPIN_SPEED * -1);
+            indexerMotor.set(Constants.Intake.SPIN_SPEED * -1);
+            intakeMotor.set(Constants.Intake.SPIN_SPEED * -1);
             uprightRollers.set(Constants.Intake.SPIN_SPEED * -1);
         });
     }
