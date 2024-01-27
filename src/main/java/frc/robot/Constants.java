@@ -78,22 +78,33 @@ public final class Constants {
                 public static final double ERROR_LIMIT = 0.0; // set later
                 public static final double MAX_ERROR = 0.0; // set later
 
-                public static final MotorConfig INTAKE_INDEXER_CONFIG = new MotorConfig(
+                public static final MotorConfig INTAKE_LEFT_CONFIG = new MotorConfig(
                                 0, // set canID later
                                 0, // set later
                                 false, // spin motor
-                                MotorConfig.Mode.BRAKE);
+                                MotorConfig.Mode.BRAKE
+                );
 
-                public static final MotorConfig INTAKE_PIVOT_CONFIG = new MotorConfig(
+                public static final MotorConfig INTAKE_RIGHT_CONFIG = new MotorConfig(
+                    0, // set canID later
+                    0, // set later
+                    true, // spin motor
+                    MotorConfig.Mode.BRAKE
+                );
+
+                public static final MotorConfig PIVOT_CONFIG = new MotorConfig(
                                 0, // set later
                                 false, // position motor
                                 PIDConfig.getPid(0.1),
-                                MotorConfig.Mode.BRAKE);
-                public static final MotorConfig INTAKE_UPRIGHT_ROLLERS_CONFIG = new MotorConfig(
+                                MotorConfig.Mode.BRAKE
+                );
+
+                public static final MotorConfig UPRIGHT_ROLLERS_CONFIG = new MotorConfig(
                                 0, // set canID later
                                 0, // set later
                                 false, // position motor
-                                MotorConfig.Mode.BRAKE);
+                                MotorConfig.Mode.BRAKE
+                );
         }
 
 }

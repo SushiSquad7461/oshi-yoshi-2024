@@ -1,10 +1,9 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.Intake;
 
 import java.util.function.BooleanSupplier;
 
 import com.revrobotics.CANSparkBase.ControlType;
 
-import SushiFrcLib.Motor.MotorConfig;
 import SushiFrcLib.Motor.MotorHelper;
 import SushiFrcLib.Sensors.absoluteEncoder.AbsoluteEncoder;
 import edu.wpi.first.math.controller.ArmFeedforward;
@@ -14,29 +13,32 @@ import frc.robot.Constants;
 
 import com.revrobotics.CANSparkMax;
 
-public class Intake extends SubsystemBase {
-    private final CANSparkMax indexerMotor;
-    private final CANSparkMax rollerMotor;
+public class BetaIntake extends Intake {
     private final CANSparkMax pivotMotor;
-    private static Intake instance;
+
+    private static BetaIntake instance;
+
     private final ArmFeedforward intakeFeedforward;
     private final AbsoluteEncoder absoluteEncoder;
+
     private double pivotPos;
 
-    public static Intake getInstance() {
+    public static BetaIntake getInstance() {
         if (instance == null) {
-            return new Intake();
+            return new BetaIntake();
         }
         return instance;
     }
 
-    private Intake() {
-        indexerMotor = Constants.Intake.INTAKE_INDEXER_CONFIG.createSparkMax();
-        rollerMotor = Constants.Intake.INTAKE_UPRIGHT_ROLLERS_CONFIG.createSparkMax();
-        pivotMotor = Constants.Intake.INTAKE_PIVOT_CONFIG.createSparkMax();
+    private BetaIntake() {
+        super();
+
+        pivotMotor = Constants.Intake.PIVOT_CONFIG.createSparkMax();
+
         intakeFeedforward = new ArmFeedforward(0.0, Constants.Intake.G, 0.0);
         absoluteEncoder = new AbsoluteEncoder(Constants.Intake.ENCODER_CHANNEL, Constants.Intake.ENCODER_ANGLE_OFFSET);
         MotorHelper.setDegreeConversionFactor(pivotMotor, Constants.Intake.INTAKE_GEAR_RATIO);
+
         resetToAbsolutePosition();
     }
 
@@ -70,37 +72,18 @@ public class Intake extends SubsystemBase {
         });
     }
 
-    public Command runMotor() {
-        return runOnce(() -> {
-            indexerMotor.set(Constants.Intake.SPIN_SPEED);
-            rollerMotor.set(Constants.Intake.SPIN_SPEED);
-        });
-    }
-
-    public Command stopMotor() {
-        return runOnce(() -> {
-            indexerMotor.set(0);
-            rollerMotor.set(0);
-        });
-    }
-
-    public Command reverseMotor() {
-        return runOnce(() -> {
-            indexerMotor.set(Constants.Intake.SPIN_SPEED * -1);
-            rollerMotor.set(Constants.Intake.SPIN_SPEED * -1);
-        });
-    }
-
     @Override
     public void periodic() {
         if (getAbsoluteError() > Constants.Intake.ERROR_LIMIT) {
             resetToAbsolutePosition();
         }
+
         pivotMotor.getPIDController().setReference(
-                pivotPos,
-                ControlType.kPosition,
-                0,
-                intakeFeedforward.calculate(Math.toRadians(getPosition()), 0.0));
+            pivotPos,
+            ControlType.kPosition,
+            0,
+            intakeFeedforward.calculate(Math.toRadians(getPosition()), 0.0)
+        );
 
     }
 }
