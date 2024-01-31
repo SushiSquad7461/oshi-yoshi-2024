@@ -11,9 +11,12 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Swerve;
 
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
@@ -24,19 +27,17 @@ public class RobotContainer {
   public RobotContainer() {
     oi = OI.getInstance();
     swerve = Swerve.getInstance();
-    intake = new Intake();
+    // intake = new Intake();
     configureBindings();
   }
 
   private void configureBindings() {
     swerve.setDefaultCommand(new TeleopSwerveDrive(
-      swerve,
-      () -> oi.getDriveTrainTranslationX(),
-      () -> oi.getDriveTrainTranslationY(),
-      () -> oi.getDriveTrainRotation()
-    ));
+        swerve,
+        () -> oi.getDriveTrainTranslationX(),
+        () -> oi.getDriveTrainTranslationY(),
+        () -> oi.getDriveTrainRotation()));
   }
-
 
   public Command getAutonomousCommand() {
     return null;
