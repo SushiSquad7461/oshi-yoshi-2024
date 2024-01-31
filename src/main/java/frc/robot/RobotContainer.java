@@ -45,10 +45,13 @@ public class RobotContainer {
     // () -> oi.getDriveTrainRotation()
     // ));
 
-    oi.getDriverController().a().onTrue(shooter.runKicker()).onFalse(shooter.stopKicker());
-    oi.getDriverController().b().onTrue(shooter.runShooter(4000)).onFalse(shooter.runShooter(0));
+    // oi.getDriverController().a().onTrue(shooter.runKicker()).onFalse(shooter.stopKicker());
+    // oi.getDriverController().b().onTrue(shooter.runShooter(4000)).onFalse(shooter.runShooter(0));
 
     oi.getDriverController().x().onTrue(AlphaIntake.getInstance().runMotor())
+        .onFalse(AlphaIntake.getInstance().stopMotor());
+
+        oi.getDriverController().y().onTrue(AlphaIntake.getInstance().reverseMotor())
         .onFalse(AlphaIntake.getInstance().stopMotor());
   }
 
