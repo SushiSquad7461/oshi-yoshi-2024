@@ -16,7 +16,7 @@ public class LED extends SubsystemBase{
     private EffectInfo effectInfo;
 
     public enum Effect {
-        RACE,FLASH,NONE;
+        RACE,FLASH,RACE2,NONE;
     }
 
     private class EffectInfo {
@@ -88,6 +88,10 @@ public class LED extends SubsystemBase{
         effectInfo = new EffectInfo(Effect.FLASH, (int)(duration*50), colors);
     }
 
+    public void setRace2(double duration, Color[] colors) {
+        effectInfo = new EffectInfo(Effect.RACE2, (int)(duration*50), colors);
+    }
+    
     public void setRace(double duration, Color[] colors) {
         effectInfo = new EffectInfo(Effect.RACE, (int)(duration*50), colors);
     }
@@ -112,8 +116,18 @@ public class LED extends SubsystemBase{
                     colors[effectInfo.marker - 1] = Color.Black;
                 }
                 colors[effectInfo.marker] = effectInfo.colors[0];
-                effectInfo.marker = (effectInfo.marker + 1)%(colors.length - 1);
+                effectInfo.marker = (effectInfo.marker + 1)%(colors.length);
                 break;
+            case RACE2:
+                for (int i = 0; i<colors.length; i++) {
+                    colors[i] = Color.Black;
+                }
+                colors[effectInfo.marker < 0 ? effectInfo.marker*-1 : effectInfo.marker] = effectInfo.colors[0];
+                if (effectInfo.marker == colors.length - 1) {
+                    effectInfo.marker = 2-colors.length;
+                } else {
+                    effectInfo.marker += 1;
+                }
             case NONE:
                 break;
         }

@@ -24,7 +24,7 @@ public class RobotContainer {
   public RobotContainer() {
     oi = OI.getInstance();
     led = LED.getInstance();
-    led.setRace(0.1, new LED.Color[]{LED.Color.DarkPink});
+    led.setRace2(1, new LED.Color[]{LED.Color.DarkPink, LED.Color.Black});
     // swerve = Swerve.getInstance();
     // configureBindings();
   }
