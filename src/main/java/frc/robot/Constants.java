@@ -90,20 +90,60 @@ public final class Constants {
                         PIDConfig.getPid(0.1),
                         MotorConfig.Mode.BRAKE);
 
-        public static final MotorConfig SHOOTER_CONFIG = new MotorConfig(
-                        0,
-                        20,
-                        false,
-                        PIDConfig.getPid(0.1, 0),
-                        MotorConfig.Mode.BRAKE);
+                public static final MotorConfig SHOOTER_CONFIG_LEFT = new MotorConfig(
+                                26,
+                                20,
+                                false,
+                                PIDConfig.getPid(0.0004, 0),
+                                MotorConfig.Mode.BRAKE);
 
-        public static final int ENCODER_ID = 0;// set this
-        public static final double ENCODER_OFFSET = 0;// set this
-        public static final double PIVOT_GEAR_RATIO = 0; // set ratio
-        public static final double KS = 0;// set this
-        public static final double KG = 0;// set this
-        public static final double KV = 0;// set this
-        public static final double KICKER_SPEED = 0;// set this
-        public static final double SHOOTER_SPEED = 0;// set this
-    }
+                public static final MotorConfig SHOOTER_CONFIG_RIGHT = new MotorConfig(
+                                27,
+                                20,
+                                false,
+                                PIDConfig.getPid(0.0004, 0),
+                                MotorConfig.Mode.BRAKE);
+
+                public static final int ENCODER_ID = 0;// set this
+                public static final double ENCODER_OFFSET = 0;// set this
+                public static final double PIVOT_GEAR_RATIO = 0; // set ratio
+                public static final double KS = 0;// set this
+                public static final double KG = 0;// set this
+                public static final double KV = 0;// set this
+                public static final double KICKER_SPEED = 0.5;// set this
+        }
+
+        public static final class Intake {
+                public static final double G = 0.0; // set later
+                public static final int ENCODER_CHANNEL = 0; // set later
+                public static final double ENCODER_ANGLE_OFFSET = 0.0; // set later
+                public static final double INTAKE_GEAR_RATIO = 0.0; // set later
+                public static final double SPIN_SPEED = 0.9; // set later
+                public static final double ERROR_LIMIT = 0.0; // set later
+                public static final double MAX_ERROR = 0.0; // set later
+
+                public static final MotorConfig INTAKE_CONFIG = new MotorConfig(
+                                21,
+                                40, // set later
+                                true, // spin motor
+                                MotorConfig.Mode.COAST);
+
+                public static final MotorConfig INDEXER_CONFIG = new MotorConfig(
+                                24,
+                                20, // set later
+                                false, // spin motor
+                                MotorConfig.Mode.COAST);
+
+                public static final MotorConfig PIVOT_CONFIG = new MotorConfig(
+                                0, // set later
+                                false, // position motor
+                                PIDConfig.getPid(0.1),
+                                MotorConfig.Mode.BRAKE);
+
+                public static final MotorConfig UPRIGHT_ROLLERS_CONFIG = new MotorConfig(
+                                22, // set canID later
+                                20, // set later
+                                false, // position motor
+                                MotorConfig.Mode.COAST);
+        }
 }
