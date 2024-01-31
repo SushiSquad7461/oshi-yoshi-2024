@@ -8,6 +8,7 @@ import SushiFrcLib.Controllers.OI;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.TeleopSwerveDrive;
 import frc.robot.subsystems.Swerve;
+import frc.robot.util.LED;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -18,20 +19,23 @@ import frc.robot.subsystems.Swerve;
 public class RobotContainer {
   OI oi;
   Swerve swerve;
+  LED led;
 
   public RobotContainer() {
     oi = OI.getInstance();
-    swerve = Swerve.getInstance();
-    configureBindings();
+    led = LED.getInstance();
+    led.setRace(0.1, new LED.Color[]{LED.Color.DarkPink});
+    // swerve = Swerve.getInstance();
+    // configureBindings();
   }
 
   private void configureBindings() {
-    swerve.setDefaultCommand(new TeleopSwerveDrive(
-      swerve,
-      () -> oi.getDriveTrainTranslationX(),
-      () -> oi.getDriveTrainTranslationY(),
-      () -> oi.getDriveTrainRotation()
-    ));
+    // swerve.setDefaultCommand(new TeleopSwerveDrive(
+    //   swerve,
+    //   () -> oi.getDriveTrainTranslationX(),
+    //   () -> oi.getDriveTrainTranslationY(),
+    //   () -> oi.getDriveTrainRotation()
+    // ));
   }
 
 

@@ -77,4 +77,9 @@ public final class Constants {
             ANGLE_CONFIG
         );
     }
+
+    public static final class LED{
+        public static final int STRIP_LENGTH = 36;
+        public static final int DEFAULT_PORT = 5;
+    }
 }
