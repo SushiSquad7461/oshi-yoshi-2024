@@ -40,15 +40,15 @@ public final class Constants {
                                 .sqrt(TRACK_WIDTH * TRACK_WIDTH + WHEEL_BASE * WHEEL_BASE);
 
                 public static final SwerveDriveKinematics SWERVE_KINEMATICS = new SwerveDriveKinematics(
-                                new Translation2d(-WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0),
-                                new Translation2d(WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0),
+                                new Translation2d(-WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
                                 new Translation2d(WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
-                                new Translation2d(-WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0));
+                                new Translation2d(WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0),
+                                new Translation2d(-WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0));
 
                 public static final MotorConfig ANGLE_CONFIG = new MotorConfig(
                                 20,
-                                false, // Make true if we have a stroke
-                                PIDConfig.getPid(0.5), // TODO: retune
+                                true, // Make true if we have a stroke
+                                PIDConfig.getPid(0.8), // TODO: retune
                                 MotorConfig.Mode.COAST);
 
                 public static final MotorConfig DRIVE_CONFIG = new MotorConfig(
@@ -59,49 +59,48 @@ public final class Constants {
 
                 public static final PIDConfig autoRotate = PIDConfig.getPid(0.1);
 
-
                 public static final SDSModules MODULE_TYPE = SDSModules.MK4i;
 
                 public static final SwerveModuleConstants[] SWERVE_MODULE_CONSTANTS = SwerveModuleConstants
                                 .generateConstants(
                                                 new Rotation2d[] { // Tuned
-                                                                Rotation2d.fromDegrees(8.085938),
-                                                                Rotation2d.fromDegrees(20.654297),
-                                                                Rotation2d.fromDegrees(298.212891),
-                                                                Rotation2d.fromDegrees(232.382812)
+                                                                Rotation2d.fromDegrees(0.351562),
+                                                                Rotation2d.fromDegrees(15.996094),
+                                                                Rotation2d.fromDegrees(124.189453),
+                                                                Rotation2d.fromDegrees(62.578125)
                                                 },
                                                 MODULE_TYPE,
                                                 true,
                                                 DRIVE_CONFIG,
                                                 ANGLE_CONFIG);
-                                        }
+        }
 
-    public static final class Manipulator {
-        public static final MotorConfig KICKER_CONFIG = new MotorConfig(
-                        0,
-                        20,
-                        false,
-                        MotorConfig.Mode.BRAKE);
+        public static final class Manipulator {
+                public static final MotorConfig KICKER_CONFIG = new MotorConfig(
+                                25,
+                                20,
+                                true,
+                                MotorConfig.Mode.BRAKE);
 
-        public static final MotorConfig PIVOT_CONFIG = new MotorConfig(
-                        0,
-                        20,
-                        false,
-                        PIDConfig.getPid(0.1),
-                        MotorConfig.Mode.BRAKE);
+                public static final MotorConfig PIVOT_CONFIG = new MotorConfig(
+                                0,
+                                20,
+                                false,
+                                PIDConfig.getPid(0.001),
+                                MotorConfig.Mode.BRAKE);
 
                 public static final MotorConfig SHOOTER_CONFIG_LEFT = new MotorConfig(
                                 26,
                                 20,
                                 false,
-                                PIDConfig.getPid(0.0004, 0),
+                                PIDConfig.getPid(0.000080, 0.010000, 0.000180),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final MotorConfig SHOOTER_CONFIG_RIGHT = new MotorConfig(
                                 27,
                                 20,
                                 false,
-                                PIDConfig.getPid(0.0004, 0),
+                                PIDConfig.getPid(0.000080, 0.010000, 0.000180),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final int ENCODER_ID = 0;// set this
@@ -145,5 +144,6 @@ public final class Constants {
                                 20, // set later
                                 false, // position motor
                                 MotorConfig.Mode.COAST);
+                                
         }
 }

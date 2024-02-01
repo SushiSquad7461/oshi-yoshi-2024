@@ -12,7 +12,7 @@ import frc.robot.Constants;
 import frc.robot.Constants.Manipulator;
 
 abstract public class Shooter extends SubsystemBase {
-    private final CANSparkMax kicker; 
+    private final CANSparkMax kicker;
     private final CANSparkMax shooterLeft;
     private final CANSparkMax shooterRight;
 
@@ -49,8 +49,8 @@ abstract public class Shooter extends SubsystemBase {
 
     public Command runShooter(double speed) {
         return runOnce(() -> {
-            shooterSpeed.setDefault(speed);
-            shooterRight.getPIDController().setReference(shooterSpeed.get(), CANSparkBase.ControlType.kVelocity);
+            // shooterSpeed.setDefault(speed);
+            shooterRight.getPIDController().setReference(speed, CANSparkBase.ControlType.kVelocity);
         });
     }
 
@@ -64,8 +64,8 @@ abstract public class Shooter extends SubsystemBase {
 
         tuning.updatePID(shooterRight);
 
-        if (Constants.TUNING_MODE && shooterSpeed.hasChanged()) {
-            shooterRight.getPIDController().setReference(shooterSpeed.get(), CANSparkBase.ControlType.kVelocity);
-        }
+        // if (Constants.TUNING_MODE && shooterSpeed.hasChanged()) {
+        //     shooterRight.getPIDController().setReference(shooterSpeed.get(), CANSparkBase.ControlType.kVelocity);
+        // }
     }
 }
