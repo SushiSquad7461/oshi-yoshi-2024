@@ -16,7 +16,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 
 public final class Constants {
-        public static final boolean TUNING_MODE = true;
+        public static final boolean TUNING_MODE = false;
 
         public static final class OI {
                 public static final double STICK_DEADBAND = 0.1;
@@ -70,7 +70,7 @@ public final class Constants {
                                                                 Rotation2d.fromDegrees(62.578125)
                                                 },
                                                 MODULE_TYPE,
-                                                true,
+                                                false,
                                                 DRIVE_CONFIG,
                                                 ANGLE_CONFIG);
         }
@@ -91,16 +91,16 @@ public final class Constants {
 
                 public static final MotorConfig SHOOTER_CONFIG_LEFT = new MotorConfig(
                                 26,
-                                20,
+                                40,
                                 false,
-                                PIDConfig.getPid(0.000080, 0.010000, 0.000180),
+                                PIDConfig.getPid(0.0, 0.0, 0.0),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final MotorConfig SHOOTER_CONFIG_RIGHT = new MotorConfig(
                                 27,
-                                20,
+                                40,
                                 false,
-                                PIDConfig.getPid(0.000080, 0.010000, 0.000180),
+                                PIDConfig.getPid(0.0, 0.0, 0.0),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final int ENCODER_ID = 0;// set this

@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.Manipulator;
+import frc.robot.util.Direction;
 
 abstract public class Shooter extends SubsystemBase {
     private final CANSparkMax kicker;
@@ -48,9 +49,10 @@ abstract public class Shooter extends SubsystemBase {
     }
 
     public Command runShooter(double speed) {
-        return runOnce(() -> {
+        return run(() -> {
+            shooterRight.set(0.8);
             // shooterSpeed.setDefault(speed);
-            shooterRight.getPIDController().setReference(speed, CANSparkBase.ControlType.kVelocity);
+            // shooterRight.getPIDController().setReference(speed, CANSparkBase.ControlType.kVelocity);
         });
     }
 
@@ -61,11 +63,28 @@ abstract public class Shooter extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Shooter Speed", shooterRight.getEncoder().getVelocity());
+        SmartDashboard.putNumber("Shooter current", shooterRight.getOutputCurrent());
 
         tuning.updatePID(shooterRight);
 
-        // if (Constants.TUNING_MODE && shooterSpeed.hasChanged()) {
-        //     shooterRight.getPIDController().setReference(shooterSpeed.get(), CANSparkBase.ControlType.kVelocity);
-        // }
+        if (Constants.TUNING_MODE) {
+            // shooterRight.set(0.5);
+            // shooterRight.getPIDController().setReference(shooterSpeed.get(),
+            // CANSparkBase.ControlType.kVelocity);
+        }
+    }
+
+    public Command changeState(ShooterState newState) {
+        Command kickerCommmand;
+
+        if (newState.kickerDirection == Direction.RUNNING) {
+            kickerCommmand = runKicker();
+        } else if (newState.kickerDirection == Direction.REVERSED) {
+            kickerCommmand = reverseKicker();
+        } else {
+            kickerCommmand = stopKicker();
+        }
+
+        return runShooter(newState.runShooter ? 4000 : 0).andThen(kickerCommmand);
     }
 }

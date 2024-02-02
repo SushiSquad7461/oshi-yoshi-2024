@@ -2,42 +2,96 @@ package frc.robot.subsystems.Intake;
 
 import com.revrobotics.CANSparkMax;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.util.Direction;
 
 abstract public class Intake extends SubsystemBase {
     private final CANSparkMax indexerMotor;
     private final CANSparkMax intakeMotor;
     private final CANSparkMax uprightRollers;
 
+    private final DigitalInput beamBreak;
+
     public Intake() {
         indexerMotor = Constants.Intake.INDEXER_CONFIG.createSparkMax();
         intakeMotor = Constants.Intake.INTAKE_CONFIG.createSparkMax();
         uprightRollers = Constants.Intake.UPRIGHT_ROLLERS_CONFIG.createSparkMax();
+
+        beamBreak = new DigitalInput(1);
     }
 
-    public Command runMotor() {
+    public boolean ringInIndexer() {
+        return !beamBreak.get();
+    }
+
+    public Command runIndexer() {
         return runOnce(() -> {
             indexerMotor.set(Constants.Intake.SPIN_SPEED);
-            intakeMotor.set(Constants.Intake.SPIN_SPEED);
             uprightRollers.set(Constants.Intake.SPIN_SPEED);
         });
     }
 
-    public Command stopMotor() {
+    public Command runIntake() {
+        return runOnce(() -> {
+            intakeMotor.set(Constants.Intake.SPIN_SPEED);
+        });
+    }
+
+    public Command stopIntake() {
+        return runOnce(() -> {
+            intakeMotor.set(0.0);
+        });
+    }
+
+    public Command reverseIntake() {
+        return runOnce(() -> {
+            intakeMotor.set(-1 * Constants.Intake.SPIN_SPEED);
+        });   
+    }
+
+
+    public Command stopIndexer() {
         return runOnce(() -> {
             indexerMotor.set(0);
-            intakeMotor.set(0);
             uprightRollers.set(0);
         });
     }
 
-    public Command reverseMotor() {
+    public Command reverseIndexer() {
         return runOnce(() -> {
             indexerMotor.set(Constants.Intake.SPIN_SPEED * -1);
-            intakeMotor.set(Constants.Intake.SPIN_SPEED * -1);
             uprightRollers.set(Constants.Intake.SPIN_SPEED * -1);
         });
+    }
+
+    public Command lowerIntake() { return Commands.none(); }
+    public Command raiseIntake()  { return Commands.none(); }
+
+    public Command changeState(IntakeState newState) {
+        Command pivotCommand = newState.intakeExtended ? lowerIntake() : raiseIntake(); 
+        Command intakeCommand = newState.intakeExtended ? (
+            newState.direction == Direction.REVERSED ? reverseIntake() : runIntake()
+        ) : stopIntake();
+        Command indexerCommand;
+
+        if (newState.direction == Direction.RUNNING) {
+            indexerCommand = runIndexer();
+        } else if (newState.direction == Direction.REVERSED) {
+            indexerCommand = reverseIndexer();
+        } else {
+            indexerCommand = stopIndexer();
+        }
+
+        return pivotCommand.andThen(intakeCommand).andThen(indexerCommand);
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putBoolean("Ring in Indexer", ringInIndexer());
     }
 }

@@ -6,7 +6,10 @@ package frc.robot;
 
 import SushiFrcLib.Controllers.OI;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.StateMachine;
 import frc.robot.commands.TeleopSwerveDrive;
+import frc.robot.commands.StateMachine.RobotState;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.Intake.AlphaIntake;
 import frc.robot.subsystems.Intake.Intake;
@@ -27,31 +30,30 @@ public class RobotContainer {
   Swerve swerve;
   Intake intake;
   Shooter shooter;
+  public StateMachine stateMachine;
 
   public RobotContainer() {
     oi = OI.getInstance();
     swerve = Swerve.getInstance();
     shooter = AlphaShooter.getInstance();
     intake = AlphaIntake.getInstance();
+    stateMachine = new StateMachine(intake, shooter);
     configureBindings();
   }
 
   private void configureBindings() {
     swerve.setDefaultCommand(new TeleopSwerveDrive(
-    swerve,
-    () -> oi.getDriveTrainTranslationX(),
-    () -> oi.getDriveTrainTranslationY(),
-    () -> oi.getDriveTrainRotation()
+      swerve,
+      () -> oi.getDriveTrainTranslationX(),
+      () -> oi.getDriveTrainTranslationY(),
+      () -> oi.getDriveTrainRotation()
     ));
 
-    oi.getDriverController().a().onTrue(shooter.runKicker()).onFalse(shooter.stopKicker());
-    oi.getDriverController().b().onTrue(shooter.runShooter(4000)).onFalse(shooter.runShooter(0));
+    oi.getDriverController().a().onTrue(stateMachine.changeState(RobotState.INTAKE));
+    oi.getDriverController().b().onTrue(stateMachine.changeState(RobotState.REVERSE));
+    oi.getDriverController().x().onTrue(stateMachine.changeState(RobotState.SHOOT));
 
-    oi.getDriverController().x().onTrue(AlphaIntake.getInstance().runMotor())
-        .onFalse(AlphaIntake.getInstance().stopMotor());
-
-    oi.getDriverController().y().onTrue(AlphaIntake.getInstance().reverseMotor())
-        .onFalse(AlphaIntake.getInstance().stopMotor());
+    oi.getDriverController().back().onTrue(stateMachine.changeState(RobotState.IDLE));
   }
  
   public Command getAutonomousCommand() {
