@@ -48,7 +48,7 @@ public final class Constants {
                 public static final MotorConfig ANGLE_CONFIG = new MotorConfig(
                                 20,
                                 true, // Make true if we have a stroke
-                                PIDConfig.getPid(0.1), // TODO: retune
+                                PIDConfig.getPid(0.08), // TODO: retune
                                 MotorConfig.Mode.COAST);
 
                 public static final MotorConfig DRIVE_CONFIG = new MotorConfig(
@@ -64,13 +64,13 @@ public final class Constants {
                 public static final SwerveModuleConstants[] SWERVE_MODULE_CONSTANTS = SwerveModuleConstants
                                 .generateConstants(
                                                 new Rotation2d[] { // Tuned
-                                                                Rotation2d.fromDegrees(0.351562),
-                                                                Rotation2d.fromDegrees(15.996094),
-                                                                Rotation2d.fromDegrees(124.189453),
-                                                                Rotation2d.fromDegrees(62.578125)
+                                                                Rotation2d.fromDegrees(3.779297),
+                                                                Rotation2d.fromDegrees(16.435547),
+                                                                Rotation2d.fromDegrees(304.101562),
+                                                                Rotation2d.fromDegrees(229.218750)
                                                 },
                                                 MODULE_TYPE,
-                                                false,
+                                                true,
                                                 DRIVE_CONFIG,
                                                 ANGLE_CONFIG);
         }
@@ -91,14 +91,14 @@ public final class Constants {
 
                 public static final MotorConfig SHOOTER_CONFIG_LEFT = new MotorConfig(
                                 26,
-                                40,
+                                20,
                                 false,
                                 PIDConfig.getPid(0.0, 0.0, 0.0),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final MotorConfig SHOOTER_CONFIG_RIGHT = new MotorConfig(
                                 27,
-                                40,
+                                20,
                                 false,
                                 PIDConfig.getPid(0.0, 0.0, 0.0),
                                 MotorConfig.Mode.BRAKE);
@@ -129,7 +129,7 @@ public final class Constants {
 
                 public static final MotorConfig INDEXER_CONFIG = new MotorConfig(
                                 24,
-                                20, // set later
+                                10, // set later
                                 false, // spin motor
                                 MotorConfig.Mode.COAST);
 
@@ -141,7 +141,7 @@ public final class Constants {
 
                 public static final MotorConfig UPRIGHT_ROLLERS_CONFIG = new MotorConfig(
                                 22, // set canID later
-                                20, // set later
+                                10, // set later
                                 false, // position motor
                                 MotorConfig.Mode.COAST);
                                 

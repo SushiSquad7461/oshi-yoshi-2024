@@ -56,9 +56,9 @@ public class StateMachine extends Command {
             scheduleNewState(RobotState.IDLE);
         } 
 
-        if(state == RobotState.REVERSE && !intake.ringInIndexer()) {
-            scheduleNewState(RobotState.IDLE);
-        }
+        // if(state == RobotState.REVERSE && !intake.ringInIndexer()) {
+        //     scheduleNewState(RobotState.IDLE);
+        // }
     }
 
     private void scheduleNewState(RobotState newState) {
