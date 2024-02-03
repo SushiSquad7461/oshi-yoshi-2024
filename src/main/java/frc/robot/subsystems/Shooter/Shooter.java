@@ -50,9 +50,9 @@ abstract public class Shooter extends SubsystemBase {
 
     public Command runShooter(double speed) {
         return run(() -> {
-            shooterRight.set(0.8);
+            // shooterRight.set(0.8);
             // shooterSpeed.setDefault(speed);
-            // shooterRight.getPIDController().setReference(speed, CANSparkBase.ControlType.kVelocity);
+            shooterRight.getPIDController().setReference(speed, CANSparkBase.ControlType.kVelocity);
         });
     }
 
