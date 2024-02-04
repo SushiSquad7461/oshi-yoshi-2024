@@ -117,7 +117,7 @@ public final class Constants {
                 public static final int ENCODER_CHANNEL = 0; // set later
                 public static final double ENCODER_ANGLE_OFFSET = 0.0; // set later
                 public static final double INTAKE_GEAR_RATIO = 0.0; // set later
-                public static final double SPIN_SPEED = 0.9; // set later
+                public static final double SPIN_SPEED = 0.9;
                 public static final double ERROR_LIMIT = 0.0; // set later
                 public static final double MAX_ERROR = 0.0; // set later
 

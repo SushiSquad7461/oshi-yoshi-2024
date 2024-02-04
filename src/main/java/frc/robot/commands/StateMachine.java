@@ -37,13 +37,10 @@ public class StateMachine extends Command {
     }
 
     @Override
-    public void initialize() {
-        SmartDashboard.putBoolean("Strtaed Commaned", true);
-        scheduleNewState(RobotState.IDLE);
-    }
+    public void initialize() { scheduleNewState(RobotState.IDLE); }
 
-    public void end(boolean interrupted) {
-        SmartDashboard.putBoolean("End intruputed", interrupted);
+    public void end(boolean interrupted) { 
+        System.out.println("State Machine Command End");
     }
 
     @Override
@@ -67,7 +64,10 @@ public class StateMachine extends Command {
 
     public Command changeState(RobotState newState) {
         return Commands.parallel(
-            Commands.runOnce(() -> { state = newState; }),
+            Commands.runOnce(() -> { 
+                state = newState;
+                System.out.println(newState.toString() + " scheduled");
+             }),
             intake.changeState(newState.intakeState),
             shooter.changeState(newState.shooterState)
         );
