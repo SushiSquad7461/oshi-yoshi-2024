@@ -110,6 +110,8 @@ public final class Constants {
                 public static final double KG = 0;// set this
                 public static final double KV = 0;// set this
                 public static final double KICKER_SPEED = 0.5;// set this
+
+                public static final double SHOOTER_SPEED = 4000;
         }
 
         public static final class Intake {
@@ -117,7 +119,9 @@ public final class Constants {
                 public static final int ENCODER_CHANNEL = 0; // set later
                 public static final double ENCODER_ANGLE_OFFSET = 0.0; // set later
                 public static final double INTAKE_GEAR_RATIO = 0.0; // set later
-                public static final double SPIN_SPEED = 0.9;
+                public static final double INTAKE_SPEED = 0.9;
+                public static final double INDEXER_SPEED = 0.9;
+                public static final double UPRIGHT_ROLLERS_SPEED = 0.9;
                 public static final double ERROR_LIMIT = 0.0; // set later
                 public static final double MAX_ERROR = 0.0; // set later
 

@@ -21,37 +21,29 @@ abstract public class Shooter extends SubsystemBase {
     private final TunableNumber shooterSpeed;
 
     public Shooter() {
-        shooterSpeed = new TunableNumber("Shooter Speed", 0, Constants.TUNING_MODE);
         kicker = Manipulator.KICKER_CONFIG.createSparkMax();
         shooterLeft = Manipulator.SHOOTER_CONFIG_LEFT.createSparkMax();
         shooterRight = Manipulator.SHOOTER_CONFIG_RIGHT.createSparkMax();
         shooterLeft.follow(shooterRight, false);
 
         tuning = new PIDTuning("Shooter", Manipulator.SHOOTER_CONFIG_RIGHT.pid, Constants.TUNING_MODE);
+        shooterSpeed = new TunableNumber("Shooter Speed", 0, Constants.TUNING_MODE);
     }
 
     public Command runKicker() {
-        return runOnce(() -> {
-            kicker.set(Manipulator.KICKER_SPEED);
-        });
+        return runOnce(() -> kicker.set(Manipulator.KICKER_SPEED));
     }
 
     public Command reverseKicker() {
-        return runOnce(() -> {
-            kicker.set(-Manipulator.KICKER_SPEED);
-        });
+        return runOnce(() -> kicker.set(-Manipulator.KICKER_SPEED));
     }
 
     public Command stopKicker() {
-        return runOnce(() -> {
-            kicker.set(0);
-        });
+        return runOnce(() -> kicker.set(0));
     }
 
     public Command runShooter(double speed) {
         return run(() -> {
-            // shooterRight.set(0.8);
-            // shooterSpeed.setDefault(speed);
             shooterRight.getPIDController().setReference(speed, CANSparkBase.ControlType.kVelocity);
         });
     }
@@ -68,9 +60,7 @@ abstract public class Shooter extends SubsystemBase {
         tuning.updatePID(shooterRight);
 
         if (Constants.TUNING_MODE) {
-            // shooterRight.set(0.5);
-            // shooterRight.getPIDController().setReference(shooterSpeed.get(),
-            // CANSparkBase.ControlType.kVelocity);
+            shooterRight.getPIDController().setReference(shooterSpeed.get(), CANSparkBase.ControlType.kVelocity);
         }
     }
 
@@ -85,6 +75,6 @@ abstract public class Shooter extends SubsystemBase {
             kickerCommmand = stopKicker();
         }
 
-        return runShooter(newState.runShooter ? 4000 : 0).andThen(kickerCommmand);
+        return runShooter(newState.runShooter ? Manipulator.SHOOTER_SPEED : 0).andThen(kickerCommmand);
     }
 }

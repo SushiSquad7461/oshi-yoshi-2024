@@ -32,16 +32,12 @@ public class StateMachine extends Command {
     public StateMachine(Intake intake, Shooter shooter) {
           this.intake = intake;
           this.shooter = shooter;
-
-          
     }
 
     @Override
     public void initialize() { scheduleNewState(RobotState.IDLE); }
 
-    public void end(boolean interrupted) { 
-        System.out.println("State Machine Command End");
-    }
+    public void end(boolean interrupted) { System.out.println("State Machine Command End"); }
 
     @Override
     public void execute() {
@@ -52,15 +48,9 @@ public class StateMachine extends Command {
         } else if (state == RobotState.INDEX) {
             scheduleNewState(RobotState.IDLE);
         } 
-
-        // if(state == RobotState.REVERSE && !intake.ringInIndexer()) {
-        //     scheduleNewState(RobotState.IDLE);
-        // }
     }
 
-    private void scheduleNewState(RobotState newState) {
-        changeState(newState).schedule(); 
-    }
+    private void scheduleNewState(RobotState newState) { changeState(newState).schedule(); }
 
     public Command changeState(RobotState newState) {
         return Commands.parallel(
