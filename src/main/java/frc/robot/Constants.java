@@ -18,6 +18,11 @@ import edu.wpi.first.math.util.Units;
 public final class Constants {
         public static final boolean TUNING_MODE = false;
 
+        public enum Robot {
+                ALPHA,
+                BETA;
+        }
+
         public static final class OI {
                 public static final double STICK_DEADBAND = 0.1;
         }
@@ -70,7 +75,7 @@ public final class Constants {
                                                                 Rotation2d.fromDegrees(229.218750)
                                                 },
                                                 MODULE_TYPE,
-                                                true,
+                                                false,
                                                 DRIVE_CONFIG,
                                                 ANGLE_CONFIG);
         }
@@ -133,7 +138,7 @@ public final class Constants {
 
                 public static final MotorConfig INDEXER_CONFIG = new MotorConfig(
                                 24,
-                                10, // set later
+                                40, // set later
                                 false, // spin motor
                                 MotorConfig.Mode.COAST);
 
@@ -145,9 +150,9 @@ public final class Constants {
 
                 public static final MotorConfig UPRIGHT_ROLLERS_CONFIG = new MotorConfig(
                                 22, // set canID later
-                                10, // set later
+                                30, // set later
                                 false, // position motor
                                 MotorConfig.Mode.COAST);
-                                
+
         }
 }

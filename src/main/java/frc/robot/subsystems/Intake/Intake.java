@@ -86,5 +86,7 @@ abstract public class Intake extends SubsystemBase {
     @Override
     public void periodic() { 
         SmartDashboard.putBoolean("Ring in Indexer", ringInIndexer());
+
+        SmartDashboard.putNumber("Intake current", intakeMotor.getOutputCurrent());
     }
 }
