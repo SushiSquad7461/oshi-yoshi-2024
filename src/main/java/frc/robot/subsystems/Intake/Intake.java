@@ -11,21 +11,19 @@ import frc.robot.Constants;
 import frc.robot.util.Direction;
 
 abstract public class Intake extends SubsystemBase {
-    private final CANSparkMax indexerMotor;
     private final CANSparkMax intakeMotor;
     private final CANSparkMax uprightRollers;
 
     private final DigitalInput beamBreak;
 
     public Intake() {
-        indexerMotor = Constants.Intake.INDEXER_CONFIG.createSparkMax();
         intakeMotor = Constants.Intake.INTAKE_CONFIG.createSparkMax();
-        uprightRollers = Constants.Intake.UPRIGHT_ROLLERS_CONFIG.createSparkMax();
-
         beamBreak = new DigitalInput(1);
     }
 
-    public boolean ringInIndexer() { return !beamBreak.get(); }
+    public boolean ringInIndexer() {
+        return !beamBreak.get();
+    }
 
     public Command runIndexer() {
         return runOnce(() -> {
@@ -48,27 +46,32 @@ abstract public class Intake extends SubsystemBase {
         });
     }
 
-    public Command runIntake() { 
-        return runOnce(() -> intakeMotor.set(Constants.Intake.INTAKE_SPEED)); 
+    public Command runIntake() {
+        return runOnce(() -> intakeMotor.set(Constants.Intake.INTAKE_SPEED));
     }
 
     public Command reverseIntake() {
-        return runOnce(() -> intakeMotor.set(-1 * Constants.Intake.INTAKE_SPEED));   
+        return runOnce(() -> intakeMotor.set(-1 * Constants.Intake.INTAKE_SPEED));
     }
 
     public Command stopIntake() {
         return runOnce(() -> intakeMotor.set(0.0));
     }
 
-    public Command lowerIntake() { return Commands.none(); }
-    public Command raiseIntake()  { return Commands.none(); }
+    public Command lowerIntake() {
+        return Commands.none();
+    }
+
+    public Command raiseIntake() {
+        return Commands.none();
+    }
 
     public Command changeState(IntakeState newState) {
-        Command pivotCommand = newState.intakeExtended ? lowerIntake() : raiseIntake(); 
+        Command pivotCommand = newState.intakeExtended ? lowerIntake() : raiseIntake();
 
-        Command intakeCommand = newState.intakeExtended ? (
-            newState.direction == Direction.REVERSED ? reverseIntake() : runIntake()
-        ) : stopIntake();
+        Command intakeCommand = newState.intakeExtended
+                ? (newState.direction == Direction.REVERSED ? reverseIntake() : runIntake())
+                : stopIntake();
 
         Command indexerCommand;
 
@@ -84,7 +87,7 @@ abstract public class Intake extends SubsystemBase {
     }
 
     @Override
-    public void periodic() { 
+    public void periodic() {
         SmartDashboard.putBoolean("Ring in Indexer", ringInIndexer());
 
         SmartDashboard.putNumber("Intake current", intakeMotor.getOutputCurrent());
