@@ -8,6 +8,7 @@ import SushiFrcLib.SmartDashboard.TunableNumber;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.Constants.Manipulator;
 import frc.robot.util.Direction;
@@ -44,24 +45,27 @@ abstract public class Shooter extends SubsystemBase {
 
     public Command runShooter(double speed) {
         return run(() -> {
-            shooterRight.getPIDController().setReference(speed, CANSparkBase.ControlType.kVelocity);
-        });
+            shooterRight.getPIDController().setReference(speed,
+                    CANSparkBase.ControlType.kVelocity);
+        }).until(() -> shooterAtSpeed(speed));
     }
 
-    public boolean shooterAtSpeed() {
-        return (Math.abs(shooterRight.getEncoder().getVelocity() - shooterSpeed.get()) < 5);
+    public boolean shooterAtSpeed(double speed) {
+        return (Math.abs(shooterRight.getEncoder().getVelocity() - speed) < 500);
     }
 
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Shooter Speed", shooterRight.getEncoder().getVelocity());
-        SmartDashboard.putNumber("Shooter current", shooterRight.getOutputCurrent());
-
-        tuning.updatePID(shooterRight);
+        SmartDashboard.putNumber("Shooter right current", shooterRight.getOutputCurrent());
+        SmartDashboard.putNumber("Shooter left current", shooterLeft.getOutputCurrent());
+        SmartDashboard.putNumber("Error", shooterLeft.getOutputCurrent());
 
         if (Constants.TUNING_MODE) {
+            tuning.updatePID(shooterRight);
             shooterRight.getPIDController().setReference(shooterSpeed.get(), CANSparkBase.ControlType.kVelocity);
         }
+        // shooterRight.set(1);
     }
 
     public Command changeState(ShooterState newState) {

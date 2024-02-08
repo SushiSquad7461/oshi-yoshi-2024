@@ -14,7 +14,7 @@ public class StateMachine extends Command {
         INTAKE(IntakeState.INTAKE,ShooterState.IDLE),
         INDEX(IntakeState.INDEX, ShooterState.FEED),
         REVERSE(IntakeState.REVERSE, ShooterState.REVERSE),
-        SHOOT(IntakeState.IDLE, ShooterState.SHOOT);
+        SHOOT(IntakeState.INDEX, ShooterState.SHOOT);
 
         public IntakeState intakeState; 
         public ShooterState shooterState; 
@@ -45,7 +45,7 @@ public class StateMachine extends Command {
         
         if (intake.ringInIndexer() && state != RobotState.REVERSE) {
            scheduleNewState(RobotState.INDEX);
-        } else if (state == RobotState.INDEX) {
+        } else if (!intake.ringInIndexer() && state == RobotState.INDEX) {
             scheduleNewState(RobotState.IDLE);
         } 
     }

@@ -43,11 +43,10 @@ public class RobotContainer {
 
   private void configureBindings() {
     swerve.setDefaultCommand(new TeleopSwerveDrive(
-      swerve,
-      () -> oi.getDriveTrainTranslationX(),
-      () -> oi.getDriveTrainTranslationY(),
-      () -> oi.getDriveTrainRotation()
-    ));
+        swerve,
+        () -> oi.getDriveTrainTranslationX(),
+        () -> oi.getDriveTrainTranslationY(),
+        () -> oi.getDriveTrainRotation()));
 
     oi.getDriverController().a().onTrue(stateMachine.changeState(RobotState.INTAKE));
     oi.getDriverController().b().onTrue(stateMachine.changeState(RobotState.REVERSE));
@@ -55,7 +54,7 @@ public class RobotContainer {
 
     oi.getDriverController().back().onTrue(stateMachine.changeState(RobotState.IDLE));
   }
- 
+
   public Command getAutonomousCommand() {
     return null;
   }

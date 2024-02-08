@@ -83,7 +83,7 @@ public final class Constants {
         public static final class Manipulator {
                 public static final MotorConfig KICKER_CONFIG = new MotorConfig(
                                 25,
-                                20,
+                                40,
                                 true,
                                 MotorConfig.Mode.BRAKE);
 
@@ -96,16 +96,16 @@ public final class Constants {
 
                 public static final MotorConfig SHOOTER_CONFIG_LEFT = new MotorConfig(
                                 26,
-                                20,
+                                40,
                                 false,
                                 PIDConfig.getPid(0.0, 0.0, 0.0),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final MotorConfig SHOOTER_CONFIG_RIGHT = new MotorConfig(
                                 27,
-                                20,
+                                40,
                                 false,
-                                PIDConfig.getPid(0.0, 0.0, 0.0),
+                                PIDConfig.getPid(0.000030, 0.0, 0.000180),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final int ENCODER_ID = 0;// set this
@@ -116,7 +116,7 @@ public final class Constants {
                 public static final double KV = 0;// set this
                 public static final double KICKER_SPEED = 0.5;// set this
 
-                public static final double SHOOTER_SPEED = 4000;
+                public static final double SHOOTER_SPEED = 5000;
         }
 
         public static final class Intake {
