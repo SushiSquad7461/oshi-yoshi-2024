@@ -119,14 +119,27 @@ public final class Constants {
                 public static final double SHOOTER_SPEED = 4000;
         }
 
+        public static final class Indexer {
+                public static final double UPRIGHT_ROLLERS_SPEED = 0.9;
+                public static final double INDEXER_SPEED = 0.9;
+                public static final MotorConfig INDEXER_CONFIG = new MotorConfig(
+                                24,
+                                40, // set later
+                                false, // spin motor
+                                MotorConfig.Mode.COAST);
+                public static final MotorConfig UPRIGHT_ROLLERS_CONFIG = new MotorConfig(
+                                22, // set canID later
+                                30, // set later
+                                false, // position motor
+                                MotorConfig.Mode.COAST);
+        }
+
         public static final class Intake {
                 public static final double G = 0.0; // set later
                 public static final int ENCODER_CHANNEL = 0; // set later
                 public static final double ENCODER_ANGLE_OFFSET = 0.0; // set later
                 public static final double INTAKE_GEAR_RATIO = 0.0; // set later
                 public static final double INTAKE_SPEED = 0.9;
-                public static final double INDEXER_SPEED = 0.9;
-                public static final double UPRIGHT_ROLLERS_SPEED = 0.9;
                 public static final double ERROR_LIMIT = 0.0; // set later
                 public static final double MAX_ERROR = 0.0; // set later
 
@@ -136,23 +149,11 @@ public final class Constants {
                                 true, // spin motor
                                 MotorConfig.Mode.COAST);
 
-                public static final MotorConfig INDEXER_CONFIG = new MotorConfig(
-                                24,
-                                40, // set later
-                                false, // spin motor
-                                MotorConfig.Mode.COAST);
-
                 public static final MotorConfig PIVOT_CONFIG = new MotorConfig(
                                 0, // set later
                                 false, // position motor
                                 PIDConfig.getPid(0.1),
                                 MotorConfig.Mode.BRAKE);
-
-                public static final MotorConfig UPRIGHT_ROLLERS_CONFIG = new MotorConfig(
-                                22, // set canID later
-                                30, // set later
-                                false, // position motor
-                                MotorConfig.Mode.COAST);
 
         }
 }
