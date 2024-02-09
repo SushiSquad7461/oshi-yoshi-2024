@@ -15,6 +15,7 @@ import frc.robot.subsystems.Intake.AlphaIntake;
 import frc.robot.subsystems.Intake.Intake;
 import frc.robot.subsystems.Shooter.AlphaShooter;
 import frc.robot.subsystems.Shooter.Shooter;
+import frc.robot.subsystems.Indexer.Indexer;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -30,6 +31,7 @@ public class RobotContainer {
   Swerve swerve;
   Intake intake;
   Shooter shooter;
+  Indexer indexer;
   public StateMachine stateMachine;
 
   public RobotContainer() {
@@ -37,17 +39,17 @@ public class RobotContainer {
     swerve = Swerve.getInstance();
     shooter = AlphaShooter.getInstance();
     intake = AlphaIntake.getInstance();
-    stateMachine = new StateMachine(intake, shooter);
+    indexer = Indexer.getInstance();
+    stateMachine = new StateMachine(intake, shooter, indexer);
     configureBindings();
   }
 
   private void configureBindings() {
     swerve.setDefaultCommand(new TeleopSwerveDrive(
-      swerve,
-      () -> oi.getDriveTrainTranslationX(),
-      () -> oi.getDriveTrainTranslationY(),
-      () -> oi.getDriveTrainRotation()
-    ));
+        swerve,
+        () -> oi.getDriveTrainTranslationX(),
+        () -> oi.getDriveTrainTranslationY(),
+        () -> oi.getDriveTrainRotation()));
 
     oi.getDriverController().a().onTrue(stateMachine.changeState(RobotState.INTAKE));
     oi.getDriverController().b().onTrue(stateMachine.changeState(RobotState.REVERSE));
@@ -55,7 +57,7 @@ public class RobotContainer {
 
     oi.getDriverController().back().onTrue(stateMachine.changeState(RobotState.IDLE));
   }
- 
+
   public Command getAutonomousCommand() {
     return null;
   }

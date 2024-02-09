@@ -14,6 +14,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 public final class Constants {
         public static final boolean TUNING_MODE = false;
@@ -120,6 +121,7 @@ public final class Constants {
         }
 
         public static final class Indexer {
+                public static final DigitalInput beamBreak = new DigitalInput(1);
                 public static final double UPRIGHT_ROLLERS_SPEED = 0.9;
                 public static final double INDEXER_SPEED = 0.9;
                 public static final MotorConfig INDEXER_CONFIG = new MotorConfig(
@@ -135,6 +137,7 @@ public final class Constants {
         }
 
         public static final class Intake {
+                public static final DigitalInput beamBreak = new DigitalInput(1);
                 public static final double G = 0.0; // set later
                 public static final int ENCODER_CHANNEL = 0; // set later
                 public static final double ENCODER_ANGLE_OFFSET = 0.0; // set later
