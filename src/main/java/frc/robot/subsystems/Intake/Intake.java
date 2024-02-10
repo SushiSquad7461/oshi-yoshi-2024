@@ -12,38 +12,9 @@ import frc.robot.util.Direction;
 
 abstract public class Intake extends SubsystemBase {
     private final CANSparkMax intakeMotor;
-    private final CANSparkMax uprightRollers;
-
-    private final DigitalInput beamBreak;
 
     public Intake() {
         intakeMotor = Constants.Intake.INTAKE_CONFIG.createSparkMax();
-        beamBreak = new DigitalInput(1);
-    }
-
-    public boolean ringInIndexer() {
-        return !beamBreak.get();
-    }
-
-    public Command runIndexer() {
-        return runOnce(() -> {
-            indexerMotor.set(Constants.Intake.INDEXER_SPEED);
-            uprightRollers.set(Constants.Intake.UPRIGHT_ROLLERS_SPEED);
-        });
-    }
-
-    public Command reverseIndexer() {
-        return runOnce(() -> {
-            indexerMotor.set(Constants.Intake.INDEXER_SPEED * -1);
-            uprightRollers.set(Constants.Intake.UPRIGHT_ROLLERS_SPEED * -1);
-        });
-    }
-
-    public Command stopIndexer() {
-        return runOnce(() -> {
-            indexerMotor.set(0);
-            uprightRollers.set(0);
-        });
     }
 
     public Command runIntake() {
@@ -72,24 +43,11 @@ abstract public class Intake extends SubsystemBase {
         Command intakeCommand = newState.intakeExtended
                 ? (newState.direction == Direction.REVERSED ? reverseIntake() : runIntake())
                 : stopIntake();
-
-        Command indexerCommand;
-
-        if (newState.direction == Direction.RUNNING) {
-            indexerCommand = runIndexer();
-        } else if (newState.direction == Direction.REVERSED) {
-            indexerCommand = reverseIndexer();
-        } else {
-            indexerCommand = stopIndexer();
-        }
-
-        return pivotCommand.andThen(intakeCommand).andThen(indexerCommand);
+        return pivotCommand.andThen(intakeCommand);
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putBoolean("Ring in Indexer", ringInIndexer());
-
         SmartDashboard.putNumber("Intake current", intakeMotor.getOutputCurrent());
     }
 }

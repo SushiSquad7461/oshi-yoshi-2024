@@ -15,7 +15,8 @@ public class StateMachine extends Command {
         IDLE(IntakeState.IDLE, ShooterState.IDLE, IndexerState.IDLE),
         INTAKE(IntakeState.INTAKE, ShooterState.IDLE, IndexerState.INDEX),
         REVERSE(IntakeState.REVERSE, ShooterState.REVERSE, IndexerState.REVERSE),
-        SHOOT(IntakeState.IDLE, ShooterState.SHOOT, IndexerState.IDLE);
+        SHOOT(IntakeState.IDLE, ShooterState.SHOOT, IndexerState.IDLE),
+        INDEX(IntakeState.IDLE, ShooterState.FEED, IndexerState.INDEX);
 
         public IntakeState intakeState;
         public ShooterState shooterState;
@@ -52,9 +53,9 @@ public class StateMachine extends Command {
     public void execute() {
         SmartDashboard.putString("Robot State", state.toString());
 
-        if (intake.ringInIntake() && state != RobotState.REVERSE) {
-            scheduleNewState(RobotState.INTAKE);
-        } else if (state == RobotState.INTAKE) {
+        if (indexer.ringInIndexer() && state != RobotState.REVERSE) {
+            scheduleNewState(RobotState.INDEX);
+        } else if (state == RobotState.INDEX) {
             scheduleNewState(RobotState.IDLE);
         }
     }
