@@ -53,7 +53,7 @@ public final class Constants {
                 public static final MotorConfig ANGLE_CONFIG = new MotorConfig(
                                 20,
                                 true, // Make true if we have a stroke
-                                PIDConfig.getPid(0.08), // TODO: retune
+                                PIDConfig.getPid(0.06), // TODO: retune
                                 MotorConfig.Mode.COAST);
 
                 public static final MotorConfig DRIVE_CONFIG = new MotorConfig(
