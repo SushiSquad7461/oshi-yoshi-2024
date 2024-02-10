@@ -1,10 +1,12 @@
 package frc.robot.subsystems;
 
 import SushiFrcLib.Sensors.gyro.Pigeon;
+import SushiFrcLib.SmartDashboard.AllianceColor;
 import SushiFrcLib.Swerve.SwerveModules.SwerveModuleTalon;
 import SushiFrcLib.Swerve.SwerveTemplates.VisionBaseSwerve;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.Constants;
 
 
@@ -50,11 +52,11 @@ public class Swerve extends VisionBaseSwerve {
     }
 
     @Override
-    public void drive(Translation2d translation, double rotation) {
+    public void drive(Translation2d translation, double rotation, Alliance color) {
         if (locationLock) {
             rotation = rotationLockPID.calculate(getGyro().getAngle().getDegrees());
         }
 
-        super.drive(translation, rotation);
+        super.drive(translation, rotation, color);
     }
 }

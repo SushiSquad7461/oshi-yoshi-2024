@@ -32,6 +32,7 @@ public class RobotContainer {
   Intake intake;
   Shooter shooter;
   Indexer indexer;
+  AutoCommands autos;
   public StateMachine stateMachine;
 
   public RobotContainer() {
@@ -41,6 +42,7 @@ public class RobotContainer {
     intake = AlphaIntake.getInstance();
     indexer = Indexer.getInstance();
     stateMachine = new StateMachine(intake, shooter, indexer);
+    autos = new AutoCommands(swerve);
     configureBindings();
   }
 
@@ -64,6 +66,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return null;
+    return autos.getAuto();
   }
 }
