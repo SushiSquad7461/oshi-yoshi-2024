@@ -2,6 +2,7 @@ package frc.robot.subsystems.Indexer;
 
 import com.revrobotics.CANSparkMax;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -12,6 +13,7 @@ public class Indexer extends SubsystemBase {
     private final CANSparkMax indexerMotor;
     private final CANSparkMax uprightRollers;
     private static Indexer instance;
+    public static DigitalInput beamBreak;
 
     public static Indexer getInstance() {
         if (instance == null) {
@@ -24,10 +26,11 @@ public class Indexer extends SubsystemBase {
     public Indexer() {
         indexerMotor = Constants.Indexer.INDEXER_CONFIG.createSparkMax();
         uprightRollers = Constants.Indexer.UPRIGHT_ROLLERS_CONFIG.createSparkMax();
+        beamBreak = new DigitalInput(Constants.Indexer.BEAMBREAK);
     }
 
     public boolean ringInIndexer() {
-        return !Constants.Indexer.beamBreak.get();
+        return !beamBreak.get();
     }
 
     public Command runIndexer() {

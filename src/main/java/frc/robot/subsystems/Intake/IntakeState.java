@@ -5,8 +5,7 @@ import frc.robot.util.Direction;
 public enum IntakeState {
     IDLE(false, Direction.OFF),
     INTAKE(true, Direction.RUNNING),
-    REVERSE(true, Direction.REVERSED),
-    INDEX(false, Direction.RUNNING);
+    REVERSE(true, Direction.REVERSED);
 
     public boolean intakeExtended;
     public Direction direction;
