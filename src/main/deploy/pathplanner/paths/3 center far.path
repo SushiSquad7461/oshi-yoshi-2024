@@ -150,7 +150,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Center Far",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }

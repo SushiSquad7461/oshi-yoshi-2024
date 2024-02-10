@@ -31,7 +31,8 @@ public class AutoCommands {
                         Constants.Swerve.DRIVE_BASE_RADIUS,
                         new ReplanningConfig()),
                 () -> DriverStation.getAlliance().get() == DriverStation.Alliance.Red,
-                swerve);
+                swerve
+        );
 
         chooser = new SendableChooser<>();
 
@@ -40,7 +41,7 @@ public class AutoCommands {
 
         chooser.addOption("Square", makeAuto("Square"));
 
-        chooser.addOption("line", makeAuto("line"));
+        chooser.addOption("Line", makeAuto("Line"));
 
         SmartDashboard.putData("Auto Selecter", chooser);
     }

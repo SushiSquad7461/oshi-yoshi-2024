@@ -35,8 +35,8 @@ public final class Constants {
         public static final class Swerve {
                 public static final boolean GYRO_INVERSION = false; // Always ensure Gyro is CCW+ CW-
 
-                public static final PIDConstants AUTO_TRANSLATION = new PIDConstants(0); // TODO: find pid
-                public static final PIDConstants AUTO_ROTATION = new PIDConstants(0); // TODO: find pid
+                public static final PIDConstants AUTO_TRANSLATION = new PIDConstants(0.2); // TODO: find pid
+                public static final PIDConstants AUTO_ROTATION = new PIDConstants(0.2); // TODO: find pid
 
                 /* Drivetrain Constants */
                 public static final double TRACK_WIDTH = Units.inchesToMeters(28);
@@ -45,21 +45,21 @@ public final class Constants {
                                 .sqrt(TRACK_WIDTH * TRACK_WIDTH + WHEEL_BASE * WHEEL_BASE);
 
                 public static final SwerveDriveKinematics SWERVE_KINEMATICS = new SwerveDriveKinematics(
-                                new Translation2d(-WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
                                 new Translation2d(WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
-                                new Translation2d(WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0),
-                                new Translation2d(-WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0));
+                                new Translation2d(-WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
+                                new Translation2d(-WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0),
+                                new Translation2d(WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0));
 
                 public static final MotorConfig ANGLE_CONFIG = new MotorConfig(
                                 20,
-                                true, // Make true if we have a stroke
-                                PIDConfig.getPid(0.06), // TODO: retune
+                                false, // Make true if we have a stroke
+                                PIDConfig.getPid(0.07), // TODO: retune
                                 MotorConfig.Mode.COAST);
 
                 public static final MotorConfig DRIVE_CONFIG = new MotorConfig(
                                 60,
                                 false,
-                                PIDConfig.getPid(1.0, 0.68),
+                                PIDConfig.getPid(0.4, 0.68),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final PIDConfig autoRotate = PIDConfig.getPid(0.1);
@@ -69,13 +69,13 @@ public final class Constants {
                 public static final SwerveModuleConstants[] SWERVE_MODULE_CONSTANTS = SwerveModuleConstants
                                 .generateConstants(
                                                 new Rotation2d[] { // Tuned
-                                                                Rotation2d.fromDegrees(3.779297),
-                                                                Rotation2d.fromDegrees(16.435547),
-                                                                Rotation2d.fromDegrees(304.101562),
-                                                                Rotation2d.fromDegrees(229.218750)
+                                                                Rotation2d.fromDegrees(356.22), // 3.779
+                                                                Rotation2d.fromDegrees(347.16), // 16.43
+                                                                Rotation2d.fromDegrees(56.68), // 304.10
+                                                                Rotation2d.fromDegrees(131.0) // 229.218
                                                 },
                                                 MODULE_TYPE,
-                                                false,
+                                                true,
                                                 DRIVE_CONFIG,
                                                 ANGLE_CONFIG);
         }

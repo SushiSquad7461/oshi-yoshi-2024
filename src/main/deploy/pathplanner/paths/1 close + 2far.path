@@ -1,0 +1,113 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.2005885285059859,
+        "y": 7.070714336744423
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.7628449198773213,
+        "y": 7.026400282244604
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.7676156280207116,
+        "y": 7.070714336744423
+      },
+      "prevControl": {
+        "x": 2.8976999202616645,
+        "y": 7.066605279732449
+      },
+      "nextControl": {
+        "x": 4.900077637893207,
+        "y": 7.076063534282709
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.875645375741391,
+        "y": 7.421294830257384
+      },
+      "prevControl": {
+        "x": 7.868721036043595,
+        "y": 7.570116459583119
+      },
+      "nextControl": {
+        "x": 7.878018710394859,
+        "y": 7.370285846660471
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.347139184744472,
+        "y": 6.345855426089101
+      },
+      "prevControl": {
+        "x": 5.539134227739873,
+        "y": 6.925139943925199
+      },
+      "nextControl": {
+        "x": 5.322822861242195,
+        "y": 6.27248858538426
+      },
+      "isLocked": false,
+      "linkedName": "close center shot"
+    },
+    {
+      "anchor": {
+        "x": 7.875645375741391,
+        "y": 6.006220610306312
+      },
+      "prevControl": {
+        "x": 6.879195785969789,
+        "y": 6.828686938371771
+      },
+      "nextControl": {
+        "x": 7.902425092129773,
+        "y": 5.984116717414315
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.347139184744472,
+        "y": 6.345855426089101
+      },
+      "prevControl": {
+        "x": 7.260172396577231,
+        "y": 6.632668686226918
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "close center shot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Center Close",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
+}
