@@ -92,7 +92,7 @@ abstract public class Shooter extends SubsystemBase {
             kickerCommmand = stopKicker();
         }
 
-        Command pivotCommand = setPivotPos(newState.pivotAngle);
+        Command pivotCommand = setPivotPos(newState.pivotAngle); // i trolled
 
         return pivotCommand.andThen(runShooter(newState.runShooter ? Manipulator.SHOOTER_SPEED : 0))
                 .andThen(kickerCommmand);
