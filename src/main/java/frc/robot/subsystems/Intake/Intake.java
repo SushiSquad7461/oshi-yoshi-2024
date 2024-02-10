@@ -14,32 +14,6 @@ abstract public class Intake extends SubsystemBase {
 
     public Intake() {
         intakeMotor = Constants.Intake.INTAKE_CONFIG.createSparkMax();
-        beamBreak = new DigitalInput(1);
-    }
-
-    public boolean ringInIndexer() {
-        return !beamBreak.get();
-    }
-
-    public Command runIndexer() {
-        return runOnce(() -> {
-            indexerMotor.set(Constants.Intake.INDEXER_SPEED);
-            uprightRollers.set(Constants.Intake.UPRIGHT_ROLLERS_SPEED);
-        });
-    }
-
-    public Command reverseIndexer() {
-        return runOnce(() -> {
-            indexerMotor.set(Constants.Intake.INDEXER_SPEED * -1);
-            uprightRollers.set(Constants.Intake.UPRIGHT_ROLLERS_SPEED * -1);
-        });
-    }
-
-    public Command stopIndexer() {
-        return runOnce(() -> {
-            indexerMotor.set(0);
-            uprightRollers.set(0);
-        });
     }
 
     public Command runIntake() {

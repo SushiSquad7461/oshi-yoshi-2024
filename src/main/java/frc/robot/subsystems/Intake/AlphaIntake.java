@@ -10,6 +10,7 @@ public class AlphaIntake extends Intake {
 
         return instance;
     }
+    
 
     private AlphaIntake() {
         super();
