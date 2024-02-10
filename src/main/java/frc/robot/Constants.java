@@ -36,7 +36,7 @@ public final class Constants {
                 public static final boolean GYRO_INVERSION = false; // Always ensure Gyro is CCW+ CW-
 
                 public static final PIDConstants AUTO_TRANSLATION = new PIDConstants(0.2); // TODO: find pid
-                public static final PIDConstants AUTO_ROTATION = new PIDConstants(0.2); // TODO: find pid
+                public static final PIDConstants AUTO_ROTATION = new PIDConstants(0.5); // TODO: find pid
 
                 /* Drivetrain Constants */
                 public static final double TRACK_WIDTH = Units.inchesToMeters(28);
@@ -59,7 +59,7 @@ public final class Constants {
                 public static final MotorConfig DRIVE_CONFIG = new MotorConfig(
                                 60,
                                 false,
-                                PIDConfig.getPid(0.4, 0.68),
+                                PIDConfig.getPid(0.2, 0.68),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final PIDConfig autoRotate = PIDConfig.getPid(0.1);
@@ -75,7 +75,7 @@ public final class Constants {
                                                                 Rotation2d.fromDegrees(131.0) // 229.218
                                                 },
                                                 MODULE_TYPE,
-                                                true,
+                                                false,
                                                 DRIVE_CONFIG,
                                                 ANGLE_CONFIG);
         }
