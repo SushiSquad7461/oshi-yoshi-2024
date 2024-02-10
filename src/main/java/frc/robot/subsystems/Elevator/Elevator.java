@@ -55,7 +55,7 @@ public class Elevator extends SubsystemBase {
         setpoint = new TunableNumber("Elevator Setpoint", 0, Constants.TUNING_MODE);
     }
 
-    public Command moveElevator(ElevatorState state) {
+    public Command changeState(ElevatorState state) {
         return new SequentialCommandGroup(
                 runOnce(
                         () -> {
