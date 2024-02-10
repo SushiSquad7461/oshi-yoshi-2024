@@ -43,7 +43,7 @@ public class Elevator extends SubsystemBase {
         leftMotor = Constants.Elevator.LEFT_ELEVATOR.createSparkMax();
         rightMotor = Constants.Elevator.RIGHT_ELEVATOR.createSparkMax();
 
-        leftMotor.follow(rightMotor);
+        leftMotor.follow(rightMotor, true);
 
         resetElevator = false;
 

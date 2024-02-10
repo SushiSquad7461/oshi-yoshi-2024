@@ -24,8 +24,17 @@ public final class Constants {
         }
 
         public static final class Elevator {
-                public static final MotorConfig LEFT_ELEVATOR = new MotorConfig(0);
-                public static final MotorConfig RIGHT_ELEVATOR = new MotorConfig(0);
+                public static final MotorConfig LEFT_ELEVATOR = new MotorConfig(
+                                -1,
+                                40,
+                                false,
+                                PIDConfig.getPid(0, 0, 0, 0), MotorConfig.Mode.BRAKE);
+
+                public static final MotorConfig RIGHT_ELEVATOR = new MotorConfig(
+                                -1,
+                                40,
+                                false,
+                                PIDConfig.getPid(0, 0, 0, 0), MotorConfig.Mode.BRAKE);
                 public static final double G_DOWN = 0;
                 public static final double G_UP = 0;
                 public static final double P_UP = 0;
