@@ -23,6 +23,19 @@ public final class Constants {
                 BETA;
         }
 
+        public static final class Elevator {
+                public static final MotorConfig LEFT_ELEVATOR = new MotorConfig(0);
+                public static final MotorConfig RIGHT_ELEVATOR = new MotorConfig(0);
+                public static final double G_DOWN = 0;
+                public static final double G_UP = 0;
+                public static final double P_UP = 0;
+                public static final double I = 0;
+                public static final double D = 0;
+                public static final double P_DOWN = 0;
+                public static final double MAX_ERROR = 0;
+
+        }
+
         public static final class OI {
                 public static final double STICK_DEADBAND = 0.1;
         }
@@ -53,7 +66,7 @@ public final class Constants {
                 public static final MotorConfig ANGLE_CONFIG = new MotorConfig(
                                 20,
                                 true, // Make true if we have a stroke
-                                PIDConfig.getPid(0.06), // TODO: retune
+                                PIDConfig.getPid(0.08), // TODO: retune
                                 MotorConfig.Mode.COAST);
 
                 public static final MotorConfig DRIVE_CONFIG = new MotorConfig(
