@@ -166,7 +166,6 @@ public final class Constants {
         }
 
         public static final class Intake {
-                public static final DigitalInput beamBreak = new DigitalInput(1);
                 public static final double G = 0.0; // set later
                 public static final int ENCODER_CHANNEL = 0; // set later
                 public static final double ENCODER_ANGLE_OFFSET = 0.0; // set later

@@ -83,6 +83,20 @@ public class BetaIntake extends Intake {
     }
 
     @Override
+    public Command lowerIntake() {
+        return runOnce(() -> {
+            setPosition(Constants.Intake.LOWERED_POS);
+        });
+    }
+
+    @Override
+    public Command raiseIntake() {
+        return runOnce(() -> {
+            setPosition(Constants.Intake.RAISED_POS);
+        });
+    }
+
+    @Override
     public void periodic() {
         if (getAbsoluteError() > Constants.Intake.ERROR_LIMIT) {
             resetToAbsolutePosition();
