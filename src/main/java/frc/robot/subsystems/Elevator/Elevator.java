@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase {
-    private Elevator instance;
+    private static Elevator instance;
     private CANSparkMax leftElevator;
     private CANSparkMax rightElevator;
 
@@ -28,7 +28,7 @@ public class Elevator extends SubsystemBase {
 
     private boolean resetElevator;
 
-    public Elevator getInstance() {
+    public static Elevator getInstance() {
         if (instance == null) {
             instance = new Elevator();
         }

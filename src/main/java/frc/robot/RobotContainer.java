@@ -11,6 +11,7 @@ import frc.robot.commands.StateMachine;
 import frc.robot.commands.TeleopSwerveDrive;
 import frc.robot.commands.StateMachine.RobotState;
 import frc.robot.subsystems.Swerve;
+import frc.robot.subsystems.Elevator.Elevator;
 import frc.robot.subsystems.Intake.AlphaIntake;
 import frc.robot.subsystems.Intake.Intake;
 import frc.robot.subsystems.Shooter.AlphaShooter;
@@ -30,6 +31,7 @@ public class RobotContainer {
   Swerve swerve;
   Intake intake;
   Shooter shooter;
+  Elevator elevator;
   public StateMachine stateMachine;
 
   public RobotContainer() {
@@ -37,7 +39,8 @@ public class RobotContainer {
     swerve = Swerve.getInstance();
     shooter = AlphaShooter.getInstance();
     intake = AlphaIntake.getInstance();
-    stateMachine = new StateMachine(intake, shooter);
+    elevator = Elevator.getInstance();
+    stateMachine = new StateMachine(intake, shooter, elevator);
     configureBindings();
   }
 
