@@ -5,8 +5,10 @@ import com.revrobotics.CANSparkMax;
 
 import SushiFrcLib.SmartDashboard.PIDTuning;
 import SushiFrcLib.SmartDashboard.TunableNumber;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
@@ -21,14 +23,21 @@ abstract public class Shooter extends SubsystemBase {
     private final PIDTuning tuning;
     private final TunableNumber shooterSpeed;
 
+    private final DigitalInput beamBreak;
+
     public Shooter() {
         kicker = Manipulator.KICKER_CONFIG.createSparkMax();
         shooterLeft = Manipulator.SHOOTER_CONFIG_LEFT.createSparkMax();
         shooterRight = Manipulator.SHOOTER_CONFIG_RIGHT.createSparkMax();
         shooterLeft.follow(shooterRight, false);
+        beamBreak = new DigitalInput(2);
 
         tuning = new PIDTuning("Shooter", Manipulator.SHOOTER_CONFIG_RIGHT.pid, Constants.TUNING_MODE);
         shooterSpeed = new TunableNumber("Shooter Speed", 0, Constants.TUNING_MODE);
+    }
+
+    public boolean ringInManipulator() {
+        return !beamBreak.get();
     }
 
     public Command runKicker() {
@@ -68,6 +77,10 @@ abstract public class Shooter extends SubsystemBase {
         // shooterRight.set(1);
     }
 
+    public Command setPivotPos(double angle) {
+        return Commands.none();
+    }
+
     public Command changeState(ShooterState newState) {
         Command kickerCommmand;
 
@@ -79,6 +92,9 @@ abstract public class Shooter extends SubsystemBase {
             kickerCommmand = stopKicker();
         }
 
-        return runShooter(newState.runShooter ? Manipulator.SHOOTER_SPEED : 0).andThen(kickerCommmand);
+        Command pivotCommand = setPivotPos(newState.pivotAngle);
+
+        return pivotCommand.andThen(runShooter(newState.runShooter ? Manipulator.SHOOTER_SPEED : 0))
+                .andThen(kickerCommmand);
     }
 }

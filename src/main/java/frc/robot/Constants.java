@@ -117,6 +117,11 @@ public final class Constants {
                 public static final double KICKER_SPEED = 0.5;// set this
 
                 public static final double SHOOTER_SPEED = 5000;
+
+                public static final double PIVOT_FENDOR_ANGLE = 0;
+                public static final double PIVOT_AMP_ANGLE = 0;
+                public static final double PIVOT_ANY_ANGLE = 0; //fix later
+                public static final double PIVOT_IDLE = 0;
         }
 
         public static final class Intake {
