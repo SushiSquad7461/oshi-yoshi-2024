@@ -4,20 +4,20 @@ import java.util.function.BooleanSupplier;
 
 import com.revrobotics.CANSparkMax;
 
+import SushiFrcLib.Control.PIDConfig;
 import SushiFrcLib.SmartDashboard.PIDTuning;
 import SushiFrcLib.SmartDashboard.TunableNumber;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase {
     private static Elevator instance;
-    private CANSparkMax leftElevator;
-    private CANSparkMax rightElevator;
+    private CANSparkMax leftMotor;
+    private CANSparkMax rightMotor;
 
     private PIDTuning pid;
 
@@ -40,15 +40,16 @@ public class Elevator extends SubsystemBase {
         ffu = new ElevatorFeedforward(0, Constants.Elevator.G_UP, 0);
         up = true;
 
-        leftElevator = Constants.Elevator.LEFT_ELEVATOR.createSparkMax();
-        rightElevator = Constants.Elevator.RIGHT_ELEVATOR.createSparkMax();
+        leftMotor = Constants.Elevator.LEFT_ELEVATOR.createSparkMax();
+        rightMotor = Constants.Elevator.RIGHT_ELEVATOR.createSparkMax();
 
-        leftElevator.follow(rightElevator);
+        leftMotor.follow(rightMotor);
 
         resetElevator = false;
 
         if (Constants.TUNING_MODE) {
-            pid = new PIDTuning("Elevator", Constants.Elevator.P_UP, Constants.Elevator.I, Constants.Elevator.D, 0,
+            pid = new PIDTuning("Elevator",
+                    new PIDConfig(Constants.Elevator.P_UP, Constants.Elevator.I, Constants.Elevator.D),
                     Constants.TUNING_MODE);
         }
 
@@ -56,31 +57,44 @@ public class Elevator extends SubsystemBase {
     }
 
     public Command changeState(ElevatorState state) {
-        return new SequentialCommandGroup(
-                runOnce(
-                        () -> {
-                            up = state.getPos() > rightElevator.getEncoder().getPosition();
-                            rightElevator.getPIDController()
-                                    .setP(up ? Constants.Elevator.P_UP : Constants.Elevator.P_DOWN);
-                            setpoint.setDefault(state.getPos());
-                        }),
-                new WaitUntilCommand(elevatorInPosition(state.getPos())));
+        return runOnce(
+                () -> {
+                    up = state.getPos() > rightMotor.getEncoder().getPosition();
+                    rightMotor.getPIDController()
+                            .setP(up ? Constants.Elevator.P_UP : Constants.Elevator.P_DOWN);
+                    setpoint.setDefault(state.getPos());
+                }).andThen(new WaitUntilCommand(elevatorInPosition(state.getPos())));
     }
 
     private BooleanSupplier elevatorInPosition(double elevatorPos) {
-        return () -> Math.abs(rightElevator.getEncoder().getPosition() - setpoint.get()) < Constants.Elevator.MAX_ERROR;
+        return () -> Math.abs(rightMotor.getEncoder().getPosition() - setpoint.get()) < Constants.Elevator.MAX_ERROR;
+    }
+
+    public Command resetElevator() {
+        return runOnce(() -> {
+            rightMotor.set(-0.1);
+            resetElevator = true;
+        });
+    }
+
+    public Command resetElevatorEnd() {
+        return runOnce(() -> {
+            rightMotor.set(0);
+            rightMotor.getEncoder().setPosition(0);
+            resetElevator = false;
+        });
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Elevator Position", rightElevator.getEncoder().getPosition());
+        SmartDashboard.putNumber("Elevator Position", rightMotor.getEncoder().getPosition());
 
         if (Constants.TUNING_MODE) {
-            pid.updatePID(rightElevator);
+            pid.updatePID(rightMotor);
         }
 
         if (!resetElevator) {
-            rightElevator.getPIDController().setReference(
+            rightMotor.getPIDController().setReference(
                     setpoint.get(),
                     CANSparkMax.ControlType.kPosition,
                     0,

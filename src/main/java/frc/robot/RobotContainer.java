@@ -56,6 +56,7 @@ public class RobotContainer {
     oi.getDriverController().x().onTrue(stateMachine.changeState(RobotState.SHOOT));
 
     oi.getDriverController().back().onTrue(stateMachine.changeState(RobotState.IDLE));
+    oi.getOperatorController().a().onTrue(elevator.resetElevator()).onFalse(elevator.resetElevatorEnd());
   }
 
   public Command getAutonomousCommand() {
