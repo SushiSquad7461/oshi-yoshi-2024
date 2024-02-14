@@ -14,7 +14,11 @@ public class StateMachine extends Command {
         INTAKE(IntakeState.INTAKE,ShooterState.IDLE),
         INDEX(IntakeState.INDEX, ShooterState.FEED),
         REVERSE(IntakeState.REVERSE, ShooterState.REVERSE),
-        SHOOT(IntakeState.INDEX, ShooterState.SHOOT);
+        SHOOT_ANYWHERE(IntakeState.INDEX, ShooterState.SHOOT_ANYWHERE), // should i set this to idle?
+        SHOOT_FENDOR(IntakeState.INDEX, ShooterState.SHOOT_FENDOR),
+        SHOOT_AMP(IntakeState.INDEX, ShooterState.SHOOT_AMP),
+        SHOOT_TRAP(IntakeState.INDEX, ShooterState.SHOOT_TRAP),
+        SHOOT_STAGE(IntakeState.INDEX, ShooterState.SHOOT_STAGE);
 
         public IntakeState intakeState; 
         public ShooterState shooterState; 
@@ -30,36 +34,41 @@ public class StateMachine extends Command {
     private Shooter shooter;
 
     public StateMachine(Intake intake, Shooter shooter) {
-          this.intake = intake;
-          this.shooter = shooter;
+        this.intake = intake;
+        this.shooter = shooter;
     }
 
     @Override
-    public void initialize() { scheduleNewState(RobotState.IDLE); }
+    public void initialize() {
+        scheduleNewState(RobotState.IDLE);
+    }
 
-    public void end(boolean interrupted) { System.out.println("State Machine Command End"); }
+    public void end(boolean interrupted) {
+        System.out.println("State Machine Command End");
+    }
 
     @Override
     public void execute() {
         SmartDashboard.putString("Robot State", state.toString());
-        
+
         if (intake.ringInIndexer() && state != RobotState.REVERSE) {
-           scheduleNewState(RobotState.INDEX);
+            scheduleNewState(RobotState.INDEX);
         } else if (!intake.ringInIndexer() && state == RobotState.INDEX) {
             scheduleNewState(RobotState.IDLE);
-        } 
+        }
     }
 
-    private void scheduleNewState(RobotState newState) { changeState(newState).schedule(); }
+    private void scheduleNewState(RobotState newState) {
+        changeState(newState).schedule();
+    }
 
     public Command changeState(RobotState newState) {
         return Commands.parallel(
-            Commands.runOnce(() -> { 
-                state = newState;
-                System.out.println(newState.toString() + " scheduled");
-             }),
-            intake.changeState(newState.intakeState),
-            shooter.changeState(newState.shooterState)
-        );
+                Commands.runOnce(() -> {
+                    state = newState;
+                    System.out.println(newState.toString() + " scheduled");
+                }),
+                intake.changeState(newState.intakeState),
+                shooter.changeState(newState.shooterState));
     }
 }

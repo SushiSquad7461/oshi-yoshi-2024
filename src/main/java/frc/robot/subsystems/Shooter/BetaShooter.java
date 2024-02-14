@@ -41,14 +41,15 @@ public class BetaShooter extends Shooter {
         pivot.getEncoder().setPosition(absoluteEncoder.getPosition());
     }
 
-    public boolean pivotAtPos() {
-        return (Math.abs(absoluteEncoder.getPosition() - pivotPos) < .1);
+    public boolean pivotAtPos(double pivotPos) {
+        return (Math.abs(pivot.getEncoder().getPosition() - pivotPos) < Manipulator.PIVOT_ERROR);
     }
 
+    @Override
     public Command setPivotPos(double pos) {
-        return runOnce(() -> {
+        return run(() -> {
             pivotPos = pos;
-        });
+        }).until(() -> pivotAtPos(pos));
     }
 
     @Override

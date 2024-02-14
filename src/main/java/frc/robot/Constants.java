@@ -109,6 +109,7 @@ public final class Constants {
                                 MotorConfig.Mode.BRAKE);
 
                 public static final int ENCODER_ID = 0;// set this
+                public static final int BEAM_BREAK_ID = 2;
                 public static final double ENCODER_OFFSET = 0;// set this
                 public static final double PIVOT_GEAR_RATIO = 0; // set ratio
                 public static final double KS = 0;// set this
@@ -118,10 +119,13 @@ public final class Constants {
 
                 public static final double SHOOTER_SPEED = 5000;
 
-                public static final double PIVOT_FENDOR_ANGLE = 0;
-                public static final double PIVOT_AMP_ANGLE = 0;
-                public static final double PIVOT_ANY_ANGLE = 0; //fix later
-                public static final double PIVOT_IDLE = 0;
+                public static final double PIVOT_FENDOR_ANGLE = 0; // find angle
+                public static final double PIVOT_AMP_ANGLE = 0; // find angle
+                public static final double PIVOT_TRAP_ANGLE = 0; // find angle
+                public static final double PIVOT_STAGE_ANGLE = 0; // find angle
+                public static final double PIVOT_IDLE = -60;// resting
+                public static final double SHOOTER_ERROR = 500;
+                public static final double PIVOT_ERROR = .1;
         }
 
         public static final class Intake {

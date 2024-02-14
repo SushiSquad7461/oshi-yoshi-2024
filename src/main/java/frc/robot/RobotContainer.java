@@ -50,7 +50,12 @@ public class RobotContainer {
 
     oi.getDriverController().a().onTrue(stateMachine.changeState(RobotState.INTAKE));
     oi.getDriverController().b().onTrue(stateMachine.changeState(RobotState.REVERSE));
-    oi.getDriverController().x().onTrue(stateMachine.changeState(RobotState.SHOOT));
+
+    oi.getDriverController().x().onTrue(stateMachine.changeState(RobotState.SHOOT_AMP));
+    oi.getDriverController().rightTrigger().onTrue(stateMachine.changeState(RobotState.SHOOT_ANYWHERE));
+    oi.getDriverController().leftTrigger().onTrue(stateMachine.changeState(RobotState.SHOOT_FENDOR));
+    oi.getDriverController().leftBumper().onTrue(stateMachine.changeState(RobotState.SHOOT_STAGE));
+    oi.getDriverController().rightBumper().onTrue(stateMachine.changeState(RobotState.SHOOT_TRAP));
 
     oi.getDriverController().back().onTrue(stateMachine.changeState(RobotState.IDLE));
   }

@@ -30,7 +30,7 @@ abstract public class Shooter extends SubsystemBase {
         shooterLeft = Manipulator.SHOOTER_CONFIG_LEFT.createSparkMax();
         shooterRight = Manipulator.SHOOTER_CONFIG_RIGHT.createSparkMax();
         shooterLeft.follow(shooterRight, false);
-        beamBreak = new DigitalInput(2);
+        beamBreak = new DigitalInput(Manipulator.BEAM_BREAK_ID);
 
         tuning = new PIDTuning("Shooter", Manipulator.SHOOTER_CONFIG_RIGHT.pid, Constants.TUNING_MODE);
         shooterSpeed = new TunableNumber("Shooter Speed", 0, Constants.TUNING_MODE);
@@ -60,7 +60,7 @@ abstract public class Shooter extends SubsystemBase {
     }
 
     public boolean shooterAtSpeed(double speed) {
-        return (Math.abs(shooterRight.getEncoder().getVelocity() - speed) < 500);
+        return (Math.abs(shooterRight.getEncoder().getVelocity() - speed) < Manipulator.SHOOTER_ERROR);
     }
 
     @Override
