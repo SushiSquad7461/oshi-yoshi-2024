@@ -166,7 +166,7 @@ public final class Constants {
         }
 
         public static final class Indexer {
-                public static final int BEAMBREAK = 1;;
+                public static final int BEAM_BREAK = 1;;
                 public static final double UPRIGHT_ROLLERS_SPEED = 0.9;
                 public static final double INDEXER_SPEED = 0.9;
                 public static final MotorConfig INDEXER_CONFIG = new MotorConfig(
