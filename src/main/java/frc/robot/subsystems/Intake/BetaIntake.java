@@ -43,11 +43,11 @@ public class BetaIntake extends Intake {
     }
 
     public void resetToAbsolutePosition() {
-        pivotMotor.getEncoder().setPosition(getPosition());
+        pivotMotor.getEncoder().setPosition(getAbsolutePosition());
     }
 
     public double getPosition() {
-        return absoluteEncoder.getPosition();
+        return pivotMotor.getEncoder().getPosition();
     }
 
     public double getAbsolutePosition() {
@@ -66,22 +66,20 @@ public class BetaIntake extends Intake {
         return Math.abs(getPosition() - setpoint);
     }
 
-    public Command setPosition(double pivotPos) {
-        return runOnce(() -> {
-            this.pivotPos = pivotPos;
-        });
+    @Override
+    public Command lowerIntake() {
+        return changePivotPos(Constants.Intake.LOWERED_POS);
+    }
+
+    @Override
+    public Command raiseIntake() {
+        return changePivotPos(Constants.Intake.RAISED_POS);
     }
 
     public Command changePivotPos(double position) {
-        if (position < pivotPos) {
-            return run(() -> {
-                setPosition(Constants.Intake.LOWERED_POS);
-            }).until(() -> getError(Constants.Intake.LOWERED_POS) < Constants.Intake.MAX_ERROR);
-        } else {
-            return run(() -> {
-                setPosition(Constants.Intake.RAISED_POS);
-            }).until(() -> getError(Constants.Intake.RAISED_POS) < Constants.Intake.MAX_ERROR);
-        }
+        return run(() -> {
+            this.pivotPos = position;
+        }).until(() -> getError(position) < Constants.Intake.MAX_ERROR);
     }
 
     @Override
