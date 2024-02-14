@@ -16,11 +16,11 @@ public class StateMachine extends Command {
         INTAKE(IntakeState.INTAKE, ShooterState.IDLE, IndexerState.INDEX),
         INDEX(IntakeState.IDLE, ShooterState.FEED, IndexerState.INDEX),
         REVERSE(IntakeState.REVERSE, ShooterState.REVERSE, IndexerState.REVERSE),
-        SHOOT_ANYWHERE(IntakeState.IDLE, ShooterState.SHOOT_ANYWHERE, IndexerState.INDEX), // should i set this to idle?
-        SHOOT_FENDOR(IntakeState.IDLE, ShooterState.SHOOT_FENDOR, IndexerState.INDEX),
-        SHOOT_AMP(IntakeState.IDLE, ShooterState.SHOOT_AMP, IndexerState.INDEX),
-        SHOOT_TRAP(IntakeState.IDLE, ShooterState.SHOOT_TRAP, IndexerState.INDEX),
-        SHOOT_STAGE(IntakeState.IDLE, ShooterState.SHOOT_STAGE, IndexerState.INDEX);
+        SHOOT_ANYWHERE(IntakeState.IDLE, ShooterState.SHOOT_ANYWHERE, IndexerState.IDLE), // should i set this to idle?
+        SHOOT_FENDOR(IntakeState.IDLE, ShooterState.SHOOT_FENDOR, IndexerState.IDLE),
+        SHOOT_AMP(IntakeState.IDLE, ShooterState.SHOOT_AMP, IndexerState.IDLE),
+        SHOOT_TRAP(IntakeState.IDLE, ShooterState.SHOOT_TRAP, IndexerState.IDLE),
+        SHOOT_STAGE(IntakeState.IDLE, ShooterState.SHOOT_STAGE, IndexerState.IDLE);
 
         public IntakeState intakeState;
         public ShooterState shooterState;
