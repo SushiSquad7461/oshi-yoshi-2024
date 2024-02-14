@@ -72,18 +72,16 @@ public class BetaIntake extends Intake {
         });
     }
 
-    @Override
-    public Command lowerIntake() {
-        return runOnce(() -> {
-            setPosition(Constants.Intake.LOWERED_POS);
-        });
-    }
-
-    @Override
-    public Command raiseIntake() {
-        return runOnce(() -> {
-            setPosition(Constants.Intake.RAISED_POS);
-        });
+    public Command changePivotPos(double position) {
+        if (position < pivotPos) {
+            return run(() -> {
+                setPosition(Constants.Intake.LOWERED_POS);
+            }).until(() -> getError(Constants.Intake.LOWERED_POS) < Constants.Intake.MAX_ERROR);
+        } else {
+            return run(() -> {
+                setPosition(Constants.Intake.RAISED_POS);
+            }).until(() -> getError(Constants.Intake.RAISED_POS) < Constants.Intake.MAX_ERROR);
+        }
     }
 
     @Override
