@@ -83,15 +83,9 @@ public class BetaIntake extends Intake {
     }
 
     public Command changePivotPos(double position) {
-        if (position < pivotPos) {
-            return run(() -> {
-                setPosition(Constants.Intake.LOWERED_POS);
-            }).until(() -> getError(Constants.Intake.LOWERED_POS) < Constants.Intake.MAX_ERROR);
-        } else {
-            return run(() -> {
-                setPosition(Constants.Intake.RAISED_POS);
-            }).until(() -> getError(Constants.Intake.RAISED_POS) < Constants.Intake.MAX_ERROR);
-        }
+        return run(() -> {
+            this.pivotPos = position;
+        }).until(() -> getError(position) < Constants.Intake.MAX_ERROR);
     }
 
     @Override
