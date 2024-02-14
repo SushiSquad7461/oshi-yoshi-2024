@@ -57,9 +57,9 @@ public class StateMachine extends Command {
     public void execute() {
         SmartDashboard.putString("Robot State", state.toString());
 
-        if (intake.ringInIndexer() && state != RobotState.REVERSE) {
+        if (indexer.ringInIndexer() && state != RobotState.REVERSE) {
             scheduleNewState(RobotState.INDEX);
-        } else if (!intake.ringInIndexer() && state == RobotState.INDEX) {
+        } else if (state == RobotState.INDEX) {
             scheduleNewState(RobotState.IDLE);
         }
     }
