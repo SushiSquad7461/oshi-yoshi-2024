@@ -130,7 +130,7 @@ public final class Constants {
         }
 
         public static final class Indexer {
-                public static final int BEAMBREAK = 1;;
+                public static final int BEAM_BREAK = 1;;
                 public static final double UPRIGHT_ROLLERS_SPEED = 0.9;
                 public static final double INDEXER_SPEED = 0.9;
                 public static final MotorConfig INDEXER_CONFIG = new MotorConfig(
@@ -152,7 +152,9 @@ public final class Constants {
                 public static final double INTAKE_GEAR_RATIO = 0.0; // set later
                 public static final double INTAKE_SPEED = 0.9;
                 public static final double ERROR_LIMIT = 0.0; // set later
-                public static final double MAX_ERROR = 0.0; // set later
+                public static final double MAX_ERROR = 1.0; // set later
+                public static final double RAISED_POS = 0.0; // set later
+                public static final double LOWERED_POS = 0.0; // set later
 
                 public static final MotorConfig INTAKE_CONFIG = new MotorConfig(
                                 21,
