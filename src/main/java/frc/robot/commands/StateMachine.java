@@ -12,15 +12,15 @@ import frc.robot.subsystems.Shooter.ShooterState;
 
 public class StateMachine extends Command {
     public enum RobotState {
-        IDLE(IntakeState.IDLE, ShooterState.IDLE),
-        INTAKE(IntakeState.INTAKE, ShooterState.IDLE),
-        INDEX(IntakeState.INDEX, ShooterState.FEED),
-        REVERSE(IntakeState.REVERSE, ShooterState.REVERSE),
-        SHOOT_ANYWHERE(IntakeState.INDEX, ShooterState.SHOOT_ANYWHERE), // should i set this to idle?
-        SHOOT_FENDOR(IntakeState.INDEX, ShooterState.SHOOT_FENDOR),
-        SHOOT_AMP(IntakeState.INDEX, ShooterState.SHOOT_AMP),
-        SHOOT_TRAP(IntakeState.INDEX, ShooterState.SHOOT_TRAP),
-        SHOOT_STAGE(IntakeState.INDEX, ShooterState.SHOOT_STAGE);
+        IDLE(IntakeState.IDLE, ShooterState.IDLE, IndexerState.IDLE),
+        INTAKE(IntakeState.INTAKE, ShooterState.IDLE, IndexerState.INDEX),
+        INDEX(IntakeState.IDLE, ShooterState.FEED, IndexerState.INDEX),
+        REVERSE(IntakeState.REVERSE, ShooterState.REVERSE, IndexerState.REVERSE),
+        SHOOT_ANYWHERE(IntakeState.IDLE, ShooterState.SHOOT_ANYWHERE, IndexerState.INDEX), // should i set this to idle?
+        SHOOT_FENDOR(IntakeState.IDLE, ShooterState.SHOOT_FENDOR, IndexerState.INDEX),
+        SHOOT_AMP(IntakeState.IDLE, ShooterState.SHOOT_AMP, IndexerState.INDEX),
+        SHOOT_TRAP(IntakeState.IDLE, ShooterState.SHOOT_TRAP, IndexerState.INDEX),
+        SHOOT_STAGE(IntakeState.IDLE, ShooterState.SHOOT_STAGE, IndexerState.INDEX);
 
         public IntakeState intakeState;
         public ShooterState shooterState;
