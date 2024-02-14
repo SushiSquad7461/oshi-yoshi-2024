@@ -143,7 +143,7 @@ public final class Constants {
                 public static final double INTAKE_GEAR_RATIO = 0.0; // set later
                 public static final double INTAKE_SPEED = 0.9;
                 public static final double ERROR_LIMIT = 0.0; // set later
-                public static final double MAX_ERROR = 1.0; // set later
+                public static final double MAX_ERROR = 1.0; // set laters
                 public static final double RAISED_POS = 0.0; // set later
                 public static final double LOWERED_POS = 0.0; // set later
 
