@@ -16,7 +16,11 @@ public class StateMachine extends Command {
         INTAKE(IntakeState.INTAKE, ShooterState.IDLE, IndexerState.INDEX),
         INDEX(IntakeState.IDLE, ShooterState.FEED, IndexerState.INDEX),
         REVERSE(IntakeState.REVERSE, ShooterState.REVERSE, IndexerState.REVERSE),
+<<<<<<< HEAD
         SHOOT_ANYWHERE(IntakeState.IDLE, ShooterState.SHOOT_ANYWHERE, IndexerState.IDLE), // should i set this to idle?
+=======
+        SHOOT_ANYWHERE(IntakeState.IDLE, ShooterState.SHOOT_ANYWHERE, IndexerState.IDLE),
+>>>>>>> 3802c27 (rebase + fixy errors)
         SHOOT_FENDOR(IntakeState.IDLE, ShooterState.SHOOT_FENDOR, IndexerState.IDLE),
         SHOOT_AMP(IntakeState.IDLE, ShooterState.SHOOT_AMP, IndexerState.IDLE),
         SHOOT_TRAP(IntakeState.IDLE, ShooterState.SHOOT_TRAP, IndexerState.IDLE),

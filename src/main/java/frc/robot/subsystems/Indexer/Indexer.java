@@ -12,8 +12,9 @@ import frc.robot.util.Direction;
 public class Indexer extends SubsystemBase {
     private final CANSparkMax indexerMotor;
     private final CANSparkMax uprightRollers;
-    private static Indexer instance;
     public static DigitalInput beamBreak;
+
+    private static Indexer instance;
 
     public static Indexer getInstance() {
         if (instance == null) {
@@ -27,11 +28,7 @@ public class Indexer extends SubsystemBase {
         beamBreak = new DigitalInput(Constants.Indexer.BEAM_BREAK_ID);
         indexerMotor = Constants.Indexer.INDEXER_CONFIG.createSparkMax();
         uprightRollers = Constants.Indexer.UPRIGHT_ROLLERS_CONFIG.createSparkMax();
-        beamBreak = new DigitalInput(Constants.Indexer.BEAM_BREAK);
-    }
-
-    public boolean ringInIndexer() {
-        return !beamBreak.get();
+        beamBreak = new DigitalInput(Constants.Indexer.BEAM_BREAK_ID);
     }
 
     public Command runIndexer() {

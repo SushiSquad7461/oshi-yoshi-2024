@@ -8,7 +8,6 @@ import SushiFrcLib.Motor.MotorHelper;
 import SushiFrcLib.Sensors.absoluteEncoder.AbsoluteEncoder;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Constants;
 
 import com.revrobotics.CANSparkMax;
@@ -74,12 +73,6 @@ public class BetaIntake extends Intake {
     @Override
     public Command raiseIntake() {
         return changePivotPos(Constants.Intake.RAISED_POS);
-    }
-
-    public Command changePivotPos(double position) {
-        return run(() -> {
-            this.pivotPos = position;
-        }).until(() -> getError(position) < Constants.Intake.MAX_ERROR);
     }
 
     public Command changePivotPos(double position) {
