@@ -33,6 +33,7 @@ public class RobotContainer {
   Shooter shooter;
   Indexer indexer;
   AutoCommands autos;
+  Indexer indexer;
   public StateMachine stateMachine;
 
   public RobotContainer() {
@@ -43,6 +44,9 @@ public class RobotContainer {
     indexer = Indexer.getInstance();
     stateMachine = new StateMachine(intake, shooter, indexer);
     autos = new AutoCommands(swerve);
+    indexer = Indexer.getInstance();
+
+    stateMachine = new StateMachine(intake, shooter, indexer);
     configureBindings();
   }
 
