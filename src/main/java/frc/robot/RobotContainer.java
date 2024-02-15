@@ -33,8 +33,7 @@ public class RobotContainer {
   Shooter shooter;
   Indexer indexer;
   AutoCommands autos;
-  Indexer indexer;
-  public StateMachine stateMachine;
+  StateMachine stateMachine;
 
   public RobotContainer() {
     oi = OI.getInstance();

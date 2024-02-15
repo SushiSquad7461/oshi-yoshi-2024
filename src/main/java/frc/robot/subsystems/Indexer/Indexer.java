@@ -25,10 +25,13 @@ public class Indexer extends SubsystemBase {
     }
 
     public Indexer() {
-        beamBreak = new DigitalInput(Constants.Indexer.BEAM_BREAK_ID);
         indexerMotor = Constants.Indexer.INDEXER_CONFIG.createSparkMax();
         uprightRollers = Constants.Indexer.UPRIGHT_ROLLERS_CONFIG.createSparkMax();
-        beamBreak = new DigitalInput(Constants.Indexer.BEAM_BREAK_ID);
+        beamBreak = new DigitalInput(Constants.Indexer.BEAM_BREAK);
+    }
+
+    public boolean ringInIndexer() {
+        return !beamBreak.get();
     }
 
     public Command runIndexer() {
