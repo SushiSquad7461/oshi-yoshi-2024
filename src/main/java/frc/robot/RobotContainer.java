@@ -30,6 +30,7 @@ public class RobotContainer {
   Swerve swerve;
   Intake intake;
   Shooter shooter;
+  AutoCommands autos;
   public StateMachine stateMachine;
 
   public RobotContainer() {
@@ -38,6 +39,7 @@ public class RobotContainer {
     shooter = AlphaShooter.getInstance();
     intake = AlphaIntake.getInstance();
     stateMachine = new StateMachine(intake, shooter);
+    autos = new AutoCommands(swerve);
     configureBindings();
   }
 
@@ -56,6 +58,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return null;
+    return autos.getAuto();
   }
 }
