@@ -87,10 +87,12 @@ public class BetaIntake extends Intake {
             resetToAbsolutePosition();
         }
 
-        pivotMotor.getPIDController().setReference(
-                pivotPos,
-                ControlType.kPosition,
-                0,
-                intakeFeedforward.calculate(Math.toRadians(getPosition()), 0.0));
+        intakeMotor.set(0.8);
+
+        // pivotMotor.getPIDController().setReference(
+        //         pivotPos,
+        //         ControlType.kPosition,
+        //         0,
+        //         intakeFeedforward.calculate(Math.toRadians(getPosition()), 0.0));
     }
 }

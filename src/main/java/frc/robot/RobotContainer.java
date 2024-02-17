@@ -12,8 +12,10 @@ import frc.robot.commands.TeleopSwerveDrive;
 import frc.robot.commands.StateMachine.RobotState;
 import frc.robot.subsystems.Swerve;
 import frc.robot.subsystems.Intake.AlphaIntake;
+import frc.robot.subsystems.Intake.BetaIntake;
 import frc.robot.subsystems.Intake.Intake;
 import frc.robot.subsystems.Shooter.AlphaShooter;
+import frc.robot.subsystems.Shooter.BetaShooter;
 import frc.robot.subsystems.Shooter.Shooter;
 import frc.robot.subsystems.Indexer.Indexer;
 
@@ -37,35 +39,34 @@ public class RobotContainer {
 
   public RobotContainer() {
     oi = OI.getInstance();
-    swerve = Swerve.getInstance();
-    shooter = AlphaShooter.getInstance();
-    intake = AlphaIntake.getInstance();
+    // swerve = Swerve.getInstance();
+    shooter = BetaShooter.getInstance();
+    intake = BetaIntake.getInstance();
     indexer = Indexer.getInstance();
-    stateMachine = new StateMachine(intake, shooter, indexer);
-    autos = new AutoCommands(swerve);
-    indexer = Indexer.getInstance();
+    
+    // stateMachine = new StateMachine(intake, shooter, indexer);
+    // autos = new AutoCommands(swerve);
 
-    stateMachine = new StateMachine(intake, shooter, indexer);
     configureBindings();
   }
 
   private void configureBindings() {
-    swerve.setDefaultCommand(new TeleopSwerveDrive(
-        swerve,
-        () -> oi.getDriveTrainTranslationX(),
-        () -> oi.getDriveTrainTranslationY(),
-        () -> oi.getDriveTrainRotation()));
+    // swerve.setDefaultCommand(new TeleopSwerveDrive(
+    //     swerve,
+    //     () -> oi.getDriveTrainTranslationX(),
+    //     () -> oi.getDriveTrainTranslationY(),
+    //     () -> oi.getDriveTrainRotation()));
 
-    oi.getDriverController().a().onTrue(stateMachine.changeState(RobotState.INTAKE));
-    oi.getDriverController().b().onTrue(stateMachine.changeState(RobotState.REVERSE));
+    // oi.getDriverController().a().onTrue(stateMachine.changeState(RobotState.INTAKE));
+    // oi.getDriverController().b().onTrue(stateMachine.changeState(RobotState.REVERSE));
 
-    oi.getDriverController().x().onTrue(stateMachine.changeState(RobotState.SHOOT_AMP));
-    oi.getDriverController().rightTrigger().onTrue(stateMachine.changeState(RobotState.SHOOT_ANYWHERE));
-    oi.getDriverController().leftTrigger().onTrue(stateMachine.changeState(RobotState.SHOOT_FENDOR));
-    oi.getDriverController().leftBumper().onTrue(stateMachine.changeState(RobotState.SHOOT_STAGE));
-    oi.getDriverController().rightBumper().onTrue(stateMachine.changeState(RobotState.SHOOT_TRAP));
+    // oi.getDriverController().x().onTrue(stateMachine.changeState(RobotState.SHOOT_AMP));
+    // oi.getDriverController().rightTrigger().onTrue(stateMachine.changeState(RobotState.SHOOT_ANYWHERE));
+    // oi.getDriverController().leftTrigger().onTrue(stateMachine.changeState(RobotState.SHOOT_FENDOR));
+    // oi.getDriverController().leftBumper().onTrue(stateMachine.changeState(RobotState.SHOOT_STAGE));
+    // oi.getDriverController().rightBumper().onTrue(stateMachine.changeState(RobotState.SHOOT_TRAP));
 
-    oi.getDriverController().back().onTrue(stateMachine.changeState(RobotState.IDLE));
+    // oi.getDriverController().back().onTrue(stateMachine.changeState(RobotState.IDLE));
   }
 
   public Command getAutonomousCommand() {

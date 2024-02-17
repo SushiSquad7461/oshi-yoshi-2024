@@ -10,7 +10,7 @@ import frc.robot.Constants;
 import frc.robot.util.Direction;
 
 abstract public class Intake extends SubsystemBase {
-    private final CANSparkMax intakeMotor;
+    protected final CANSparkMax intakeMotor;
 
     public Intake() {
         intakeMotor = Constants.Intake.INTAKE_CONFIG.createSparkMax();
