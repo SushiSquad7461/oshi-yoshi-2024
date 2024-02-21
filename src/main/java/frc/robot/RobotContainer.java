@@ -40,9 +40,9 @@ public class RobotContainer {
   public RobotContainer() {
     oi = OI.getInstance();
     // swerve = Swerve.getInstance();
-    shooter = BetaShooter.getInstance();
+    // shooter = BetaShooter.getInstance();
     intake = BetaIntake.getInstance();
-    indexer = Indexer.getInstance();
+    // indexer = Indexer.getInstance();
     
     // stateMachine = new StateMachine(intake, shooter, indexer);
     // autos = new AutoCommands(swerve);

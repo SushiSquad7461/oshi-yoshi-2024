@@ -6,7 +6,9 @@ import com.revrobotics.CANSparkBase.ControlType;
 
 import SushiFrcLib.Motor.MotorHelper;
 import SushiFrcLib.Sensors.absoluteEncoder.AbsoluteEncoder;
+import SushiFrcLib.SmartDashboard.TunableNumber;
 import edu.wpi.first.math.controller.ArmFeedforward;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 
@@ -20,7 +22,7 @@ public class BetaIntake extends Intake {
     private final ArmFeedforward intakeFeedforward;
     private final AbsoluteEncoder absoluteEncoder;
 
-    private double pivotPos;
+    private TunableNumber pivotPos;
 
     public static BetaIntake getInstance() {
         if (instance == null) {
@@ -39,6 +41,8 @@ public class BetaIntake extends Intake {
         MotorHelper.setDegreeConversionFactor(pivotMotor, Constants.Intake.INTAKE_GEAR_RATIO);
 
         resetToAbsolutePosition();
+
+        pivotPos = new TunableNumber("Intake Pos", getAbsolutePosition(), Constants.TUNING_MODE);
     }
 
     public void resetToAbsolutePosition() {
@@ -77,7 +81,7 @@ public class BetaIntake extends Intake {
 
     public Command changePivotPos(double position) {
         return run(() -> {
-            this.pivotPos = position;
+            pivotPos.setDefault(position);
         }).until(() -> getError(position) < Constants.Intake.MAX_ERROR);
     }
 
@@ -87,12 +91,18 @@ public class BetaIntake extends Intake {
             resetToAbsolutePosition();
         }
 
+        SmartDashboard.putNumber("Absolute Encoder", getAbsolutePosition());
+        SmartDashboard.putNumber("Relative Encoder", pivotMotor.getEncoder().getPosition());
+
+        super.periodic();
+
         //intakeMotor.set(0.1);
 
-        // pivotMotor.getPIDController().setReference(
-        // pivotPos,
-        // ControlType.kPosition,
-        // 0,
-        // intakeFeedforward.calculate(Math.toRadians(getPosition()), 0.0));
+        pivotMotor.getPIDController().setReference(
+            pivotPos.get(),
+            ControlType.kPosition,
+        0,
+            intakeFeedforward.calculate(Math.toRadians(getPosition()), 0.0)
+        );
     }
 }

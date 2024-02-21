@@ -110,7 +110,7 @@ public final class Constants {
                                 MotorConfig.Mode.BRAKE);
 
                 public static final int ENCODER_ID = 10;// set this
-                public static final int BEAM_BREAK_ID = 2;,
+                public static final int BEAM_BREAK_ID = 2;
                 public static final double ENCODER_OFFSET = 0;// set this
                 public static final double PIVOT_GEAR_RATIO = 0.0; // set ratio
                 public static final double KS = 0;// set this
@@ -165,7 +165,7 @@ public final class Constants {
                 public static final MotorConfig PIVOT_CONFIG = new MotorConfig(
                                 22, // set later
                                 false, // position motor
-                                PIDConfig.getPid(0.1),
+                                PIDConfig.getPid(0.0),
                                 MotorConfig.Mode.BRAKE);
 
         }
