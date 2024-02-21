@@ -84,33 +84,33 @@ public final class Constants {
         public static final class Manipulator {
                 public static final MotorConfig KICKER_CONFIG = new MotorConfig(
                                 25,
-                                40,
+                                60,
                                 true,
                                 MotorConfig.Mode.BRAKE);
 
                 public static final MotorConfig PIVOT_CONFIG = new MotorConfig(
-                                0,
+                                26,
                                 20,
                                 false,
                                 PIDConfig.getPid(0.0),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final MotorConfig SHOOTER_CONFIG_LEFT = new MotorConfig(
-                                26,
+                                27,
                                 40,
                                 false,
                                 PIDConfig.getPid(0.0, 0.0, 0.0),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final MotorConfig SHOOTER_CONFIG_RIGHT = new MotorConfig(
-                                27,
+                                28,
                                 40,
                                 false,
                                 PIDConfig.getPid(0.000030, 0.0, 0.000180),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final int ENCODER_ID = 10;// set this
-                public static final int BEAM_BREAK_ID = 2;
+                public static final int BEAM_BREAK_ID = 2;,
                 public static final double ENCODER_OFFSET = 0;// set this
                 public static final double PIVOT_GEAR_RATIO = 0.0; // set ratio
                 public static final double KS = 0;// set this
@@ -145,7 +145,6 @@ public final class Constants {
                                 MotorConfig.Mode.COAST);
         }
 
-
         public static final class Intake {
                 public static final double G = 0.0; // set later
                 public static final int ENCODER_CHANNEL = 11; // set later
@@ -161,15 +160,13 @@ public final class Constants {
                                 21,
                                 40, // set later
                                 true, // spin motor
-                                MotorConfig.Mode.COAST
-                );
+                                MotorConfig.Mode.COAST);
 
                 public static final MotorConfig PIVOT_CONFIG = new MotorConfig(
                                 22, // set later
                                 false, // position motor
                                 PIDConfig.getPid(0.1),
-                                MotorConfig.Mode.BRAKE
-                );
+                                MotorConfig.Mode.BRAKE);
 
         }
 }

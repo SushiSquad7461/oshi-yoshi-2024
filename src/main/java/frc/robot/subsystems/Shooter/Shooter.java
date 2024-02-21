@@ -17,8 +17,8 @@ import frc.robot.util.Direction;
 
 abstract public class Shooter extends SubsystemBase {
     private final CANSparkMax kicker;
-    private final CANSparkMax shooterLeft;
-    private final CANSparkMax shooterRight;
+    private final CANSparkMax shooterTop;
+    private final CANSparkMax shooterBottom;
 
     private final PIDTuning tuning;
     private final TunableNumber shooterSpeed;
@@ -27,9 +27,9 @@ abstract public class Shooter extends SubsystemBase {
 
     public Shooter() {
         kicker = Manipulator.KICKER_CONFIG.createSparkMax();
-        shooterLeft = Manipulator.SHOOTER_CONFIG_LEFT.createSparkMax();
-        shooterRight = Manipulator.SHOOTER_CONFIG_RIGHT.createSparkMax();
-        shooterLeft.follow(shooterRight, false);
+        shooterTop = Manipulator.SHOOTER_CONFIG_LEFT.createSparkMax();
+        shooterBottom = Manipulator.SHOOTER_CONFIG_RIGHT.createSparkMax();
+        shooterTop.follow(shooterBottom, false);
         beamBreak = new DigitalInput(Manipulator.BEAM_BREAK_ID);
 
         tuning = new PIDTuning("Shooter", Manipulator.SHOOTER_CONFIG_RIGHT.pid, Constants.TUNING_MODE);
@@ -54,26 +54,29 @@ abstract public class Shooter extends SubsystemBase {
 
     public Command runShooter(double speed) {
         return run(() -> {
-            shooterRight.getPIDController().setReference(speed,
+            shooterBottom.getPIDController().setReference(speed,
                     CANSparkBase.ControlType.kVelocity);
         }).until(() -> shooterAtSpeed(speed));
     }
 
     public boolean shooterAtSpeed(double speed) {
-        return (Math.abs(shooterRight.getEncoder().getVelocity() - speed) < Manipulator.SHOOTER_ERROR);
+        return (Math.abs(shooterBottom.getEncoder().getVelocity() - speed) < Manipulator.SHOOTER_ERROR);
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Shooter Speed", shooterRight.getEncoder().getVelocity());
-        SmartDashboard.putNumber("Shooter right current", shooterRight.getOutputCurrent());
-        SmartDashboard.putNumber("Shooter left current", shooterLeft.getOutputCurrent());
-        SmartDashboard.putNumber("Error", shooterLeft.getOutputCurrent());
+        SmartDashboard.putNumber("Shooter Speed", shooterBottom.getEncoder().getVelocity());
+        SmartDashboard.putNumber("Shooter right current", shooterBottom.getOutputCurrent());
+        SmartDashboard.putNumber("Shooter left current", shooterTop.getOutputCurrent());
+        SmartDashboard.putNumber("Error", shooterTop.getOutputCurrent());
 
-        if (Constants.TUNING_MODE) {
-            tuning.updatePID(shooterRight);
-            shooterRight.getPIDController().setReference(shooterSpeed.get(), CANSparkBase.ControlType.kVelocity);
-        }
+        kicker.set(-1);
+        shooterTop.set(1.0);
+        shooterBottom.set(-1.0);
+        // if (Constants.TUNING_MODE) {
+        //     tuning.updatePID(shooterRight);
+        //     shooterRight.getPIDController().setReference(shooterSpeed.get(), CANSparkBase.ControlType.kVelocity);
+        // }
         // shooterRight.set(1);
     }
 

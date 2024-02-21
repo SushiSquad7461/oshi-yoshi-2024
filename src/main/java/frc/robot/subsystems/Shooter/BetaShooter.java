@@ -66,16 +66,17 @@ public class BetaShooter extends Shooter {
         SmartDashboard.putNumber("Absolute Position", absoluteEncoder.getPosition());
         SmartDashboard.putNumber("Relative Position", pivot.getEncoder().getPosition());
 
-        pivot.getPIDController().setReference(
-            pivotPos.get(),
-            CANSparkBase.ControlType.kPosition,
-            0,
-            wristFeedforward.calculate(pivot.getEncoder().getPosition(), 0)
-        );
+        super.periodic();
+        // pivot.getPIDController().setReference(
+        //     pivotPos.get(),
+        //     CANSparkBase.ControlType.kPosition,
+        //     0,
+        //     wristFeedforward.calculate(pivot.getEncoder().getPosition(), 0)
+        // );
 
-        if (Constants.TUNING_MODE) {
-            pivotTuning.updatePID(pivot);
-        }
+        // if (Constants.TUNING_MODE) {
+        //     pivotTuning.updatePID(pivot);
+        // }
     }
 
 }

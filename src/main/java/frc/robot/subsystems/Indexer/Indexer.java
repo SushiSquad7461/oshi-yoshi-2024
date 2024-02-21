@@ -71,8 +71,8 @@ public class Indexer extends SubsystemBase {
 
     @Override
     public void periodic() {
-        indexerMotor.set(1);
-        uprightRollers.set(1);
+        indexerMotor.set(.8);
+        uprightRollers.set(.8);
         SmartDashboard.putBoolean("Ring in Indexer", ringInIndexer());
         SmartDashboard.putNumber("Indexer current", indexerMotor.getOutputCurrent());
     }
