@@ -53,6 +53,7 @@ abstract public class Shooter extends SubsystemBase {
     }
 
     public Command runShooter(double speed) {
+        // return Commands.none();
         return run(() -> {
             shooterBottom.getPIDController().setReference(speed,
                     CANSparkBase.ControlType.kVelocity);
@@ -70,15 +71,11 @@ abstract public class Shooter extends SubsystemBase {
         SmartDashboard.putNumber("Shooter left current", shooterTop.getOutputCurrent());
         SmartDashboard.putNumber("Error", shooterTop.getOutputCurrent());
 
-        kicker.set(-1);
-        shooterTop.set(1.0);
-        shooterBottom.set(-1.0);
-        // if (Constants.TUNING_MODE) {
-        //     tuning.updatePID(shooterRight);
-        //     shooterRight.getPIDController().setReference(shooterSpeed.get(), CANSparkBase.ControlType.kVelocity);
-        // }
-        // shooterRight.set(1);
-    }
+        if (Constants.TUNING_MODE) {
+            tuning.updatePID(shooterBottom);
+            shooterBottom.getPIDController().setReference(shooterSpeed.get(), CANSparkBase.ControlType.kVelocity);
+        }
+     }
 
     public Command setPivotPos(double angle) {
         return Commands.none();
@@ -97,7 +94,9 @@ abstract public class Shooter extends SubsystemBase {
 
         Command pivotCommand = setPivotPos(newState.pivotAngle); // i trolled
 
-        return pivotCommand.andThen(runShooter(newState.runShooter ? Manipulator.SHOOTER_SPEED : 0))
-                .andThen(kickerCommmand);
+        // return pivotCommand.andThen(runShooter(newState.runShooter ? Manipulator.SHOOTER_SPEED : 0))
+                // .andThen(kickerCommmand);
+
+                return runShooter(newState.runShooter ? 5500 : 0 ).andThen(kickerCommmand);
     }
 }

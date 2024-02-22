@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkBase.ControlType;
 
 import SushiFrcLib.Motor.MotorHelper;
 import SushiFrcLib.Sensors.absoluteEncoder.AbsoluteEncoder;
+import SushiFrcLib.SmartDashboard.PIDTuning;
 import SushiFrcLib.SmartDashboard.TunableNumber;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,6 +25,8 @@ public class BetaIntake extends Intake {
 
     private TunableNumber pivotPos;
 
+    private PIDTuning pivotPID;
+
     public static BetaIntake getInstance() {
         if (instance == null) {
             return new BetaIntake();
@@ -37,12 +40,13 @@ public class BetaIntake extends Intake {
         pivotMotor = Constants.Intake.PIVOT_CONFIG.createSparkMax();
 
         intakeFeedforward = new ArmFeedforward(0.0, Constants.Intake.G, 0.0);
-        absoluteEncoder = new AbsoluteEncoder(Constants.Intake.ENCODER_CHANNEL, Constants.Intake.ENCODER_ANGLE_OFFSET);
+        absoluteEncoder = new AbsoluteEncoder(Constants.Intake.ENCODER_CHANNEL, Constants.Intake.ENCODER_ANGLE_OFFSET, true);
         MotorHelper.setDegreeConversionFactor(pivotMotor, Constants.Intake.INTAKE_GEAR_RATIO);
 
         resetToAbsolutePosition();
 
-        pivotPos = new TunableNumber("Intake Pos", getAbsolutePosition(), Constants.TUNING_MODE);
+        pivotPos = new TunableNumber("Intake Pos", Constants.Intake.RAISED_POS, Constants.TUNING_MODE);
+        pivotPID = new PIDTuning("Pivot Motor", Constants.Intake.PIVOT_CONFIG.pid, Constants.TUNING_MODE);
     }
 
     public void resetToAbsolutePosition() {
@@ -87,14 +91,16 @@ public class BetaIntake extends Intake {
 
     @Override
     public void periodic() {
-        if (getAbsoluteError() > Constants.Intake.ERROR_LIMIT) {
-            resetToAbsolutePosition();
-        }
+        // if (getAbsoluteError() > Constants.Intake.ERROR_LIMIT) {
+        //     resetToAbsolutePosition();
+        // }
 
         SmartDashboard.putNumber("Absolute Encoder", getAbsolutePosition());
         SmartDashboard.putNumber("Relative Encoder", pivotMotor.getEncoder().getPosition());
 
         super.periodic();
+
+        pivotPID.updatePID(pivotMotor);
 
         //intakeMotor.set(0.1);
 

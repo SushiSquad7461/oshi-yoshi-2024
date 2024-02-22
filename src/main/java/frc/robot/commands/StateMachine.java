@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.Constants.Robot;
 import frc.robot.subsystems.Indexer.Indexer;
 import frc.robot.subsystems.Indexer.IndexerState;
 import frc.robot.subsystems.Intake.Intake;
@@ -13,7 +14,7 @@ import frc.robot.subsystems.Shooter.ShooterState;
 public class StateMachine extends Command {
     public enum RobotState {
         IDLE(IntakeState.IDLE, ShooterState.IDLE, IndexerState.IDLE),
-        INTAKE(IntakeState.INTAKE, ShooterState.IDLE, IndexerState.INDEX),
+        INTAKE(IntakeState.INTAKE, ShooterState.FEED, IndexerState.INDEX),
         INDEX(IntakeState.IDLE, ShooterState.FEED, IndexerState.INDEX),
         REVERSE(IntakeState.REVERSE, ShooterState.REVERSE, IndexerState.REVERSE),
         SHOOT_ANYWHERE(IntakeState.IDLE, ShooterState.SHOOT_ANYWHERE, IndexerState.IDLE),
@@ -42,11 +43,12 @@ public class StateMachine extends Command {
         this.intake = intake;
         this.shooter = shooter;
         this.indexer = indexer;
+        state = RobotState.IDLE;
     }
 
     @Override
     public void initialize() {
-        scheduleNewState(RobotState.IDLE);
+        // scheduleNewState(RobotState.IDLE);
     }
 
     public void end(boolean interrupted) {

@@ -39,7 +39,7 @@ public class BetaShooter extends Shooter {
 
         pivotTuning = new PIDTuning("Pivot Motor", Manipulator.PIVOT_CONFIG.pid, Constants.TUNING_MODE);
 
-        absoluteEncoder = new AbsoluteEncoder(Manipulator.ENCODER_ID, Manipulator.ENCODER_OFFSET);
+        absoluteEncoder = new AbsoluteEncoder(Manipulator.ENCODER_ID, Manipulator.ENCODER_OFFSET, false);
         wristFeedforward = new ArmFeedforward(Manipulator.KS, Manipulator.KG, Manipulator.KV);
 
         pivotPos = new TunableNumber("Pivot Pose", absoluteEncoder.getPosition(), Constants.TUNING_MODE);
@@ -68,14 +68,14 @@ public class BetaShooter extends Shooter {
 
         super.periodic();
         // pivot.getPIDController().setReference(
-        //     pivotPos.get(),
-        //     CANSparkBase.ControlType.kPosition,
-        //     0,
-        //     wristFeedforward.calculate(pivot.getEncoder().getPosition(), 0)
+        // pivotPos.get(),
+        // CANSparkBase.ControlType.kPosition,
+        // 0,
+        // wristFeedforward.calculate(pivot.getEncoder().getPosition(), 0)
         // );
 
         // if (Constants.TUNING_MODE) {
-        //     pivotTuning.updatePID(pivot);
+        // pivotTuning.updatePID(pivot);
         // }
     }
 

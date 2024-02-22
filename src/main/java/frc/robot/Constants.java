@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 import com.pathplanner.lib.util.PIDConstants;
 
 import SushiFrcLib.Control.PIDConfig;
@@ -23,6 +24,8 @@ public final class Constants {
                 ALPHA,
                 BETA;
         }
+
+        public static final Robot ROBOT = Robot.BETA;
 
         public static final class OI {
                 public static final double STICK_DEADBAND = 0.1;
@@ -84,8 +87,8 @@ public final class Constants {
         public static final class Manipulator {
                 public static final MotorConfig KICKER_CONFIG = new MotorConfig(
                                 25,
-                                60,
-                                true,
+                                40,
+                                false,
                                 MotorConfig.Mode.BRAKE);
 
                 public static final MotorConfig PIVOT_CONFIG = new MotorConfig(
@@ -98,25 +101,25 @@ public final class Constants {
                 public static final MotorConfig SHOOTER_CONFIG_LEFT = new MotorConfig(
                                 27,
                                 40,
-                                false,
-                                PIDConfig.getPid(0.0, 0.0, 0.0),
+                                true,
+                                PIDConfig.getPid(0.0001, 0.0, 0.000185),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final MotorConfig SHOOTER_CONFIG_RIGHT = new MotorConfig(
                                 28,
                                 40,
-                                false,
-                                PIDConfig.getPid(0.000030, 0.0, 0.000180),
+                                true,
+                                PIDConfig.getPid(0.0001, 0.0, 0.000185),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final int ENCODER_ID = 10;// set this
                 public static final int BEAM_BREAK_ID = 2;
-                public static final double ENCODER_OFFSET = 0;// set this
+                public static final double ENCODER_OFFSET = 0.0;// set this
                 public static final double PIVOT_GEAR_RATIO = 0.0; // set ratio
                 public static final double KS = 0;// set this
                 public static final double KG = 0;// set this
                 public static final double KV = 0;// set this
-                public static final double KICKER_SPEED = 0.5;// set this
+                public static final double KICKER_SPEED = 1.0;// set this
 
                 public static final double SHOOTER_SPEED = 5000;
 
@@ -125,12 +128,24 @@ public final class Constants {
                 public static final double PIVOT_TRAP_ANGLE = 0; // find angle
                 public static final double PIVOT_STAGE_ANGLE = 0; // find angle
                 public static final double PIVOT_IDLE = -60;// resting
-                public static final double SHOOTER_ERROR = 500;
+                public static final double SHOOTER_ERROR = 50;
                 public static final double PIVOT_ERROR = .1;
         }
 
         public static final class Indexer {
-                public static final int BEAM_BREAK = 1;;
+                public static int BEAM_BREAK = 1;
+
+                static {
+                        switch (ROBOT) {
+                                case ALPHA:
+                                        BEAM_BREAK = 1;
+                                        break;
+                                default:
+                                        BEAM_BREAK = 9;
+
+                        }
+                }
+
                 public static final double UPRIGHT_ROLLERS_SPEED = 0.9;
                 public static final double INDEXER_SPEED = 0.9;
                 public static final MotorConfig INDEXER_CONFIG = new MotorConfig(
@@ -147,14 +162,14 @@ public final class Constants {
 
         public static final class Intake {
                 public static final double G = 0.0; // set later
-                public static final int ENCODER_CHANNEL = 11; // set later
-                public static final double ENCODER_ANGLE_OFFSET = 0.0; // set later
-                public static final double INTAKE_GEAR_RATIO = 0.0; // set later
+                public static final int ENCODER_CHANNEL = 1;
+                public static final double ENCODER_ANGLE_OFFSET = -64.0;
+                public static final double INTAKE_GEAR_RATIO = 98.583;
                 public static final double INTAKE_SPEED = 0.9;
                 public static final double ERROR_LIMIT = 0.0; // set later
                 public static final double MAX_ERROR = 1.0; // set laters
-                public static final double RAISED_POS = 0.0; // set later
-                public static final double LOWERED_POS = 0.0; // set later
+                public static final double RAISED_POS = 90; 
+                public static final double LOWERED_POS = -11;
 
                 public static final MotorConfig INTAKE_CONFIG = new MotorConfig(
                                 21,
@@ -163,9 +178,10 @@ public final class Constants {
                                 MotorConfig.Mode.COAST);
 
                 public static final MotorConfig PIVOT_CONFIG = new MotorConfig(
-                                22, // set later
-                                false, // position motor
-                                PIDConfig.getPid(0.0),
+                                22,
+                                20, // set later
+                                true, // position motor
+                                PIDConfig.getPid(0.2),
                                 MotorConfig.Mode.BRAKE);
 
         }
