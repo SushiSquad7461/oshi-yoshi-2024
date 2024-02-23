@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import SushiFrcLib.Sensors.gyro.Pigeon;
-import SushiFrcLib.SmartDashboard.AllianceColor;
 import SushiFrcLib.Swerve.SwerveModules.SwerveModuleTalon;
 import SushiFrcLib.Swerve.SwerveTemplates.VisionBaseSwerve;
 import edu.wpi.first.math.controller.PIDController;

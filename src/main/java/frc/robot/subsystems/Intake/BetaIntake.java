@@ -46,7 +46,7 @@ public class BetaIntake extends Intake {
         resetToAbsolutePosition();
 
         pivotPos = new TunableNumber("Intake Pos", Constants.Intake.RAISED_POS, Constants.TUNING_MODE);
-        pivotPID = new PIDTuning("Pivot Motor", Constants.Intake.PIVOT_CONFIG.pid, Constants.TUNING_MODE);
+        pivotPID = Constants.Intake.PIVOT_CONFIG.genPIDTuning("Pivot Motor", Constants.TUNING_MODE);
     }
 
     public void resetToAbsolutePosition() {
@@ -98,11 +98,7 @@ public class BetaIntake extends Intake {
         SmartDashboard.putNumber("Absolute Encoder", getAbsolutePosition());
         SmartDashboard.putNumber("Relative Encoder", pivotMotor.getEncoder().getPosition());
 
-        super.periodic();
-
         pivotPID.updatePID(pivotMotor);
-
-        //intakeMotor.set(0.1);
 
         pivotMotor.getPIDController().setReference(
             pivotPos.get(),
@@ -110,5 +106,7 @@ public class BetaIntake extends Intake {
         0,
             intakeFeedforward.calculate(Math.toRadians(getPosition()), 0.0)
         );
+
+        super.periodic();
     }
 }

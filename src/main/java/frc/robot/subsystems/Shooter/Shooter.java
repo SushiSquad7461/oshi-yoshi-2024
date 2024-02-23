@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.Constants.Manipulator;
 import frc.robot.util.Direction;
@@ -27,12 +26,12 @@ abstract public class Shooter extends SubsystemBase {
 
     public Shooter() {
         kicker = Manipulator.KICKER_CONFIG.createSparkMax();
-        shooterTop = Manipulator.SHOOTER_CONFIG_LEFT.createSparkMax();
-        shooterBottom = Manipulator.SHOOTER_CONFIG_RIGHT.createSparkMax();
+        shooterTop = Manipulator.SHOOTER_CONFIG_TOP.createSparkMax();
+        shooterBottom = Manipulator.SHOOTER_CONFIG_BOTTOM.createSparkMax();
         shooterTop.follow(shooterBottom, false);
         beamBreak = new DigitalInput(Manipulator.BEAM_BREAK_ID);
 
-        tuning = new PIDTuning("Shooter", Manipulator.SHOOTER_CONFIG_RIGHT.pid, Constants.TUNING_MODE);
+        tuning = new PIDTuning("Shooter", Manipulator.SHOOTER_CONFIG_BOTTOM.pid, Constants.TUNING_MODE);
         shooterSpeed = new TunableNumber("Shooter Speed", 0, Constants.TUNING_MODE);
     }
 
@@ -53,10 +52,8 @@ abstract public class Shooter extends SubsystemBase {
     }
 
     public Command runShooter(double speed) {
-        // return Commands.none();
         return run(() -> {
-            shooterBottom.getPIDController().setReference(speed,
-                    CANSparkBase.ControlType.kVelocity);
+            shooterSpeed.setDefault(speed);
         }).until(() -> shooterAtSpeed(speed));
     }
 
@@ -67,15 +64,11 @@ abstract public class Shooter extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Shooter Speed", shooterBottom.getEncoder().getVelocity());
-        SmartDashboard.putNumber("Shooter right current", shooterBottom.getOutputCurrent());
-        SmartDashboard.putNumber("Shooter left current", shooterTop.getOutputCurrent());
         SmartDashboard.putNumber("Error", shooterTop.getOutputCurrent());
 
-        if (Constants.TUNING_MODE) {
-            tuning.updatePID(shooterBottom);
-            shooterBottom.getPIDController().setReference(shooterSpeed.get(), CANSparkBase.ControlType.kVelocity);
-        }
-     }
+        tuning.updatePID(shooterBottom);
+        shooterBottom.getPIDController().setReference(shooterSpeed.get(), CANSparkBase.ControlType.kVelocity);
+      }
 
     public Command setPivotPos(double angle) {
         return Commands.none();
@@ -97,6 +90,6 @@ abstract public class Shooter extends SubsystemBase {
         // return pivotCommand.andThen(runShooter(newState.runShooter ? Manipulator.SHOOTER_SPEED : 0))
                 // .andThen(kickerCommmand);
 
-                return runShooter(newState.runShooter ? 5500 : 0 ).andThen(kickerCommmand);
+        return runShooter(newState.runShooter ? Constants.Manipulator.SHOOTER_SPEED : 0 ).andThen(kickerCommmand);
     }
 }

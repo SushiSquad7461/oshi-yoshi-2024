@@ -11,7 +11,5 @@ public class AlphaShooter extends Shooter {
         return instance;
    }
 
-   private AlphaShooter() {
-    super();
-   } 
+   private AlphaShooter() { super(); } 
 }

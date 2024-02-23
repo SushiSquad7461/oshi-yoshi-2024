@@ -6,15 +6,11 @@ package frc.robot;
 
 import SushiFrcLib.Controllers.OI;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.StateMachine;
-import frc.robot.commands.TeleopSwerveDrive;
 import frc.robot.commands.StateMachine.RobotState;
 import frc.robot.subsystems.Swerve;
-import frc.robot.subsystems.Intake.AlphaIntake;
 import frc.robot.subsystems.Intake.BetaIntake;
 import frc.robot.subsystems.Intake.Intake;
-import frc.robot.subsystems.Shooter.AlphaShooter;
 import frc.robot.subsystems.Shooter.BetaShooter;
 import frc.robot.subsystems.Shooter.Shooter;
 import frc.robot.subsystems.Indexer.Indexer;

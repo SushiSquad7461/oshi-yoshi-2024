@@ -1,6 +1,5 @@
 package frc.robot.subsystems.Shooter;
 
-import edu.wpi.first.units.Angle;
 import frc.robot.Constants.Manipulator;
 import frc.robot.util.Direction;
 
