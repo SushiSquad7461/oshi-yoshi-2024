@@ -34,6 +34,24 @@ public final class Constants {
                 public static final int PIGEON_ID = 13;
         }
 
+        public static class Elevator {
+                public static final MotorConfig ELEVATOR_LEFT = new MotorConfig(
+                        29,
+                        40,
+                        true,
+                        PIDConfig.getPid(0.0),
+                        MotorConfig.Mode.BRAKE
+                );
+
+                public static final MotorConfig ELEVATOR_RIGHT = new MotorConfig(
+                        30,
+                        40,
+                        true,
+                        PIDConfig.getPid(0.0, 0.0, 0.0),
+                        MotorConfig.Mode.BRAKE
+                );   
+        }
+
         public static final class Swerve {
                 public static final boolean GYRO_INVERSION = false; // Always ensure Gyro is CCW+ CW-
 
