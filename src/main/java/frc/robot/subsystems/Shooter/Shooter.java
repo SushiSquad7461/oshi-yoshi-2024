@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.Manipulator;
@@ -24,6 +25,9 @@ abstract public class Shooter extends SubsystemBase {
 
     private final DigitalInput beamBreak;
 
+    private double pivotAngle;
+    private double shooterRate;
+
     public Shooter() {
         kicker = Manipulator.KICKER_CONFIG.createSparkMax();
         shooterTop = Manipulator.SHOOTER_CONFIG_TOP.createSparkMax();
@@ -33,6 +37,16 @@ abstract public class Shooter extends SubsystemBase {
 
         tuning = new PIDTuning("Shooter", Manipulator.SHOOTER_CONFIG_BOTTOM.pid, Constants.TUNING_MODE);
         shooterSpeed = new TunableNumber("Shooter Speed", 0, Constants.TUNING_MODE);
+        pivotAngle = Manipulator.PIVOT_IDLE;
+        shooterRate = 0;
+    }
+
+    public void setShooterSpeed(double speed) {
+        this.shooterRate = speed;
+    }
+
+    public void setManipulatorPos(double pos) {
+        this.pivotAngle = pos;
     }
 
     public boolean ringInManipulator() {
@@ -85,11 +99,15 @@ abstract public class Shooter extends SubsystemBase {
             kickerCommmand = stopKicker();
         }
 
+        if (newState == ShooterState.SHOOT_ANYWHERE) {
+            Command pivotCommand =  setPivotPos(pivotAngle);
+            return pivotCommand.alongWith(runShooter(shooterRate)).andThen(runKicker());        
+        }
+
         Command pivotCommand = setPivotPos(newState.pivotAngle); // i trolled
 
         // return pivotCommand.andThen(runShooter(newState.runShooter ? Manipulator.SHOOTER_SPEED : 0))
                 // .andThen(kickerCommmand);
-
         return runShooter(newState.runShooter ? Constants.Manipulator.SHOOTER_SPEED : 0 ).andThen(kickerCommmand);
     }
 }
