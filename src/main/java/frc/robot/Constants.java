@@ -75,33 +75,60 @@ public final class Constants {
                                 new Translation2d(WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0));
 
                 public static final MotorConfig ANGLE_CONFIG = new MotorConfig(
-                                20,
-                                false, // Make true if we have a stroke
-                                PIDConfig.getPid(0.07), // TODO: retune
-                                MotorConfig.Mode.COAST);
+                        20,
+                        false, // Make true if we have a stroke
+                        PIDConfig.getPid(0.07), // TODO: retune
+                        MotorConfig.Mode.COAST
+                );
+
+
+                public static final MotorConfig ANGLE_FLIPPED_CONFIG = new MotorConfig(
+                        20,
+                        true, // Make true if we have a stroke
+                        PIDConfig.getPid(0.07), // TODO: retune
+                        MotorConfig.Mode.COAST
+                );
 
                 public static final MotorConfig DRIVE_CONFIG = new MotorConfig(
-                                60,
-                                false,
-                                PIDConfig.getPid(0.2, 0.68),
-                                MotorConfig.Mode.BRAKE);
+                        60,
+                false,
+                        PIDConfig.getPid(0.2, 0.68),
+                        MotorConfig.Mode.BRAKE
+                );
+
+                public static final MotorConfig DRIVE_FLIPPED_CONFIG = new MotorConfig(
+                        60,
+                        true,
+                        PIDConfig.getPid(0.2, 0.68),
+                        MotorConfig.Mode.BRAKE
+                );
 
                 public static final PIDConfig autoRotate = PIDConfig.getPid(0.1);
 
                 public static final SDSModules MODULE_TYPE = SDSModules.MK4i;
 
-                public static final SwerveModuleConstants[] SWERVE_MODULE_CONSTANTS = SwerveModuleConstants
-                                .generateConstants(
-                                                new Rotation2d[] { // Tuned
-                                                                Rotation2d.fromDegrees(356.22),
-                                                                Rotation2d.fromDegrees(347.16),
-                                                                Rotation2d.fromDegrees(56.68),
-                                                                Rotation2d.fromDegrees(131.0)
-                                                },
-                                                MODULE_TYPE,
-                                                false,
-                                                DRIVE_CONFIG,
-                                                ANGLE_CONFIG);
+                // public static final SwerveModuleConstants[] SWERVE_MODULE_CONSTANTS = SwerveModuleConstants
+                //                 .generateConstants(
+                //                                 new Rotation2d[] { // Tuned
+                //                                                 Rotation2d.fromDegrees(0.0), // 356.22
+                //                                                 Rotation2d.fromDegrees(0.0), // 347.16
+                //                                                 Rotation2d.fromDegrees(0.0), // 55.68
+                //                                                 Rotation2d.fromDegrees(0.0) //131.0
+                //                                 },
+                //         MODULE_TYPE,
+                //         true,
+                //         DRIVE_CONFIG,
+                //         ANGLE_CONFIG
+                // );
+
+                public static final boolean SWERVE_TUNING_MODE = true;
+
+                public static final SwerveModuleConstants[] SWERVE_MODULE_CONSTANTS = new SwerveModuleConstants[] {
+                        new SwerveModuleConstants(0, Rotation2d.fromDegrees(0.0), MODULE_TYPE, SWERVE_TUNING_MODE, DRIVE_CONFIG, ANGLE_FLIPPED_CONFIG),
+                        new SwerveModuleConstants(1, Rotation2d.fromDegrees(0.0), MODULE_TYPE, SWERVE_TUNING_MODE, DRIVE_CONFIG, ANGLE_FLIPPED_CONFIG),
+                        new SwerveModuleConstants(2, Rotation2d.fromDegrees(0.0), MODULE_TYPE, SWERVE_TUNING_MODE, DRIVE_FLIPPED_CONFIG, ANGLE_CONFIG),
+                        new SwerveModuleConstants(3, Rotation2d.fromDegrees(0.0), MODULE_TYPE, SWERVE_TUNING_MODE, DRIVE_FLIPPED_CONFIG, ANGLE_CONFIG),
+                };
         }
 
         public static final class Manipulator {

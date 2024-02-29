@@ -35,12 +35,12 @@ public class RobotContainer {
 
   public RobotContainer() {
     oi = OI.getInstance();
-    // swerve = Swerve.getInstance();
-    shooter = BetaShooter.getInstance();
-    intake = BetaIntake.getInstance();
-    indexer = Indexer.getInstance();
+    swerve = Swerve.getInstance();
+    // shooter = BetaShooter.getInstance();
+    // intake = BetaIntake.getInstance();
+    // indexer = Indexer.getInstance();
     
-    stateMachine = new StateMachine(intake, shooter, indexer);
+    // stateMachine = new StateMachine(intake, shooter, indexer);
     // autos = new AutoCommands(swerve);
 
     configureBindings();
@@ -53,10 +53,10 @@ public class RobotContainer {
     //     () -> oi.getDriveTrainTranslationY(),
     //     () -> oi.getDriveTrainRotation()));
 
-    oi.getDriverController().a().onTrue(stateMachine.changeState(RobotState.INTAKE));
-    oi.getDriverController().b().onTrue(stateMachine.changeState(RobotState.REVERSE));
+    // oi.getDriverController().a().onTrue(stateMachine.changeState(RobotState.INTAKE));
+    // oi.getDriverController().b().onTrue(stateMachine.changeState(RobotState.REVERSE));
 
-    oi.getDriverController().x().onTrue(stateMachine.changeState(RobotState.SHOOT_FENDOR));
+    // oi.getDriverController().x().onTrue(stateMachine.changeState(RobotState.SHOOT_FENDOR));
     // oi.getDriverController().rightTrigger().onTrue(stateMachine.changeState(RobotState.SHOOT_ANYWHERE));
     // oi.getDriverController().leftTrigger().onTrue(stateMachine.changeState(RobotState.SHOOT_FENDOR));
     // oi.getDriverController().leftBumper().onTrue(stateMachine.changeState(RobotState.SHOOT_STAGE));
