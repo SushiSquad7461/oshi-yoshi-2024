@@ -44,7 +44,7 @@ public class RobotContainer {
     indexer = Indexer.getInstance();
     elevator = Elevator.getInstance();
 
-    stateMachine = new StateMachine(intake, shooter, indexer);
+    stateMachine = new StateMachine(intake, shooter, indexer, elevator);
     // autos = new AutoCommands(swerve);
 
     configureBindings();
@@ -58,18 +58,18 @@ public class RobotContainer {
     () -> oi.getDriveTrainRotation()));
 
     oi.getDriverController().a().onTrue(stateMachine.changeState(RobotState.INTAKE));
-    // oi.getDriverController().b().onTrue(stateMachine.changeState(RobotState.REVERSE));
+    oi.getDriverController().b().onTrue(stateMachine.changeState(RobotState.REVERSE)).onFalse(stateMachine.changeState(RobotState.IDLE));
 
-    oi.getDriverController().x().onTrue(stateMachine.changeState(RobotState.SHOOT_FENDOR));
-    // oi.getDriverController().rightTrigger().onTrue(stateMachine.changeState(RobotState.SHOOT_ANYWHERE));
+    oi.getDriverController().x().onTrue(stateMachine.changeState(RobotState.SHOOT_FENDOR)).onFalse(stateMachine.changeState(RobotState.IDLE));
+    oi.getDriverController().rightTrigger().onTrue(stateMachine.changeState(RobotState.SHOOT_AMP)).onFalse(stateMachine.changeState(RobotState.IDLE));
     // oi.getDriverController().leftTrigger().onTrue(stateMachine.changeState(RobotState.SHOOT_FENDOR));
     // oi.getDriverController().leftBumper().onTrue(stateMachine.changeState(RobotState.SHOOT_STAGE));
     // oi.getDriverController().rightBumper().onTrue(stateMachine.changeState(RobotState.SHOOT_TRAP));
 
     oi.getDriverController().back().onTrue(stateMachine.changeState(RobotState.IDLE));
 
-    oi.getDriverController().b().whileTrue(elevator.runOpenLoopUp()).onFalse(elevator.stopElevator());
-    oi.getDriverController().y().whileTrue(elevator.runOpenLoopDown()).onFalse(elevator.stopElevator());
+    // oi.getDriverController().b().whileTrue(elevator.runOpenLoopUp()).onFalse(elevator.stopElevator());
+    // oi.getDriverController().y().whileTrue(elevator.runOpenLoopDown()).onFalse(elevator.stopElevator());
   }
 
   public Command getAutonomousCommand() {

@@ -6,7 +6,7 @@ import frc.robot.util.Direction;
 public enum ShooterState {
     IDLE(false, Direction.OFF, Manipulator.PIVOT_IDLE),
     SHOOT_ANYWHERE(true, Direction.RUNNING, Manipulator.PIVOT_IDLE), // figure out this
-    SHOOT_FENDOR(true, Direction.RUNNING, Manipulator.PIVOT_FENDOR_ANGLE),
+    SHOOT_FENDOR(true, Direction.RUNNING, Manipulator.PIVOT_IDLE),
     SHOOT_AMP(true, Direction.RUNNING, Manipulator.PIVOT_AMP_ANGLE),
     SHOOT_TRAP(true, Direction.RUNNING, Manipulator.PIVOT_TRAP_ANGLE),
     SHOOT_STAGE(true, Direction.RUNNING, Manipulator.PIVOT_STAGE_ANGLE),

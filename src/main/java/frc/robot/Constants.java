@@ -51,7 +51,7 @@ public final class Constants {
 
                 public static final double G_DOWN = 0;
                 public static final double G_UP = 0;
-                public static final double MAX_ERROR = 0;
+                public static final double MAX_ERROR = 1.0;
         }
 
         public static final class Swerve {
@@ -154,7 +154,7 @@ public final class Constants {
                                 28,
                                 40,
                                 true,
-                                PIDConfig.getPid(0.0001, 0.0, 0.000185),
+                                PIDConfig.getPid(0.00009, 0.0, 0.000174),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final int ENCODER_ID = 4;// set this
@@ -168,13 +168,12 @@ public final class Constants {
 
                 public static final double SHOOTER_SPEED = 5000;
 
-                public static final double PIVOT_FENDOR_ANGLE = 0; // find angle
-                public static final double PIVOT_AMP_ANGLE = 0; // find angle
+                public static final double PIVOT_AMP_ANGLE = 10; // find angle
                 public static final double PIVOT_TRAP_ANGLE = 0; // find angle
-                public static final double PIVOT_STAGE_ANGLE = 0; // find angle
-                public static final double PIVOT_IDLE = -60;// resting
+                public static final double PIVOT_STAGE_ANGLE = -30; // find angle
+                public static final double PIVOT_IDLE = -59;// resting
                 public static final double SHOOTER_ERROR = 50;
-                public static final double PIVOT_ERROR = .1;
+                public static final double PIVOT_ERROR = 0.5;
         }
 
         public static final class Indexer {
@@ -216,8 +215,8 @@ public final class Constants {
                 public static final double ERROR_LIMIT = 3.0;
                 public static final double MAX_ERROR = 3.0;
 
-                public static final double RAISED_POS = 105;
-                public static final double LOWERED_POS = -12.67;
+                public static final double RAISED_POS = 100;
+                public static final double LOWERED_POS = -18;
 
                 public static final MotorConfig INTAKE_CONFIG = new MotorConfig(
                                 21,
@@ -227,9 +226,10 @@ public final class Constants {
 
                 public static final MotorConfig PIVOT_CONFIG = new MotorConfig(
                                 22,
-                                20, // set later
-                                true, // position motor
-                                PIDConfig.getPid(0.005),
-                                MotorConfig.Mode.BRAKE);
+                                20,
+                                true, 
+                                PIDConfig.getPid(0.012, 0.1, 0.0),
+                                MotorConfig.Mode.BRAKE
+                );
         }
 }

@@ -22,22 +22,22 @@ abstract public class Shooter extends SubsystemBase {
     private final PIDTuning tuning;
     private final TunableNumber shooterSpeed;
 
-    private final DigitalInput beamBreak;
+    // private final DigitalInput beamBreak;
 
     public Shooter() {
         kicker = Manipulator.KICKER_CONFIG.createSparkMax();
         shooterTop = Manipulator.SHOOTER_CONFIG_TOP.createSparkMax();
         shooterBottom = Manipulator.SHOOTER_CONFIG_BOTTOM.createSparkMax();
         shooterTop.follow(shooterBottom, false);
-        beamBreak = new DigitalInput(Manipulator.BEAM_BREAK_ID);
+        // beamBreak = new DigitalInput(Manipulator.BEAM_BREAK_ID);
 
         tuning = new PIDTuning("Shooter", Manipulator.SHOOTER_CONFIG_BOTTOM.pid, Constants.TUNING_MODE);
         shooterSpeed = new TunableNumber("Shooter Speed", 0, Constants.TUNING_MODE);
     }
 
-    public boolean ringInManipulator() {
-        return !beamBreak.get();
-    }
+    // public boolean ringInManipulator() {
+    //     return !beamBreak.get();
+    // }
 
     public Command runKicker() {
         return runOnce(() -> kicker.set(Manipulator.KICKER_SPEED));
@@ -85,11 +85,8 @@ abstract public class Shooter extends SubsystemBase {
             kickerCommmand = stopKicker();
         }
 
-        Command pivotCommand = setPivotPos(newState.pivotAngle); // i trolled
+        Command pivotCommand = setPivotPos(newState.pivotAngle);
 
-        // return pivotCommand.andThen(runShooter(newState.runShooter ? Manipulator.SHOOTER_SPEED : 0))
-                // .andThen(kickerCommmand);
-
-        return runShooter(newState.runShooter ? Constants.Manipulator.SHOOTER_SPEED : 0 ).andThen(kickerCommmand);
+        return pivotCommand.andThen(runShooter(newState.runShooter ? Manipulator.SHOOTER_SPEED : 0)).andThen(kickerCommmand);
     }
 }
