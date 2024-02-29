@@ -40,13 +40,14 @@ public class BetaIntake extends Intake {
         pivotMotor = Constants.Intake.PIVOT_CONFIG.createSparkMax();
 
         intakeFeedforward = new ArmFeedforward(0.0, Constants.Intake.G, 0.0);
-        absoluteEncoder = new AbsoluteEncoder(Constants.Intake.ENCODER_CHANNEL, Constants.Intake.ENCODER_ANGLE_OFFSET, true);
+        absoluteEncoder = new AbsoluteEncoder(Constants.Intake.ENCODER_CHANNEL, Constants.Intake.ENCODER_ANGLE_OFFSET,
+                true);
         MotorHelper.setDegreeConversionFactor(pivotMotor, Constants.Intake.INTAKE_GEAR_RATIO);
 
         resetToAbsolutePosition();
 
         pivotPos = new TunableNumber("Intake Pos", Constants.Intake.RAISED_POS, Constants.TUNING_MODE);
-        pivotPID = Constants.Intake.PIVOT_CONFIG.genPIDTuning("Pivot Motor", Constants.TUNING_MODE);
+        pivotPID = Constants.Intake.PIVOT_CONFIG.genPIDTuning("Pivot Intake", Constants.TUNING_MODE);
     }
 
     public void resetToAbsolutePosition() {
@@ -91,21 +92,20 @@ public class BetaIntake extends Intake {
 
     @Override
     public void periodic() {
-        // if (getAbsoluteError() > Constants.Intake.ERROR_LIMIT) {
-        //     resetToAbsolutePosition();
-        // }
+        if (getAbsoluteError() > Constants.Intake.ERROR_LIMIT) {
+            resetToAbsolutePosition();
+        }
 
-        SmartDashboard.putNumber("Absolute Encoder", getAbsolutePosition());
-        SmartDashboard.putNumber("Relative Encoder", pivotMotor.getEncoder().getPosition());
+        SmartDashboard.putNumber("Intake Absolute Encoder", getAbsolutePosition());
+        SmartDashboard.putNumber("Intake Relative Encoder", pivotMotor.getEncoder().getPosition());
 
         pivotPID.updatePID(pivotMotor);
 
         pivotMotor.getPIDController().setReference(
-            pivotPos.get(),
-            ControlType.kPosition,
-        0,
-            intakeFeedforward.calculate(Math.toRadians(getPosition()), 0.0)
-        );
+                pivotPos.get(),
+                ControlType.kPosition,
+                0,
+                intakeFeedforward.calculate(Math.toRadians(getPosition()), 0.0));
 
         super.periodic();
     }

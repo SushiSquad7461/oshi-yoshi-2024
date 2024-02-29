@@ -49,8 +49,8 @@ public class Elevator extends SubsystemBase {
       resetElevator = false;
 
       if (Constants.TUNING_MODE) {
-         pid = new PIDTuning("Elevator",
-               new PIDConfig(Constants.Elevator.P, Constants.Elevator.I, Constants.Elevator.D),
+         pid = new PIDTuning("Elevator PID",
+         Constants.Elevator.ELEVATOR_RIGHT.pid,
                Constants.TUNING_MODE);
       }
 
@@ -82,6 +82,24 @@ public class Elevator extends SubsystemBase {
          rightMotor.set(0);
          rightMotor.setPosition(0);
          resetElevator = false;
+      });
+   }
+
+   public Command runOpenLoopUp() {
+      return runOnce(() -> {
+         rightMotor.set(0.2);
+      });
+   }
+
+   public Command runOpenLoopDown() {
+      return runOnce(() -> {
+         rightMotor.set(-0.2);
+      });
+   }
+
+   public Command stopElevator() {
+      return runOnce(() -> {
+         rightMotor.set(0.0);
       });
    }
 

@@ -37,22 +37,20 @@ public final class Constants {
         public static class Elevator {
                 public static final MotorConfig ELEVATOR_LEFT = new MotorConfig(
                                 29,
-                                40,
+                                10,
                                 true,
-                                PIDConfig.getPid(0.0),
+                                PIDConfig.getPid(0.12),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final MotorConfig ELEVATOR_RIGHT = new MotorConfig(
                                 30,
-                                40,
+                                10,
                                 true,
-                                PIDConfig.getPid(0.0, 0.0, 0.0),
+                                PIDConfig.getPid(0.12, 0.0, 0.0),
                                 MotorConfig.Mode.BRAKE);
+
                 public static final double G_DOWN = 0;
                 public static final double G_UP = 0;
-                public static final double P = 0;
-                public static final double I = 0;
-                public static final double D = 0;
                 public static final double MAX_ERROR = 0;
         }
 
@@ -70,9 +68,9 @@ public final class Constants {
 
                 public static final SwerveDriveKinematics SWERVE_KINEMATICS = new SwerveDriveKinematics(
                                 new Translation2d(WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
-                                new Translation2d(-WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
+                                new Translation2d(WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0),
                                 new Translation2d(-WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0),
-                                new Translation2d(WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0));
+                                new Translation2d(-WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0));
 
                 public static final MotorConfig ANGLE_CONFIG = new MotorConfig(
                         20,
@@ -121,13 +119,13 @@ public final class Constants {
                 //         ANGLE_CONFIG
                 // );
 
-                public static final boolean SWERVE_TUNING_MODE = true;
+                public static final boolean SWERVE_TUNING_MODE = false;
 
                 public static final SwerveModuleConstants[] SWERVE_MODULE_CONSTANTS = new SwerveModuleConstants[] {
-                        new SwerveModuleConstants(0, Rotation2d.fromDegrees(0.0), MODULE_TYPE, SWERVE_TUNING_MODE, DRIVE_CONFIG, ANGLE_FLIPPED_CONFIG),
-                        new SwerveModuleConstants(1, Rotation2d.fromDegrees(0.0), MODULE_TYPE, SWERVE_TUNING_MODE, DRIVE_CONFIG, ANGLE_FLIPPED_CONFIG),
-                        new SwerveModuleConstants(2, Rotation2d.fromDegrees(0.0), MODULE_TYPE, SWERVE_TUNING_MODE, DRIVE_FLIPPED_CONFIG, ANGLE_CONFIG),
-                        new SwerveModuleConstants(3, Rotation2d.fromDegrees(0.0), MODULE_TYPE, SWERVE_TUNING_MODE, DRIVE_FLIPPED_CONFIG, ANGLE_CONFIG),
+                        new SwerveModuleConstants(0, Rotation2d.fromDegrees(166.8), MODULE_TYPE, SWERVE_TUNING_MODE, DRIVE_CONFIG, ANGLE_CONFIG),
+                        new SwerveModuleConstants(1, Rotation2d.fromDegrees(201.7), MODULE_TYPE, SWERVE_TUNING_MODE, DRIVE_FLIPPED_CONFIG, ANGLE_FLIPPED_CONFIG),
+                        new SwerveModuleConstants(2, Rotation2d.fromDegrees(205.05), MODULE_TYPE, SWERVE_TUNING_MODE, DRIVE_CONFIG, ANGLE_CONFIG),
+                        new SwerveModuleConstants(3, Rotation2d.fromDegrees(312.2), MODULE_TYPE, SWERVE_TUNING_MODE, DRIVE_FLIPPED_CONFIG, ANGLE_FLIPPED_CONFIG),
                 };
         }
 
@@ -142,7 +140,7 @@ public final class Constants {
                                 26,
                                 20,
                                 false,
-                                PIDConfig.getPid(0.0),
+                                PIDConfig.getPid(0.05),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final MotorConfig SHOOTER_CONFIG_TOP = new MotorConfig(
@@ -159,10 +157,10 @@ public final class Constants {
                                 PIDConfig.getPid(0.0001, 0.0, 0.000185),
                                 MotorConfig.Mode.BRAKE);
 
-                public static final int ENCODER_ID = 10;// set this
-                public static final int BEAM_BREAK_ID = 2;
+                public static final int ENCODER_ID = 4;// set this
+                public static final int BEAM_BREAK_ID = 3;
                 public static final double ENCODER_OFFSET = 0.0;// set this
-                public static final double PIVOT_GEAR_RATIO = 0.0; // set ratio
+                public static final double PIVOT_GEAR_RATIO = 75.0; // set ratio
                 public static final double KS = 0;// set this
                 public static final double KG = 0;// set this
                 public static final double KV = 0;// set this
@@ -180,7 +178,7 @@ public final class Constants {
         }
 
         public static final class Indexer {
-                public static int BEAM_BREAK = 1;
+                public static int BEAM_BREAK;
 
                 static {
                         switch (ROBOT) {
@@ -188,7 +186,7 @@ public final class Constants {
                                         BEAM_BREAK = 1;
                                         break;
                                 default:
-                                        BEAM_BREAK = 9;
+                                        BEAM_BREAK = 0;
 
                         }
                 }
@@ -208,18 +206,18 @@ public final class Constants {
         }
 
         public static final class Intake {
-                public static final double G = 0.0; // set later
+                public static final double G = 0.3; // retune
                 public static final int ENCODER_CHANNEL = 1;
-                public static final double ENCODER_ANGLE_OFFSET = -64.0;
-                public static final double INTAKE_GEAR_RATIO = 98.583;
+                public static final double ENCODER_ANGLE_OFFSET = -55.1;
+                public static final double INTAKE_GEAR_RATIO = 21.701;
 
                 public static final double INTAKE_SPEED = 0.9;
 
-                public static final double ERROR_LIMIT = 0.0;
-                public static final double MAX_ERROR = 1.0;
+                public static final double ERROR_LIMIT = 3.0;
+                public static final double MAX_ERROR = 3.0;
 
-                public static final double RAISED_POS = 90;
-                public static final double LOWERED_POS = -11;
+                public static final double RAISED_POS = 105;
+                public static final double LOWERED_POS = -12.67;
 
                 public static final MotorConfig INTAKE_CONFIG = new MotorConfig(
                                 21,
@@ -231,7 +229,7 @@ public final class Constants {
                                 22,
                                 20, // set later
                                 true, // position motor
-                                PIDConfig.getPid(0.2),
+                                PIDConfig.getPid(0.005),
                                 MotorConfig.Mode.BRAKE);
         }
 }
