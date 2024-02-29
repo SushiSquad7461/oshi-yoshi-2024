@@ -23,7 +23,7 @@ public class AutoCommands {
                 swerve::getOdomPose,
                 swerve::setOdomPose,
                 swerve::getChassisSpeeds,
-                swerve::drive,
+                swerve::driveChassis,
                 new HolonomicPathFollowerConfig(
                         Constants.Swerve.AUTO_TRANSLATION,
                         Constants.Swerve.AUTO_ROTATION,
