@@ -59,7 +59,7 @@ public class BetaShooter extends Shooter {
     }
 
     public boolean ringInShooter() {
-        return beamBreak.get();
+        return !beamBreak.get();
     }
 
     @Override
