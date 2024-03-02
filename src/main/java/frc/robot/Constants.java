@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import org.opencv.video.FarnebackOpticalFlow;
+
 import com.pathplanner.lib.util.PIDConstants;
 
 import SushiFrcLib.Control.PIDConfig;
@@ -16,7 +18,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 
 public final class Constants {
-        public static final boolean TUNING_MODE = false;
+        public static final boolean TUNING_MODE = true;
 
         public enum Robot {
                 ALPHA,
@@ -166,13 +168,13 @@ public final class Constants {
                 public static final double KV = 0;// set this
                 public static final double KICKER_SPEED = 1.0;// set this
 
-                public static final double SHOOTER_SPEED = 5000;
+                public static final double SHOOTER_SPEED = 4500;
 
                 public static final double PIVOT_AMP_ANGLE = 10; // find angle
                 public static final double PIVOT_TRAP_ANGLE = 0; // find angle
-                public static final double PIVOT_STAGE_ANGLE = -30; // find angle
-                public static final double PIVOT_IDLE = -59;// resting
-                public static final double SHOOTER_ERROR = 50;
+                public static final double PIVOT_STAGE_ANGLE = -45; 
+                public static final double PIVOT_IDLE = -59;
+                public static final double SHOOTER_ERROR = 100;
                 public static final double PIVOT_ERROR = 0.5;
         }
 
@@ -199,7 +201,7 @@ public final class Constants {
                                 MotorConfig.Mode.COAST);
                 public static final MotorConfig UPRIGHT_ROLLERS_CONFIG = new MotorConfig(
                                 23, // set canID later
-                                30, // set later
+                                20, 
                                 false, // position motor
                                 MotorConfig.Mode.COAST);
         }

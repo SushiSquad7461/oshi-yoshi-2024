@@ -63,7 +63,7 @@ public class RobotContainer {
     oi.getDriverController().x().onTrue(stateMachine.changeState(RobotState.SHOOT_FENDOR)).onFalse(stateMachine.changeState(RobotState.IDLE));
     oi.getDriverController().rightTrigger().onTrue(stateMachine.changeState(RobotState.SHOOT_AMP)).onFalse(stateMachine.changeState(RobotState.IDLE));
     // oi.getDriverController().leftTrigger().onTrue(stateMachine.changeState(RobotState.SHOOT_FENDOR));
-    // oi.getDriverController().leftBumper().onTrue(stateMachine.changeState(RobotState.SHOOT_STAGE));
+    oi.getDriverController().leftBumper().onTrue(stateMachine.changeState(RobotState.SHOOT_STAGE));
     // oi.getDriverController().rightBumper().onTrue(stateMachine.changeState(RobotState.SHOOT_TRAP));
 
     oi.getDriverController().back().onTrue(stateMachine.changeState(RobotState.IDLE));

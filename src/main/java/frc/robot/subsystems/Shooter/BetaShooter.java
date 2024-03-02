@@ -44,7 +44,7 @@ public class BetaShooter extends Shooter {
         wristFeedforward = new ArmFeedforward(Manipulator.KS, Manipulator.KG, Manipulator.KV);
 
         pivotTuning =  Manipulator.PIVOT_CONFIG.genPIDTuning("Pivot Shooter", Constants.TUNING_MODE);
-        pivotPos = new TunableNumber("Pivot Pose", absoluteEncoder.getPosition(), Constants.TUNING_MODE);
+        pivotPos = new TunableNumber("Pivot Pose", Manipulator.PIVOT_IDLE, Constants.TUNING_MODE);
         beamBreak = new DigitalInput(3);
         resetEncoder();
         pivot.getEncoder().setPosition(-59.8);

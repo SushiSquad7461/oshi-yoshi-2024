@@ -11,5 +11,8 @@ public class AlphaShooter extends Shooter {
         return instance;
    }
 
-   private AlphaShooter() { super(); } 
+   private AlphaShooter() { super(); }
+
+    @Override
+    public boolean ringInShooter() { return false; } 
 }

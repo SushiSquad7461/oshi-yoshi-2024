@@ -35,8 +35,10 @@ abstract public class Shooter extends SubsystemBase {
         shooterSpeed = new TunableNumber("Shooter Speed", 0, Constants.TUNING_MODE);
     }
 
+    abstract public boolean ringInShooter();
+
     // public boolean ringInManipulator() {
-    //     return !beamBreak.get();
+    // return !beamBreak.get();
     // }
 
     public Command runKicker() {
@@ -44,7 +46,7 @@ abstract public class Shooter extends SubsystemBase {
     }
 
     public Command reverseKicker() {
-        return runOnce(() -> kicker.set(-Manipulator.KICKER_SPEED));
+        return runOnce(() -> kicker.set(-0.6));
     }
 
     public Command stopKicker() {
@@ -63,12 +65,14 @@ abstract public class Shooter extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Shooter Speed", shooterBottom.getEncoder().getVelocity());
+        SmartDashboard.putNumber("Shooter Speed", shooterBottom.getEncoder().getVelocity());        SmartDashboard.putNumber("Shooter Top", shooterTop.getEncoder().getVelocity());
         SmartDashboard.putNumber("Error", shooterTop.getOutputCurrent());
+
+        kicker.set(1.0);
 
         tuning.updatePID(shooterBottom);
         shooterBottom.getPIDController().setReference(shooterSpeed.get(), CANSparkBase.ControlType.kVelocity);
-      }
+    }
 
     public Command setPivotPos(double angle) {
         return Commands.none();
@@ -87,6 +91,7 @@ abstract public class Shooter extends SubsystemBase {
 
         Command pivotCommand = setPivotPos(newState.pivotAngle);
 
-        return pivotCommand.andThen(runShooter(newState.runShooter ? Manipulator.SHOOTER_SPEED : 0)).andThen(kickerCommmand);
+        return pivotCommand.andThen(runShooter(newState.runShooter ? Manipulator.SHOOTER_SPEED : 0))
+                .andThen(kickerCommmand);
     }
 }

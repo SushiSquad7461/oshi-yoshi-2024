@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.Elevator.Elevator;
 import frc.robot.subsystems.Elevator.ElevatorState;
 import frc.robot.subsystems.Indexer.Indexer;
@@ -18,11 +19,12 @@ public class StateMachine extends Command {
         INTAKE(IntakeState.INTAKE, ShooterState.FEED, IndexerState.INDEX, ElevatorState.IDLE),
         INDEX(IntakeState.IDLE, ShooterState.FEED, IndexerState.INDEX, ElevatorState.IDLE),
         REVERSE(IntakeState.REVERSE, ShooterState.REVERSE, IndexerState.REVERSE, ElevatorState.IDLE),
+        SUCK_IN(IntakeState.IDLE, ShooterState.REVERSE, IndexerState.IDLE, ElevatorState.IDLE),
         SHOOT_ANYWHERE(IntakeState.IDLE, ShooterState.SHOOT_ANYWHERE, IndexerState.IDLE, ElevatorState.IDLE),
         SHOOT_FENDOR(IntakeState.IDLE, ShooterState.SHOOT_FENDOR, IndexerState.IDLE, ElevatorState.IDLE),
         SHOOT_AMP(IntakeState.IDLE, ShooterState.SHOOT_AMP, IndexerState.IDLE, ElevatorState.AMP),
         SHOOT_TRAP(IntakeState.IDLE, ShooterState.SHOOT_TRAP, IndexerState.IDLE, ElevatorState.TRAP),
-        SHOOT_STAGE(IntakeState.IDLE, ShooterState.SHOOT_STAGE, IndexerState.IDLE, ElevatorState.IDLE);
+        SHOOT_STAGE(IntakeState.IDLE, ShooterState.SHOOT_STAGE, IndexerState.IDLE, ElevatorState.IDLE); // 40 10
 
         public IntakeState intakeState;
         public ShooterState shooterState;
@@ -59,8 +61,8 @@ public class StateMachine extends Command {
             scheduleNewState(RobotState.INDEX);
         }
 
-        if (!indexer.ringInIndexer() && state == RobotState.INDEX) {
-            scheduleNewState(RobotState.IDLE);
+        if (shooter.ringInShooter() && state == RobotState.INDEX) {
+            changeState(RobotState.SUCK_IN).andThen(new WaitCommand(0.05)).andThen(changeState(RobotState.IDLE)).schedule();
         }
 
         // if (state == RobotState.REVERSE && !indexer.ringInIndexer()) {
