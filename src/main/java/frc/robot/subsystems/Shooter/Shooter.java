@@ -90,7 +90,7 @@ abstract public class Shooter extends SubsystemBase {
         Command pivotCommand = setPivotPos(newState.pivotAngle);
 
         if (newState == ShooterState.SHOOT_AMP) {
-            return pivotCommand.andThen(runShooter(500))
+            return pivotCommand.andThen(runShooter(1200))
                 .andThen(kickerCommmand);
         }
 

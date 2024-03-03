@@ -175,7 +175,7 @@ public final class Constants {
                 public static final double PIVOT_STAGE_ANGLE = -45; 
                 public static final double PIVOT_IDLE = -57;
                 public static final double SHOOTER_ERROR = 100;
-                public static final double PIVOT_ERROR = 0.5;
+                public static final double PIVOT_ERROR = 1.0;
         }
 
         public static final class Indexer {
