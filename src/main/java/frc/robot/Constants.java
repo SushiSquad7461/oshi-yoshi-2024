@@ -18,7 +18,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 
 public final class Constants {
-        public static final boolean TUNING_MODE = false;
+        public static final boolean TUNING_MODE = true;
 
         public enum Robot {
                 ALPHA,
@@ -57,7 +57,7 @@ public final class Constants {
         }
 
         public static final class Swerve {
-                public static final boolean GYRO_INVERSION = false; // Always ensure Gyro is CCW+ CW-
+                public static final boolean GYRO_INVERSION = true; // Always ensure Gyro is CCW+ CW-
 
                 public static final PIDConstants AUTO_TRANSLATION = new PIDConstants(0.2); // TODO: find pid
                 public static final PIDConstants AUTO_ROTATION = new PIDConstants(0.5); // TODO: find pid
@@ -75,59 +75,59 @@ public final class Constants {
                                 new Translation2d(-WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0));
 
                 public static final MotorConfig ANGLE_CONFIG = new MotorConfig(
-                        20,
-                        false, // Make true if we have a stroke
-                        PIDConfig.getPid(0.07), // TODO: retune
-                        MotorConfig.Mode.COAST
-                );
-
+                                20,
+                                false, // Make true if we have a stroke
+                                PIDConfig.getPid(0.1), // TODO: retune
+                                MotorConfig.Mode.COAST);
 
                 public static final MotorConfig ANGLE_FLIPPED_CONFIG = new MotorConfig(
-                        20,
-                        true, // Make true if we have a stroke
-                        PIDConfig.getPid(0.07), // TODO: retune
-                        MotorConfig.Mode.COAST
-                );
+                                20,
+                                true, // Make true if we have a stroke
+                                PIDConfig.getPid(0.1), // TODO: retune
+                                MotorConfig.Mode.COAST);
 
                 public static final MotorConfig DRIVE_CONFIG = new MotorConfig(
-                        60,
-                false,
-                        PIDConfig.getPid(0.2, 0.68),
-                        MotorConfig.Mode.BRAKE
-                );
+                                60,
+                                false,
+                                PIDConfig.getPid(0.2, 0.68),
+                                MotorConfig.Mode.BRAKE);
 
                 public static final MotorConfig DRIVE_FLIPPED_CONFIG = new MotorConfig(
-                        60,
-                        true,
-                        PIDConfig.getPid(0.2, 0.68),
-                        MotorConfig.Mode.BRAKE
-                );
+                                40,
+                                true,
+                                PIDConfig.getPid(0.2, 0.68),
+                                MotorConfig.Mode.BRAKE);
 
                 public static final PIDConfig autoRotate = PIDConfig.getPid(0.1);
 
                 public static final SDSModules MODULE_TYPE = SDSModules.MK4i;
 
-                // public static final SwerveModuleConstants[] SWERVE_MODULE_CONSTANTS = SwerveModuleConstants
-                //                 .generateConstants(
-                //                                 new Rotation2d[] { // Tuned
-                //                                                 Rotation2d.fromDegrees(0.0), // 356.22
-                //                                                 Rotation2d.fromDegrees(0.0), // 347.16
-                //                                                 Rotation2d.fromDegrees(0.0), // 55.68
-                //                                                 Rotation2d.fromDegrees(0.0) //131.0
-                //                                 },
-                //         MODULE_TYPE,
-                //         true,
-                //         DRIVE_CONFIG,
-                //         ANGLE_CONFIG
+                // public static final SwerveModuleConstants[] SWERVE_MODULE_CONSTANTS =
+                // SwerveModuleConstants
+                // .generateConstants(
+                // new Rotation2d[] { // Tuned
+                // Rotation2d.fromDegrees(0.0), // 356.22
+                // Rotation2d.fromDegrees(0.0), // 347.16
+                // Rotation2d.fromDegrees(0.0), // 55.68
+                // Rotation2d.fromDegrees(0.0) //131.0
+                // },
+                // MODULE_TYPE,
+                // true,
+                // DRIVE_CONFIG,
+                // ANGLE_CONFIG
                 // );
 
                 public static final boolean SWERVE_TUNING_MODE = false;
 
                 public static final SwerveModuleConstants[] SWERVE_MODULE_CONSTANTS = new SwerveModuleConstants[] {
-                        new SwerveModuleConstants(0, Rotation2d.fromDegrees(166.8), MODULE_TYPE, SWERVE_TUNING_MODE, DRIVE_CONFIG, ANGLE_CONFIG),
-                        new SwerveModuleConstants(1, Rotation2d.fromDegrees(201.7), MODULE_TYPE, SWERVE_TUNING_MODE, DRIVE_FLIPPED_CONFIG, ANGLE_FLIPPED_CONFIG),
-                        new SwerveModuleConstants(2, Rotation2d.fromDegrees(205.05), MODULE_TYPE, SWERVE_TUNING_MODE, DRIVE_CONFIG, ANGLE_CONFIG),
-                        new SwerveModuleConstants(3, Rotation2d.fromDegrees(312.2), MODULE_TYPE, SWERVE_TUNING_MODE, DRIVE_FLIPPED_CONFIG, ANGLE_FLIPPED_CONFIG),
+                                new SwerveModuleConstants(0, Rotation2d.fromDegrees(166.8), MODULE_TYPE,
+                                                SWERVE_TUNING_MODE, DRIVE_CONFIG, ANGLE_CONFIG),
+                                new SwerveModuleConstants(1, Rotation2d.fromDegrees(201.7), MODULE_TYPE,
+                                                SWERVE_TUNING_MODE, DRIVE_FLIPPED_CONFIG, ANGLE_FLIPPED_CONFIG),
+                                new SwerveModuleConstants(2, Rotation2d.fromDegrees(205.05), MODULE_TYPE,
+                                                SWERVE_TUNING_MODE, DRIVE_CONFIG, ANGLE_CONFIG),
+                                new SwerveModuleConstants(3, Rotation2d.fromDegrees(312.2), MODULE_TYPE,
+                                                SWERVE_TUNING_MODE, DRIVE_FLIPPED_CONFIG, ANGLE_FLIPPED_CONFIG),
                 };
         }
 
@@ -168,11 +168,11 @@ public final class Constants {
                 public static final double KV = 0;// set this
                 public static final double KICKER_SPEED = 0.6;// set this
 
-                public static final double SHOOTER_SPEED = 4500;
+                public static final double SHOOTER_SPEED = 5000;
 
                 public static final double PIVOT_AMP_ANGLE = 20; // find angle
                 public static final double PIVOT_TRAP_ANGLE = 0; // find angle
-                public static final double PIVOT_STAGE_ANGLE = -41; 
+                public static final double PIVOT_STAGE_ANGLE = -41;
                 public static final double PIVOT_IDLE = -57;
                 public static final double SHOOTER_ERROR = 100;
                 public static final double PIVOT_ERROR = 1.0;
@@ -201,7 +201,7 @@ public final class Constants {
                                 MotorConfig.Mode.COAST);
                 public static final MotorConfig UPRIGHT_ROLLERS_CONFIG = new MotorConfig(
                                 23, // set canID later
-                                20, 
+                                20,
                                 false, // position motor
                                 MotorConfig.Mode.COAST);
         }
@@ -229,9 +229,8 @@ public final class Constants {
                 public static final MotorConfig PIVOT_CONFIG = new MotorConfig(
                                 22,
                                 20,
-                                true, 
-                                PIDConfig.getPid(0.009, 0.0, 0.0), //p:0.012d:0.6
-                                MotorConfig.Mode.BRAKE
-                );
+                                true,
+                                PIDConfig.getPid(0.009, 0.0, 0.0), // p:0.012d:0.6
+                                MotorConfig.Mode.BRAKE);
         }
 }

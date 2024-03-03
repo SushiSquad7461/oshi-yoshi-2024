@@ -1,12 +1,20 @@
 package frc.robot.subsystems;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+import org.photonvision.EstimatedRobotPose;
+
 import SushiFrcLib.Sensors.gyro.Pigeon;
 import SushiFrcLib.Swerve.SwerveModules.SwerveModuleTalon;
 import SushiFrcLib.Swerve.SwerveTemplates.VisionBaseSwerve;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.Constants;
+import frc.robot.util.CameraSystem;
 
 
 public class Swerve extends VisionBaseSwerve {
@@ -14,6 +22,8 @@ public class Swerve extends VisionBaseSwerve {
 
     private boolean locationLock;
     private PIDController rotationLockPID;
+
+    // private CameraSystem cameraSystem;
 
     public static Swerve getInstance() {
         if (instance == null) {
@@ -37,6 +47,12 @@ public class Swerve extends VisionBaseSwerve {
 
         locationLock = false;
         rotationLockPID = Constants.Swerve.autoRotate.getPIDController(); 
+
+
+        // cameraSystem = new CameraSystem(new String[] { "camera4", "camera2" },
+        //         new Transform3d[] { new Transform3d(-0.296, 0.281, 0.197, new Rotation3d(0, 0, 0)),
+        //                 new Transform3d(0.399, 0.0, 0.221, new Rotation3d(1.309, 0.0, 0.0)) },
+        //         "apriltags.json", field);
     }
 
     public void enableRotationLock(double angle) {
@@ -55,6 +71,13 @@ public class Swerve extends VisionBaseSwerve {
         if (locationLock) {
             rotation = rotationLockPID.calculate(getGyro().getAngle().getDegrees());
         }
+
+        // ArrayList<EstimatedRobotPose> list = cameraSystem.getEstimatedPoses(getOdomPose());
+        // addVisionTargets(list);
+
+        // field.getObject("Estimated Poses").setPoses(
+        //     list.stream().map(
+        //         (estimate) -> estimate.estimatedPose.toPose2d()).collect(Collectors.toList()));
 
         super.drive(translation, rotation, color);
     }

@@ -6,6 +6,7 @@ package frc.robot;
 
 import SushiFrcLib.Controllers.OI;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.StateMachine;
 import frc.robot.commands.TeleopSwerveDrive;
 import frc.robot.commands.StateMachine.RobotState;
@@ -63,13 +64,16 @@ public class RobotContainer {
     oi.getDriverController().x().onTrue(stateMachine.changeState(RobotState.SHOOT_FENDOR)).onFalse(stateMachine.changeState(RobotState.IDLE));
     oi.getDriverController().rightTrigger().onTrue(stateMachine.changeState(RobotState.SHOOT_AMP)).onFalse(stateMachine.changeState(RobotState.IDLE));
     // oi.getDriverController().leftTrigger().onTrue(stateMachine.changeState(RobotState.SHOOT_FENDOR));
-    oi.getDriverController().leftBumper().onTrue(stateMachine.changeState(RobotState.SHOOT_STAGE));
-    // oi.getDriverController().rightBumper().onTrue(stateMachine.changeState(RobotState.SHOOT_TRAP));
+    oi.getDriverController().leftBumper().onTrue(stateMachine.changeState(RobotState.SHOOT_STAGE)).onFalse(stateMachine.changeState(RobotState.IDLE));
 
     oi.getDriverController().back().onTrue(stateMachine.changeState(RobotState.IDLE));
+    oi.getOperatorController().back().onTrue(stateMachine.changeState(RobotState.IDLE));
 
-    // oi.getDriverController().b().whileTrue(elevator.runOpenLoopUp()).onFalse(elevator.stopElevator());
-    // oi.getDriverController().y().whileTrue(elevator.runOpenLoopDown()).onFalse(elevator.stopElevator());
+    oi.getOperatorController().a().onTrue(swerve.zeroGyro());
+    oi.getOperatorController().b().onTrue(new InstantCommand(swerve::updateEncoders));
+
+    // oi.getOperatorController().b().whileTrue(elevator.runOpenLoopUp()).onFalse(elevator.stopElevator());
+    oi.getOperatorController().y().onTrue(stateMachine.changeState(RobotState.CLIMB_UP)).onFalse(stateMachine.changeState(RobotState.IDLE));
   }
 
   public Command getAutonomousCommand() {

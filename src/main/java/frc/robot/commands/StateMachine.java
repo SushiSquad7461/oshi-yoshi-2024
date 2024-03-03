@@ -16,9 +16,10 @@ import frc.robot.subsystems.Shooter.ShooterState;
 public class StateMachine extends Command {
     public enum RobotState {
         IDLE(IntakeState.IDLE, ShooterState.IDLE, IndexerState.IDLE, ElevatorState.IDLE),
-        INTAKE(IntakeState.INTAKE, ShooterState.FEED, IndexerState.INDEX, ElevatorState.IDLE),
+        INTAKE(IntakeState.INTAKE, ShooterState.IDLE, IndexerState.INDEX, ElevatorState.IDLE),
         INDEX(IntakeState.IDLE, ShooterState.FEED, IndexerState.INDEX, ElevatorState.IDLE),
         REVERSE(IntakeState.REVERSE, ShooterState.REVERSE, IndexerState.REVERSE, ElevatorState.IDLE),
+        CLIMB_UP(IntakeState.IDLE, ShooterState.IDLE, IndexerState.IDLE, ElevatorState.CLIMB),
         SUCK_IN(IntakeState.IDLE, ShooterState.REVERSE, IndexerState.IDLE, ElevatorState.IDLE),
         SHOOT_ANYWHERE(IntakeState.IDLE, ShooterState.SHOOT_ANYWHERE, IndexerState.IDLE, ElevatorState.IDLE),
         SHOOT_FENDOR(IntakeState.IDLE, ShooterState.SHOOT_FENDOR, IndexerState.IDLE, ElevatorState.SPEAKER),
