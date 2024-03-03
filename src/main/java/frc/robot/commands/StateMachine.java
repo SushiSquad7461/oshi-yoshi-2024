@@ -21,7 +21,7 @@ public class StateMachine extends Command {
         REVERSE(IntakeState.REVERSE, ShooterState.REVERSE, IndexerState.REVERSE, ElevatorState.IDLE),
         SUCK_IN(IntakeState.IDLE, ShooterState.REVERSE, IndexerState.IDLE, ElevatorState.IDLE),
         SHOOT_ANYWHERE(IntakeState.IDLE, ShooterState.SHOOT_ANYWHERE, IndexerState.IDLE, ElevatorState.IDLE),
-        SHOOT_FENDOR(IntakeState.IDLE, ShooterState.SHOOT_FENDOR, IndexerState.IDLE, ElevatorState.IDLE),
+        SHOOT_FENDOR(IntakeState.IDLE, ShooterState.SHOOT_FENDOR, IndexerState.IDLE, ElevatorState.SPEAKER),
         SHOOT_AMP(IntakeState.IDLE, ShooterState.SHOOT_AMP, IndexerState.IDLE, ElevatorState.AMP),
         SHOOT_TRAP(IntakeState.IDLE, ShooterState.SHOOT_TRAP, IndexerState.IDLE, ElevatorState.TRAP),
         SHOOT_STAGE(IntakeState.IDLE, ShooterState.SHOOT_STAGE, IndexerState.IDLE, ElevatorState.IDLE); // 40 10
