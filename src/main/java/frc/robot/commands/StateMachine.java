@@ -62,7 +62,7 @@ public class StateMachine extends Command {
         }
 
         if (shooter.ringInShooter() && state == RobotState.INDEX) {
-            changeState(RobotState.SUCK_IN).andThen(new WaitCommand(0.05)).andThen(changeState(RobotState.IDLE)).schedule();
+            shooter.reverseKicker().andThen(shooter.stopKicker()).andThen(changeState(RobotState.IDLE)).schedule();
         }
 
         // if (state == RobotState.REVERSE && !indexer.ringInIndexer()) {

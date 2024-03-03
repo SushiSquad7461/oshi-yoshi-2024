@@ -46,7 +46,7 @@ abstract public class Shooter extends SubsystemBase {
     }
 
     public Command reverseKicker() {
-        return runOnce(() -> kicker.set(-0.6));
+        return runOnce(() -> kicker.set(-0.3));
     }
 
     public Command stopKicker() {
@@ -68,8 +68,6 @@ abstract public class Shooter extends SubsystemBase {
         SmartDashboard.putNumber("Shooter Speed", shooterBottom.getEncoder().getVelocity());        SmartDashboard.putNumber("Shooter Top", shooterTop.getEncoder().getVelocity());
         SmartDashboard.putNumber("Error", shooterTop.getOutputCurrent());
 
-        kicker.set(1.0);
-
         tuning.updatePID(shooterBottom);
         shooterBottom.getPIDController().setReference(shooterSpeed.get(), CANSparkBase.ControlType.kVelocity);
     }
@@ -90,6 +88,11 @@ abstract public class Shooter extends SubsystemBase {
         }
 
         Command pivotCommand = setPivotPos(newState.pivotAngle);
+
+        if (newState == ShooterState.SHOOT_AMP) {
+            return pivotCommand.andThen(runShooter(500))
+                .andThen(kickerCommmand);
+        }
 
         return pivotCommand.andThen(runShooter(newState.runShooter ? Manipulator.SHOOTER_SPEED : 0))
                 .andThen(kickerCommmand);

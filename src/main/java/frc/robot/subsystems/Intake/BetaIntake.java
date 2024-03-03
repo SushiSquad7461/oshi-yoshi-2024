@@ -106,7 +106,6 @@ public class BetaIntake extends Intake {
                 ControlType.kPosition,
                 0,
                 intakeFeedforward.calculate(Math.toRadians(getPosition()), 0.0));
-
         super.periodic();
     }
 }
