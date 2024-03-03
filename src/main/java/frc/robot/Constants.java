@@ -197,16 +197,15 @@ public final class Constants {
                 public static final Translation2d RED_SPEAKER = new Translation2d(16.28, 5.54);
                 public static final Translation2d BLUE_SPEAKER = new Translation2d(16.28, 5.54);
                 public static final double MAX_DISTANCE = 5;
-                public static InterpolatingDoubleTreeMap POS_MAP = new InterpolatingDoubleTreeMap();
-                static {
-                        POS_MAP.put(Double.valueOf(0), Double.valueOf(0));
-                        POS_MAP.put(Double.valueOf(0), Double.valueOf(0));
-                        POS_MAP.put(Double.valueOf(0), Double.valueOf(0));
-                        POS_MAP.put(Double.valueOf(0), Double.valueOf(0));
-                        POS_MAP.put(Double.valueOf(0), Double.valueOf(0));
-                        POS_MAP.put(Double.valueOf(0), Double.valueOf(0));
-                }
-
+                // public static InterpolatingDoubleTreeMap POS_MAP = new InterpolatingDoubleTreeMap();
+                // static {
+                //         POS_MAP.put(Double.valueOf(0), Double.valueOf(0));
+                //         POS_MAP.put(Double.valueOf(0), Double.valueOf(0));
+                //         POS_MAP.put(Double.valueOf(0), Double.valueOf(0));
+                //         POS_MAP.put(Double.valueOf(0), Double.valueOf(0));
+                //         POS_MAP.put(Double.valueOf(0), Double.valueOf(0));
+                //         POS_MAP.put(Double.valueOf(0), Double.valueOf(0));
+                // }
         }
 
         public static final class Indexer {
