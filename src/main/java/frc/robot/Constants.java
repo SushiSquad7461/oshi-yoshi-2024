@@ -173,7 +173,7 @@ public final class Constants {
                 public static final double PIVOT_AMP_ANGLE = 20; // find angle
                 public static final double PIVOT_TRAP_ANGLE = 0; // find angle
                 public static final double PIVOT_STAGE_ANGLE = -45; 
-                public static final double PIVOT_IDLE = -59;
+                public static final double PIVOT_IDLE = -57;
                 public static final double SHOOTER_ERROR = 100;
                 public static final double PIVOT_ERROR = 0.5;
         }
