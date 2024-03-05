@@ -5,6 +5,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,15 +40,17 @@ public class CameraSystem {
 
     public ArrayList<EstimatedRobotPose> getEstimatedPoses(Pose2d previousePose) {
         ArrayList<EstimatedRobotPose> ret = new ArrayList<EstimatedRobotPose>();
-
         for (int i = 0; i < cameras.length; ++i) {
             EstimatedRobotPose pose = cameras[i].getEstimatedPose(previousePose);
-
             if (pose != null) {
                 ret.add(pose);
             }
+            // System.out.println(cameras[i].camera);
         }
-
+        if(ret.size() > 0) {
+            SmartDashboard.putNumber("Pose X", ret.get(0).estimatedPose.getX());
+            SmartDashboard.putNumber("Pose Y", ret.get(0).estimatedPose.getY());
+        }
         return ret;
     }
 }

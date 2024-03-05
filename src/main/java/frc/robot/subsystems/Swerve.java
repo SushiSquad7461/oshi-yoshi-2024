@@ -23,7 +23,7 @@ public class Swerve extends VisionBaseSwerve {
     private boolean locationLock;
     private PIDController rotationLockPID;
 
-    // private CameraSystem cameraSystem;
+    private CameraSystem cameraSystem;
 
     public static Swerve getInstance() {
         if (instance == null) {
@@ -49,10 +49,10 @@ public class Swerve extends VisionBaseSwerve {
         rotationLockPID = Constants.Swerve.autoRotate.getPIDController(); 
 
 
-        // cameraSystem = new CameraSystem(new String[] { "camera4", "camera2" },
-        //         new Transform3d[] { new Transform3d(-0.296, 0.281, 0.197, new Rotation3d(0, 0, 0)),
-        //                 new Transform3d(0.399, 0.0, 0.221, new Rotation3d(1.309, 0.0, 0.0)) },
-        //         "apriltags.json", field);
+        cameraSystem = new CameraSystem(new String[] { "camera4", "camera2" },
+                new Transform3d[] { new Transform3d(-0.2667, -0.24765, 0.2286, new Rotation3d(0, 0.16, 2.79252)),
+                        new Transform3d(0.0889, 0.2794, 0.4699, new Rotation3d(0, 0.08726, 1.5707)) },
+                "apriltags.json", field);
     }
 
     public void enableRotationLock(double angle) {
@@ -72,13 +72,17 @@ public class Swerve extends VisionBaseSwerve {
             rotation = rotationLockPID.calculate(getGyro().getAngle().getDegrees());
         }
 
-        // ArrayList<EstimatedRobotPose> list = cameraSystem.getEstimatedPoses(getOdomPose());
-        // addVisionTargets(list);
-
-        // field.getObject("Estimated Poses").setPoses(
-        //     list.stream().map(
-        //         (estimate) -> estimate.estimatedPose.toPose2d()).collect(Collectors.toList()));
-
         super.drive(translation, rotation, color);
+    }
+
+    @Override
+    public void periodic(){
+        ArrayList<EstimatedRobotPose> list = cameraSystem.getEstimatedPoses(getOdomPose());
+        addVisionTargets(list);
+
+        field.getObject("Estimated Poses").setPoses(
+            list.stream().map(
+                (estimate) -> estimate.estimatedPose.toPose2d()).collect(Collectors.toList()));
+        super.periodic();
     }
 }
