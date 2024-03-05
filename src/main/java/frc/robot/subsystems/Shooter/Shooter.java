@@ -5,7 +5,6 @@ import com.revrobotics.CANSparkMax;
 
 import SushiFrcLib.SmartDashboard.PIDTuning;
 import SushiFrcLib.SmartDashboard.TunableNumber;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -22,24 +21,17 @@ abstract public class Shooter extends SubsystemBase {
     private final PIDTuning tuning;
     private final TunableNumber shooterSpeed;
 
-    // private final DigitalInput beamBreak;
-
     public Shooter() {
         kicker = Manipulator.KICKER_CONFIG.createSparkMax();
         shooterTop = Manipulator.SHOOTER_CONFIG_TOP.createSparkMax();
         shooterBottom = Manipulator.SHOOTER_CONFIG_BOTTOM.createSparkMax();
         shooterTop.follow(shooterBottom, false);
-        // beamBreak = new DigitalInput(Manipulator.BEAM_BREAK_ID);
 
         tuning = new PIDTuning("Shooter", Manipulator.SHOOTER_CONFIG_BOTTOM.pid, Constants.TUNING_MODE);
         shooterSpeed = new TunableNumber("Shooter Speed", 0, Constants.TUNING_MODE);
     }
 
     abstract public boolean ringInShooter();
-
-    // public boolean ringInManipulator() {
-    // return !beamBreak.get();
-    // }
 
     public Command runKicker() {
         return runOnce(() -> kicker.set(Manipulator.KICKER_SPEED));
@@ -67,8 +59,6 @@ abstract public class Shooter extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber("Shooter Speed", shooterBottom.getEncoder().getVelocity());        SmartDashboard.putNumber("Shooter Top", shooterTop.getEncoder().getVelocity());
         SmartDashboard.putNumber("Error", shooterTop.getOutputCurrent());
-
-        //kicker.set(1.0);
 
         tuning.updatePID(shooterBottom);
         shooterBottom.getPIDController().setReference(shooterSpeed.get(), CANSparkBase.ControlType.kVelocity);

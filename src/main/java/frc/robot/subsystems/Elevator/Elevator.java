@@ -6,7 +6,6 @@ import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
 
-import SushiFrcLib.Control.PIDConfig;
 import SushiFrcLib.SmartDashboard.PIDTuning;
 import SushiFrcLib.SmartDashboard.TunableNumber;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
@@ -112,8 +111,7 @@ public class Elevator extends SubsystemBase {
       }
 
       if (!resetElevator) {
-         // rightMotor.setControl(
-         //       new PositionDutyCycle(setpoint.get()).withFeedForward(up ? ffu.calculate(0.0) : ffd.calculate(0.0)));
+         rightMotor.setControl(new PositionDutyCycle(setpoint.get()).withFeedForward(up ? ffu.calculate(0.0) : ffd.calculate(0.0)));
       }
    }
 }

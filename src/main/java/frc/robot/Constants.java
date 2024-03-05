@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import org.opencv.video.FarnebackOpticalFlow;
-
 import com.pathplanner.lib.util.PIDConstants;
 
 import SushiFrcLib.Control.PIDConfig;
@@ -53,6 +51,7 @@ public final class Constants {
 
                 public static final double G_DOWN = 0;
                 public static final double G_UP = 0;
+
                 public static final double MAX_ERROR = 1.0;
         }
 
@@ -102,32 +101,17 @@ public final class Constants {
 
                 public static final SDSModules MODULE_TYPE = SDSModules.MK4i;
 
-                // public static final SwerveModuleConstants[] SWERVE_MODULE_CONSTANTS =
-                // SwerveModuleConstants
-                // .generateConstants(
-                // new Rotation2d[] { // Tuned
-                // Rotation2d.fromDegrees(0.0), // 356.22
-                // Rotation2d.fromDegrees(0.0), // 347.16
-                // Rotation2d.fromDegrees(0.0), // 55.68
-                // Rotation2d.fromDegrees(0.0) //131.0
-                // },
-                // MODULE_TYPE,
-                // true,
-                // DRIVE_CONFIG,
-                // ANGLE_CONFIG
-                // );
-
                 public static final boolean SWERVE_TUNING_MODE = false;
 
                 public static final SwerveModuleConstants[] SWERVE_MODULE_CONSTANTS = new SwerveModuleConstants[] {
-                                new SwerveModuleConstants(0, Rotation2d.fromDegrees(166.8), MODULE_TYPE,
-                                                SWERVE_TUNING_MODE, DRIVE_CONFIG, ANGLE_CONFIG),
-                                new SwerveModuleConstants(1, Rotation2d.fromDegrees(201.7), MODULE_TYPE,
-                                                SWERVE_TUNING_MODE, DRIVE_FLIPPED_CONFIG, ANGLE_FLIPPED_CONFIG),
-                                new SwerveModuleConstants(2, Rotation2d.fromDegrees(205.05), MODULE_TYPE,
-                                                SWERVE_TUNING_MODE, DRIVE_CONFIG, ANGLE_CONFIG),
-                                new SwerveModuleConstants(3, Rotation2d.fromDegrees(312.2), MODULE_TYPE,
-                                                SWERVE_TUNING_MODE, DRIVE_FLIPPED_CONFIG, ANGLE_FLIPPED_CONFIG),
+                        new SwerveModuleConstants(0, Rotation2d.fromDegrees(166.8), MODULE_TYPE,
+                                SWERVE_TUNING_MODE, DRIVE_CONFIG, ANGLE_CONFIG),
+                        new SwerveModuleConstants(1, Rotation2d.fromDegrees(201.7), MODULE_TYPE,
+                                SWERVE_TUNING_MODE, DRIVE_FLIPPED_CONFIG, ANGLE_FLIPPED_CONFIG),
+                        new SwerveModuleConstants(2, Rotation2d.fromDegrees(205.05), MODULE_TYPE,
+                                SWERVE_TUNING_MODE, DRIVE_CONFIG, ANGLE_CONFIG),
+                        new SwerveModuleConstants(3, Rotation2d.fromDegrees(312.2), MODULE_TYPE,
+                                SWERVE_TUNING_MODE, DRIVE_FLIPPED_CONFIG, ANGLE_FLIPPED_CONFIG),
                 };
         }
 
