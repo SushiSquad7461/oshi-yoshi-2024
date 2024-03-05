@@ -4,7 +4,6 @@ import SushiFrcLib.Controllers.ControllerMath;
 import SushiFrcLib.Swerve.SwerveTemplates.BaseSwerve;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import java.util.function.Supplier;
@@ -65,8 +64,9 @@ public class TeleopSwerveDrive extends Command {
         Translation2d translation = new Translation2d(forwardBack, leftRight);
 
         swerve.drive(
-                (new Translation2d(ControllerMath.cube(translation.getNorm()), translation.getAngle())),
-                ControllerMath.cube(rot),
-                DriverStation.getAlliance().get());
+            (new Translation2d(ControllerMath.cube(translation.getNorm()), translation.getAngle())),
+            ControllerMath.cube(rot),
+            DriverStation.getAlliance().get()
+        );
     }
 }

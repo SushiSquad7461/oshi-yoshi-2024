@@ -23,13 +23,13 @@ public class AutoCommands {
                 swerve::getOdomPose,
                 swerve::setOdomPose,
                 swerve::getChassisSpeeds,
-                swerve::drive,
+                swerve::driveChassis,
                 new HolonomicPathFollowerConfig(
                         Constants.Swerve.AUTO_TRANSLATION,
                         Constants.Swerve.AUTO_ROTATION,
                         Constants.Swerve.MODULE_TYPE.maxSpeed,
                         Constants.Swerve.DRIVE_BASE_RADIUS,
-                        new ReplanningConfig()),
+                        new ReplanningConfig(true, true)),
                 () -> DriverStation.getAlliance().get() == DriverStation.Alliance.Red,
                 swerve
         );

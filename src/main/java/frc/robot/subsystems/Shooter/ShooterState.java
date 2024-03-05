@@ -1,16 +1,17 @@
 package frc.robot.subsystems.Shooter;
 
-import edu.wpi.first.units.Angle;
-import frc.robot.Constants;
+import frc.robot.Constants.Manipulator;
 import frc.robot.util.Direction;
 
 public enum ShooterState {
-    IDLE(false, Direction.OFF, Constants.Manipulator.PIVOT_IDLE),
-    SHOOT_ANYWHERE(true, Direction.RUNNING, Constants.Manipulator.PIVOT_ANY_ANGLE), // figure out this
-    SHOOT_FENDOR(true, Direction.RUNNING, Constants.Manipulator.PIVOT_FENDOR_ANGLE),
-    SHOOT_AMP(true, Direction.RUNNING, Constants.Manipulator.PIVOT_AMP_ANGLE),
-    FEED(false, Direction.RUNNING, Constants.Manipulator.PIVOT_IDLE),
-    REVERSE(false, Direction.REVERSED, Constants.Manipulator.PIVOT_IDLE);
+    IDLE(false, Direction.OFF, Manipulator.PIVOT_IDLE),
+    SHOOT_ANYWHERE(true, Direction.RUNNING, Manipulator.PIVOT_IDLE), // figure out this
+    SHOOT_FENDOR(true, Direction.RUNNING, Manipulator.PIVOT_IDLE),
+    SHOOT_AMP(true, Direction.RUNNING, Manipulator.PIVOT_AMP_ANGLE),
+    SHOOT_TRAP(true, Direction.RUNNING, Manipulator.PIVOT_TRAP_ANGLE),
+    SHOOT_STAGE(true, Direction.RUNNING, Manipulator.PIVOT_STAGE_ANGLE),
+    FEED(false, Direction.RUNNING, Manipulator.PIVOT_IDLE),
+    REVERSE(false, Direction.REVERSED, Manipulator.PIVOT_IDLE);
 
     public boolean runShooter;
     public Direction kickerDirection;

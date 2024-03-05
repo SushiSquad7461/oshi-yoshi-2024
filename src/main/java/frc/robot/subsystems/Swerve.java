@@ -1,13 +1,21 @@
 package frc.robot.subsystems;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+import org.photonvision.EstimatedRobotPose;
+
 import SushiFrcLib.Sensors.gyro.Pigeon;
 import SushiFrcLib.SmartDashboard.AllianceColor;
 import SushiFrcLib.Swerve.SwerveModules.SwerveModuleTalon;
 import SushiFrcLib.Swerve.SwerveTemplates.VisionBaseSwerve;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.Constants;
+import frc.robot.util.CameraSystem;
 
 
 public class Swerve extends VisionBaseSwerve {
@@ -15,6 +23,8 @@ public class Swerve extends VisionBaseSwerve {
 
     private boolean locationLock;
     private PIDController rotationLockPID;
+
+    private CameraSystem cameraSystem;
 
     public static Swerve getInstance() {
         if (instance == null) {
@@ -38,6 +48,12 @@ public class Swerve extends VisionBaseSwerve {
 
         locationLock = false;
         rotationLockPID = Constants.Swerve.autoRotate.getPIDController(); 
+
+
+        cameraSystem = new CameraSystem(new String[] { "camera4", "camera2" },
+                new Transform3d[] { new Transform3d(-0.2667, -0.24765, 0.2286, new Rotation3d(0, 0.16, 2.79252)),
+                        new Transform3d(0.0889, 0.2794, 0.4699, new Rotation3d(0, 0.08726, 1.5707)) },
+                "apriltags.json", field);
     }
 
     public void enableRotationLock(double angle) {
@@ -58,5 +74,16 @@ public class Swerve extends VisionBaseSwerve {
         }
 
         super.drive(translation, rotation, color);
+    }
+
+    @Override
+    public void periodic(){
+        ArrayList<EstimatedRobotPose> list = cameraSystem.getEstimatedPoses(getOdomPose());
+        addVisionTargets(list);
+
+        field.getObject("Estimated Poses").setPoses(
+            list.stream().map(
+                (estimate) -> estimate.estimatedPose.toPose2d()).collect(Collectors.toList()));
+        super.periodic();
     }
 }
