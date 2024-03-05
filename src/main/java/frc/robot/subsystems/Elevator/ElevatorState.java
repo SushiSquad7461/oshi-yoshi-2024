@@ -4,7 +4,7 @@ public enum ElevatorState {
     IDLE(0),
     SPEAKER(45),
     TRAP(0),
-    CLIMB(0),
+    CLIMB(20),
     AMP(55);
 
     double position;

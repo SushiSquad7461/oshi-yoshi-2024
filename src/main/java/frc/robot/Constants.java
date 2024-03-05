@@ -18,7 +18,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 
 public final class Constants {
-        public static final boolean TUNING_MODE = true;
+        public static final boolean TUNING_MODE = false;
 
         public enum Robot {
                 ALPHA,
@@ -172,7 +172,7 @@ public final class Constants {
 
                 public static final double PIVOT_AMP_ANGLE = 20; // find angle
                 public static final double PIVOT_TRAP_ANGLE = 0; // find angle
-                public static final double PIVOT_STAGE_ANGLE = -41;
+                public static final double PIVOT_STAGE_ANGLE = -32.5; //41
                 public static final double PIVOT_IDLE = -57;
                 public static final double SHOOTER_ERROR = 100;
                 public static final double PIVOT_ERROR = 1.0;
