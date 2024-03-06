@@ -10,6 +10,7 @@ import SushiFrcLib.Control.PIDConfig;
 import SushiFrcLib.Motor.MotorConfig;
 import SushiFrcLib.Swerve.SwerveConstants.SDSModules;
 import SushiFrcLib.Swerve.SwerveConstants.SwerveModuleConstants;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -27,6 +28,11 @@ public final class Constants {
 
         public static final class OI {
                 public static final double STICK_DEADBAND = 0.1;
+        }
+
+        public static class FIELD_CONSTANTS {
+                public static final Pose2d BLUE_SPEAKER = new Pose2d(0.39, 5.54, new Rotation2d(0));
+                public static final Pose2d RED_SPEAKER = new Pose2d(16.28, 5.54, new Rotation2d(0));
         }
 
         public static class Ports {
@@ -128,6 +134,16 @@ public final class Constants {
                                 false,
                                 PIDConfig.getPid(0.02),
                                 MotorConfig.Mode.BRAKE);
+
+                // public static InterpolatingDoubleTreeMap POS_MAP = new InterpolatingDoubleTreeMap();
+                // static {
+                //         POS_MAP.put(Double.valueOf(0), Double.valueOf(0));
+                //         POS_MAP.put(Double.valueOf(0), Double.valueOf(0));
+                //         POS_MAP.put(Double.valueOf(0), Double.valueOf(0));
+                //         POS_MAP.put(Double.valueOf(0), Double.valueOf(0));
+                //         POS_MAP.put(Double.valueOf(0), Double.valueOf(0));
+                //         POS_MAP.put(Double.valueOf(0), Double.valueOf(0));
+                // }
 
                 public static final MotorConfig SHOOTER_CONFIG_TOP = new MotorConfig(
                                 27,

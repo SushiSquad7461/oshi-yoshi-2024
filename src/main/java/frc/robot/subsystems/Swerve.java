@@ -22,6 +22,7 @@ public class Swerve extends VisionBaseSwerve {
     private static Swerve instance;
 
     private boolean locationLock;
+    private boolean speakerLock;
     private PIDController rotationLockPID;
 
     private CameraSystem cameraSystem;
@@ -47,6 +48,7 @@ public class Swerve extends VisionBaseSwerve {
         );
 
         locationLock = false;
+        speakerLock = false;
         rotationLockPID = Constants.Swerve.autoRotate.getPIDController(); 
 
 
@@ -67,10 +69,27 @@ public class Swerve extends VisionBaseSwerve {
         locationLock = false;
     }
 
+    public void enableSpeakerLock() {
+        speakerLock = true;
+    }
+
+    public void disableSpeakerLock() {
+        speakerLock = false;
+    }
+
+
     @Override
     public void drive(Translation2d translation, double rotation, Alliance color) {
         if (locationLock) {
             rotation = rotationLockPID.calculate(getGyro().getAngle().getDegrees());
+        }
+
+        if (speakerLock) {
+            rotationLockPID.setSetpoint(odom.getEstimatedPosition().relativeTo(
+                color == Alliance.Red ? Constants.FIELD_CONSTANTS.RED_SPEAKER : Constants.FIELD_CONSTANTS.BLUE_SPEAKER
+            ).getRotation().getDegrees());
+
+            rotation = rotationLockPID.calculate(rotation);
         }
 
         super.drive(translation, rotation, color);
