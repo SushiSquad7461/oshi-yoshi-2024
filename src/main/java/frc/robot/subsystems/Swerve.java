@@ -51,7 +51,7 @@ public class Swerve extends VisionBaseSwerve {
 
 
         cameraSystem = new CameraSystem(new String[] { "camera4", "camera2" },
-                new Transform3d[] { new Transform3d(-0.2667, -0.24765, 0.2286, new Rotation3d(0, 0.16, 2.79252)),
+                new Transform3d[] { new Transform3d(-0.2667, -0.24765, 0.2286, new Rotation3d(0, 0.26, 2.79252)),
                         new Transform3d(0.0889, 0.2794, 0.4699, new Rotation3d(0, 0.08726, 1.5707)) },
                 "apriltags.json", field);
     }

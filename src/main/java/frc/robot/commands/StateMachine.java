@@ -57,13 +57,13 @@ public class StateMachine extends Command {
     public void execute() {
         SmartDashboard.putString("Robot State", state.toString());
 
-        if (indexer.ringInIndexer() && state == RobotState.INTAKE) {
-            scheduleNewState(RobotState.INDEX);
-        }
+        // if (indexer.ringInIndexer() && state == RobotState.INTAKE) {
+        //     scheduleNewState(RobotState.INDEX);
+        // }
 
-        if (shooter.ringInShooter() && state == RobotState.INDEX) {
-            shooter.reverseKicker().andThen(shooter.stopKicker()).andThen(changeState(RobotState.IDLE)).schedule();
-        }
+        // if (shooter.ringInShooter() && state == RobotState.INDEX) {
+        //     shooter.reverseKicker().andThen(shooter.stopKicker()).andThen(changeState(RobotState.IDLE)).schedule();
+        // }
 
         // if (state == RobotState.REVERSE && !indexer.ringInIndexer()) {
         //     scheduleNewState(RobotState.IDLE);

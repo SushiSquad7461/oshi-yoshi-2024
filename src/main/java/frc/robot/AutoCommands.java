@@ -11,13 +11,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.commands.StateMachine;
+import frc.robot.commands.StateMachine.RobotState;
 import frc.robot.subsystems.Swerve;
 
 public class AutoCommands {
     private SendableChooser<Command> chooser;
 
-    public AutoCommands(Swerve swerve) {
+    public AutoCommands(Swerve swerve, StateMachine stateMachine) {
         NamedCommands.registerCommand("Nothing", new InstantCommand());
+        NamedCommands.registerCommand("shoot_fendor", stateMachine.changeState(RobotState.SHOOT_FENDOR));
+        NamedCommands.registerCommand("intake", stateMachine.changeState(RobotState.INTAKE));
+
 
         AutoBuilder.configureHolonomic(
                 swerve::getOdomPose,
@@ -42,6 +47,8 @@ public class AutoCommands {
         chooser.addOption("Square", makeAuto("Square"));
 
         chooser.addOption("Line", makeAuto("Line"));
+
+        chooser.addOption("TwoPieceCenterLine", makeAuto("TwoPieceCenter"));
 
         SmartDashboard.putData("Auto Selecter", chooser);
     }

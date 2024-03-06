@@ -111,7 +111,7 @@ public class Elevator extends SubsystemBase {
       }
 
       if (!resetElevator) {
-         rightMotor.setControl(new PositionDutyCycle(setpoint.get()).withFeedForward(up ? ffu.calculate(0.0) : ffd.calculate(0.0)));
+         // rightMotor.setControl(new PositionDutyCycle(setpoint.get()).withFeedForward(up ? ffu.calculate(0.0) : ffd.calculate(0.0)));
       }
    }
 }

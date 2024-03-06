@@ -46,7 +46,7 @@ public class RobotContainer {
     elevator = Elevator.getInstance();
 
     stateMachine = new StateMachine(intake, shooter, indexer, elevator);
-    autos = new AutoCommands(swerve);
+    autos = new AutoCommands(swerve, stateMachine);
 
     configureBindings();
   }
@@ -70,8 +70,8 @@ public class RobotContainer {
     oi.getOperatorController().a().onTrue(swerve.zeroGyro());
     oi.getOperatorController().b().onTrue(new InstantCommand(swerve::updateEncoders));
 
-    // oi.getDriverController().y().whileTrue(elevator.runOpenLoopUp()).onFalse(elevator.stopElevator());
-    // oi.getDriverController().b().whileTrue(elevator.runOpenLoopDown()).onFalse(elevator.stopElevator());
+    oi.getDriverController().y().whileTrue(elevator.runOpenLoopUp()).onFalse(elevator.stopElevator());
+    oi.getDriverController().b().whileTrue(elevator.runOpenLoopDown()).onFalse(elevator.stopElevator());
     oi.getOperatorController().y().onTrue(stateMachine.changeState(RobotState.CLIMB_UP)).onFalse(stateMachine.changeState(RobotState.IDLE));
   }
 
