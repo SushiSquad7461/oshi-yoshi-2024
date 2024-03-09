@@ -10,6 +10,7 @@ public enum ShooterState {
     SHOOT_AMP(true, Direction.RUNNING, Manipulator.PIVOT_AMP_ANGLE),
     SHOOT_TRAP(true, Direction.RUNNING, Manipulator.PIVOT_TRAP_ANGLE),
     SHOOT_STAGE(true, Direction.RUNNING, Manipulator.PIVOT_STAGE_ANGLE),
+    SPIT_OUT(true, Direction.RUNNING, Manipulator.PIVOT_IDLE ),
     FEED(false, Direction.RUNNING, Manipulator.PIVOT_IDLE),
     REVERSE(false, Direction.REVERSED, Manipulator.PIVOT_IDLE);
 

@@ -7,6 +7,7 @@ package frc.robot;
 import SushiFrcLib.Controllers.OI;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.StateMachine;
 import frc.robot.commands.TeleopSwerveDrive;
 import frc.robot.commands.StateMachine.RobotState;
@@ -61,7 +62,9 @@ public class RobotContainer {
     oi.getDriverController().a().onTrue(stateMachine.changeState(RobotState.INTAKE));
 
     oi.getDriverController().x().onTrue(stateMachine.changeState(RobotState.SHOOT_FENDOR)).onFalse(stateMachine.changeState(RobotState.IDLE));
+    
     oi.getDriverController().rightTrigger().onTrue(stateMachine.changeState(RobotState.SHOOT_AMP)).onFalse(stateMachine.changeState(RobotState.IDLE));
+
     oi.getDriverController().leftBumper().onTrue(stateMachine.changeState(RobotState.SHOOT_STAGE)).onFalse(stateMachine.changeState(RobotState.IDLE));
 
     oi.getDriverController().back().onTrue(stateMachine.changeState(RobotState.IDLE));
@@ -69,6 +72,8 @@ public class RobotContainer {
 
     oi.getOperatorController().a().onTrue(swerve.zeroGyro());
     oi.getOperatorController().b().onTrue(new InstantCommand(swerve::updateEncoders));
+
+    oi.getDriverController().povUp().onTrue(swerve.enableRotationLockCommand(20));
 
     oi.getDriverController().y().whileTrue(elevator.runOpenLoopUp()).onFalse(elevator.stopElevator());
     oi.getDriverController().b().whileTrue(elevator.runOpenLoopDown()).onFalse(elevator.stopElevator());

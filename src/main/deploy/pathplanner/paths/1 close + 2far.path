@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 7.915742439693834,
-        "y": 7.399375045018747
+        "x": 7.748703933975032,
+        "y": 7.402916835684417
       },
       "prevControl": {
-        "x": 7.784771095879891,
-        "y": 7.832914678338005
+        "x": 7.617732590161089,
+        "y": 7.836456469003675
       },
       "nextControl": {
-        "x": 8.041188836109015,
-        "y": 6.984124020486846
+        "x": 7.874150330390214,
+        "y": 6.9876658111525165
       },
       "isLocked": false,
       "linkedName": null
@@ -64,16 +64,16 @@
     },
     {
       "anchor": {
-        "x": 8.04554428138707,
-        "y": 5.817391168364427
+        "x": 7.748703933975032,
+        "y": 5.816146755427839
       },
       "prevControl": {
-        "x": 6.6614699236861155,
-        "y": 6.591128842705447
+        "x": 6.988894112116583,
+        "y": 6.960384450619648
       },
       "nextControl": {
-        "x": 8.07585345626169,
-        "y": 5.800447461295366
+        "x": 7.767912370885079,
+        "y": 5.787219756926518
       },
       "isLocked": false,
       "linkedName": null
@@ -84,8 +84,8 @@
         "y": 6.460848380651985
       },
       "prevControl": {
-        "x": 7.160766683473665,
-        "y": 6.526036473714739
+        "x": 7.3576232376345345,
+        "y": 6.91663854969501
       },
       "nextControl": null,
       "isLocked": false,
@@ -101,17 +101,31 @@
       "command": {
         "type": "parallel",
         "data": {
-          "commands": []
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "spit_out"
+              }
+            }
+          ]
         }
       }
     },
     {
-      "name": "intake",
-      "waypointRelativePos": 1.6,
+      "name": "intake first center",
+      "waypointRelativePos": 0.8999999999999999,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
-          "commands": []
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "schedule_intake"
+              }
+            }
+          ]
         }
       }
     },
@@ -121,15 +135,22 @@
       "command": {
         "type": "parallel",
         "data": {
-          "commands": []
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "spit_out"
+              }
+            }
+          ]
         }
       }
     },
     {
-      "name": "intake",
+      "name": "intake second center",
       "waypointRelativePos": 3.4000000000000004,
       "command": {
-        "type": "parallel",
+        "type": "deadline",
         "data": {
           "commands": []
         }
@@ -141,7 +162,14 @@
       "command": {
         "type": "parallel",
         "data": {
-          "commands": []
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "spit_out"
+              }
+            }
+          ]
         }
       }
     }

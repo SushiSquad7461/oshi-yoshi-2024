@@ -84,6 +84,9 @@ abstract public class Shooter extends SubsystemBase {
         if (newState == ShooterState.SHOOT_AMP) {
             return pivotCommand.andThen(runShooter(1200))
                 .andThen(kickerCommmand);
+        } else if (newState == ShooterState.SPIT_OUT) {
+            return pivotCommand.andThen(runShooter(1000))
+            .andThen(kickerCommmand);  
         }
 
         return pivotCommand.andThen(runShooter(newState.runShooter ? Manipulator.SHOOTER_SPEED : 0))

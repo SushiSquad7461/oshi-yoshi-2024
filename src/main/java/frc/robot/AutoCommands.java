@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.StateMachine;
 import frc.robot.commands.StateMachine.RobotState;
 import frc.robot.subsystems.Swerve;
+import frc.robot.subsystems.Shooter.Shooter;
 
 public class AutoCommands {
     private SendableChooser<Command> chooser;
@@ -21,7 +22,9 @@ public class AutoCommands {
     public AutoCommands(Swerve swerve, StateMachine stateMachine) {
         NamedCommands.registerCommand("Nothing", new InstantCommand());
         NamedCommands.registerCommand("shoot_fendor", stateMachine.changeState(RobotState.SHOOT_FENDOR));
-        NamedCommands.registerCommand("intake", stateMachine.changeState(RobotState.INTAKE));
+        NamedCommands.registerCommand("schedule_intake", stateMachine.changeState(RobotState.INTAKE));
+        NamedCommands.registerCommand("spit_out",  stateMachine.changeState(RobotState.SPIT_OUT));
+
 
 
         AutoBuilder.configureHolonomic(

@@ -14,9 +14,10 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.Constants;
 import frc.robot.util.CameraSystem;
-
 
 public class Swerve extends VisionBaseSwerve {
     private static Swerve instance;
@@ -36,19 +37,17 @@ public class Swerve extends VisionBaseSwerve {
 
     private Swerve() {
         super(
-            new SwerveModuleTalon[]{
-                new SwerveModuleTalon(Constants.Swerve.SWERVE_MODULE_CONSTANTS[0]),
-                new SwerveModuleTalon(Constants.Swerve.SWERVE_MODULE_CONSTANTS[1]),
-                new SwerveModuleTalon(Constants.Swerve.SWERVE_MODULE_CONSTANTS[2]),
-                new SwerveModuleTalon(Constants.Swerve.SWERVE_MODULE_CONSTANTS[3]),
-            },
-            new Pigeon(Constants.Ports.PIGEON_ID, Constants.Swerve.GYRO_INVERSION, Constants.Ports.CANIVORE_NAME),
-            Constants.Swerve.SWERVE_KINEMATICS
-        );
+                new SwerveModuleTalon[] {
+                        new SwerveModuleTalon(Constants.Swerve.SWERVE_MODULE_CONSTANTS[0]),
+                        new SwerveModuleTalon(Constants.Swerve.SWERVE_MODULE_CONSTANTS[1]),
+                        new SwerveModuleTalon(Constants.Swerve.SWERVE_MODULE_CONSTANTS[2]),
+                        new SwerveModuleTalon(Constants.Swerve.SWERVE_MODULE_CONSTANTS[3]),
+                },
+                new Pigeon(Constants.Ports.PIGEON_ID, Constants.Swerve.GYRO_INVERSION, Constants.Ports.CANIVORE_NAME),
+                Constants.Swerve.SWERVE_KINEMATICS);
 
         locationLock = false;
-        rotationLockPID = Constants.Swerve.autoRotate.getPIDController(); 
-
+        rotationLockPID = Constants.Swerve.autoRotate.getPIDController();
 
         cameraSystem = new CameraSystem(new String[] { "camera4", "camera2" },
                 new Transform3d[] { new Transform3d(-0.2667, -0.24765, 0.2286, new Rotation3d(0, 0.26, 2.79252)),
@@ -61,6 +60,20 @@ public class Swerve extends VisionBaseSwerve {
 
         rotationLockPID.setSetpoint(angle);
         rotationLockPID.calculate(getGyro().getAngle().getDegrees());
+    }
+
+    public Command rotateCommand(double angle) {
+        return enableRotationLockCommand(angle).until(() -> {
+            return Math.abs(getGyro().getAngle().getDegrees() - angle) < 2;
+        }).andThen(disableRotationLockCommand());
+    }
+
+    public Command enableRotationLockCommand(double angle) {
+        return runOnce(() -> enableRotationLock(angle));
+    }
+
+    public Command disableRotationLockCommand() {
+        return runOnce(() -> disableRotationLock());
     }
 
     public void disableRotationLock() {
@@ -77,13 +90,13 @@ public class Swerve extends VisionBaseSwerve {
     }
 
     @Override
-    public void periodic(){
+    public void periodic() {
         ArrayList<EstimatedRobotPose> list = cameraSystem.getEstimatedPoses(getOdomPose());
         addVisionTargets(list);
 
         field.getObject("Estimated Poses").setPoses(
-            list.stream().map(
-                (estimate) -> estimate.estimatedPose.toPose2d()).collect(Collectors.toList()));
+                list.stream().map(
+                        (estimate) -> estimate.estimatedPose.toPose2d()).collect(Collectors.toList()));
         super.periodic();
     }
 }

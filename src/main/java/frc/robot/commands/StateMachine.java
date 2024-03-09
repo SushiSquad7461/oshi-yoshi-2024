@@ -24,7 +24,8 @@ public class StateMachine extends Command {
         SHOOT_FENDOR(IntakeState.IDLE, ShooterState.SHOOT_FENDOR, IndexerState.IDLE, ElevatorState.SPEAKER),
         SHOOT_AMP(IntakeState.IDLE, ShooterState.SHOOT_AMP, IndexerState.IDLE, ElevatorState.AMP),
         SHOOT_TRAP(IntakeState.IDLE, ShooterState.SHOOT_TRAP, IndexerState.IDLE, ElevatorState.TRAP),
-        SHOOT_STAGE(IntakeState.IDLE, ShooterState.SHOOT_STAGE, IndexerState.IDLE, ElevatorState.IDLE); // 40 10
+        SHOOT_STAGE(IntakeState.IDLE, ShooterState.SHOOT_STAGE, IndexerState.IDLE, ElevatorState.IDLE), // 40 10
+        SPIT_OUT(IntakeState.IDLE, ShooterState.SPIT_OUT, IndexerState.IDLE, ElevatorState.IDLE);
 
         public IntakeState intakeState;
         public ShooterState shooterState;
@@ -57,17 +58,17 @@ public class StateMachine extends Command {
     public void execute() {
         SmartDashboard.putString("Robot State", state.toString());
 
-        // if (indexer.ringInIndexer() && state == RobotState.INTAKE) {
-        //     scheduleNewState(RobotState.INDEX);
-        // }
+        if (indexer.ringInIndexer() && state == RobotState.INTAKE) {
+            scheduleNewState(RobotState.INDEX);
+        }
 
-        // if (shooter.ringInShooter() && state == RobotState.INDEX) {
-        //     shooter.reverseKicker().andThen(shooter.stopKicker()).andThen(changeState(RobotState.IDLE)).schedule();
-        // }
+        if (shooter.ringInShooter() && state == RobotState.INDEX) {
+            shooter.reverseKicker().andThen(shooter.stopKicker()).andThen(changeState(RobotState.IDLE)).schedule();
+        }
 
-        // if (state == RobotState.REVERSE && !indexer.ringInIndexer()) {
-        //     scheduleNewState(RobotState.IDLE);
-        // }
+        if (state == RobotState.REVERSE && !indexer.ringInIndexer()) {
+            scheduleNewState(RobotState.IDLE);
+        }
     }
 
     public void scheduleNewState(RobotState newState) {

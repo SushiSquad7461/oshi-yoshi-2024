@@ -29,6 +29,7 @@ public class Elevator extends SubsystemBase {
 
    private boolean up;
    private boolean resetElevator;
+   private boolean openLoop;
 
    public static Elevator getInstance() {
       if (instance == null)
@@ -46,6 +47,7 @@ public class Elevator extends SubsystemBase {
       leftMotor.setControl(new Follower(rightMotor.getDeviceID(), true));
 
       resetElevator = false;
+      openLoop = false;
 
       if (Constants.TUNING_MODE) {
          pid = new PIDTuning("Elevator PID",
@@ -59,6 +61,7 @@ public class Elevator extends SubsystemBase {
    public Command changeState(ElevatorState state) {
       return runOnce(
             () -> {
+               openLoop = false;
                up = state.getPos() > rightMotor.getPosition().getValueAsDouble();
                setpoint.setDefault(state.getPos());
             }).andThen(new WaitUntilCommand(elevatorInPosition(state.getPos())));
@@ -73,6 +76,7 @@ public class Elevator extends SubsystemBase {
       return runOnce(() -> {
          rightMotor.set(-0.1);
          resetElevator = true;
+         openLoop = true;
       });
    }
 
@@ -87,12 +91,14 @@ public class Elevator extends SubsystemBase {
    public Command runOpenLoopUp() {
       return runOnce(() -> {
          rightMotor.set(0.2);
+         openLoop = true;
       });
    }
 
    public Command runOpenLoopDown() {
       return runOnce(() -> {
          rightMotor.set(-0.2);
+         openLoop = true;
       });
    }
 
@@ -105,13 +111,14 @@ public class Elevator extends SubsystemBase {
    @Override
    public void periodic() {
       SmartDashboard.putNumber("Elevator Position", rightMotor.getPosition().getValueAsDouble());
+      SmartDashboard.putNumber("Elevator Current Limit", rightMotor.getSupplyCurrent().getValueAsDouble());
 
       if (Constants.TUNING_MODE) {
          pid.updatePID(rightMotor);
       }
 
-      if (!resetElevator) {
-         // rightMotor.setControl(new PositionDutyCycle(setpoint.get()).withFeedForward(up ? ffu.calculate(0.0) : ffd.calculate(0.0)));
+      if (!resetElevator || openLoop) {
+         rightMotor.setControl(new PositionDutyCycle(setpoint.get()).withFeedForward(up ? ffu.calculate(0.0) : ffd.calculate(0.0)));
       }
    }
 }

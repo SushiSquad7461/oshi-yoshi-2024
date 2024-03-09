@@ -58,7 +58,7 @@ public final class Constants {
         public static final class Swerve {
                 public static final boolean GYRO_INVERSION = false; // Always ensure Gyro is CCW+ CW-
 
-                public static final PIDConstants AUTO_TRANSLATION = new PIDConstants(10); // TODO: find pid
+                public static final PIDConstants AUTO_TRANSLATION = new PIDConstants(13); // TODO: find pid
                 public static final PIDConstants AUTO_ROTATION = new PIDConstants(5);
 
                 /* Drivetrain Constants */
@@ -87,7 +87,7 @@ public final class Constants {
                                 MotorConfig.Mode.COAST);
 
                 public static final MotorConfig DRIVE_CONFIG = new MotorConfig(
-                                60,
+                                40,
                                 true,
                                 PIDConfig.getPid(0.2, 0.68),
                                 MotorConfig.Mode.BRAKE);
@@ -98,7 +98,7 @@ public final class Constants {
                                 PIDConfig.getPid(0.2, 0.68),
                                 MotorConfig.Mode.BRAKE);
 
-                public static final PIDConfig autoRotate = PIDConfig.getPid(0.1);
+                public static final PIDConfig autoRotate = PIDConfig.getPid(0.02);
 
                 public static final SDSModules MODULE_TYPE = SDSModules.MK4i;
 
@@ -157,9 +157,9 @@ public final class Constants {
 
                 public static final double PIVOT_AMP_ANGLE = 20; // find angle
                 public static final double PIVOT_TRAP_ANGLE = 0; // find angle
-                public static final double PIVOT_STAGE_ANGLE = -31.3; // 41
+                public static final double PIVOT_STAGE_ANGLE = -41; // 31.5
                 public static final double PIVOT_IDLE = -57;
-                public static final double SHOOTER_ERROR = 100;
+                public static final double SHOOTER_ERROR = 300;
                 public static final double PIVOT_ERROR = 1.0;
         }
 
@@ -178,7 +178,7 @@ public final class Constants {
                 }
 
                 public static final double UPRIGHT_ROLLERS_SPEED = 0.9;
-                public static final double INDEXER_SPEED = 0.9;
+                public static final double INDEXER_SPEED = 0.5;
                 public static final MotorConfig INDEXER_CONFIG = new MotorConfig(
                                 24,
                                 40, // set later
@@ -203,7 +203,7 @@ public final class Constants {
                 public static final double MAX_ERROR = 3.0;
 
                 public static final double RAISED_POS = 110;
-                public static final double LOWERED_POS = -10;
+                public static final double LOWERED_POS = -26;
 
                 public static final MotorConfig INTAKE_CONFIG = new MotorConfig(
                                 21,
