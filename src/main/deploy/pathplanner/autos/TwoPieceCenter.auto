@@ -5,7 +5,7 @@
       "x": 1.46,
       "y": 7.29
     },
-    "rotation": 0
+    "rotation": 0.0
   },
   "command": {
     "type": "sequential",
@@ -14,7 +14,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1 close + 2far"
+            "pathName": "1 close + 1far"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot_center_amp"
           }
         }
       ]

@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 8.109248651333123,
-        "y": 7.396599046929438
+        "x": 8.1448101440979,
+        "y": 7.1651861027602655
       },
       "prevControl": {
-        "x": 7.97827730751918,
-        "y": 7.830138680248696
+        "x": 8.013838800283956,
+        "y": 7.5987257360795235
       },
       "nextControl": {
-        "x": 8.234695047748307,
-        "y": 6.981348022397538
+        "x": 8.270256540513083,
+        "y": 6.749935078228365
       },
       "isLocked": false,
       "linkedName": null
@@ -54,38 +54,6 @@
       "prevControl": {
         "x": 6.7698295732412355,
         "y": 6.79435104765732
-      },
-      "nextControl": {
-        "x": 5.257097427063213,
-        "y": 6.443379862808371
-      },
-      "isLocked": false,
-      "linkedName": "close center shot"
-    },
-    {
-      "anchor": {
-        "x": 8.109248651333123,
-        "y": 5.801788144621066
-      },
-      "prevControl": {
-        "x": 7.349438829474674,
-        "y": 6.946025839812875
-      },
-      "nextControl": {
-        "x": 8.128457088243167,
-        "y": 5.772861146119745
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 5.332389045375106,
-        "y": 6.460848380651985
-      },
-      "prevControl": {
-        "x": 7.3576232376345345,
-        "y": 6.91663854969501
       },
       "nextControl": null,
       "isLocked": false,
@@ -126,43 +94,6 @@
               }
             }
           ]
-        }
-      }
-    },
-    {
-      "name": "shoot_center_amp",
-      "waypointRelativePos": 3.0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": []
-        }
-      }
-    },
-    {
-      "name": "intake second center",
-      "waypointRelativePos": 3.4000000000000004,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "schedule_intake"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "shoot_center_amp",
-      "waypointRelativePos": 4.9,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": []
         }
       }
     }

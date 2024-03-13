@@ -15,9 +15,7 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.Constants;
-import frc.robot.util.CameraSystem;
 
 public class Swerve extends VisionBaseSwerve {
     private static Swerve instance;
@@ -25,7 +23,7 @@ public class Swerve extends VisionBaseSwerve {
     private boolean locationLock;
     private PIDController rotationLockPID;
 
-    private CameraSystem cameraSystem;
+    // private CameraSystem cameraSystem;
 
     public static Swerve getInstance() {
         if (instance == null) {
@@ -49,10 +47,9 @@ public class Swerve extends VisionBaseSwerve {
         locationLock = false;
         rotationLockPID = Constants.Swerve.autoRotate.getPIDController();
 
-        cameraSystem = new CameraSystem(new String[] { "camera4", "camera2" },
-                new Transform3d[] { new Transform3d(-0.2667, -0.24765, 0.2286, new Rotation3d(0, 0.26, 2.79252)),
-                        new Transform3d(0.0889, 0.2794, 0.4699, new Rotation3d(0, 0.08726, 1.5707)) },
-                "apriltags.json", field);
+        // cameraSystem = new CameraSystem(new String[] { "camera2" },
+        //         new Transform3d[] { new Transform3d(-0.176, 0, 0.686, new Rotation3d(0, 0.43633, 1.5708))},
+        //         "apriltags.json", field);
     }
 
     public void enableRotationLock(double angle) {
@@ -91,12 +88,12 @@ public class Swerve extends VisionBaseSwerve {
 
     @Override
     public void periodic() {
-        ArrayList<EstimatedRobotPose> list = cameraSystem.getEstimatedPoses(getOdomPose());
-        addVisionTargets(list);
+        // ArrayList<EstimatedRobotPose> list = cameraSystem.getEstimatedPoses(getOdomPose());
+        // addVisionTargets(list);
 
-        field.getObject("Estimated Poses").setPoses(
-                list.stream().map(
-                        (estimate) -> estimate.estimatedPose.toPose2d()).collect(Collectors.toList()));
+        // field.getObject("Estimated Poses").setPoses(
+        //         list.stream().map(
+        //                 (estimate) -> estimate.estimatedPose.toPose2d()).collect(Collectors.toList()));
         super.periodic();
     }
 }

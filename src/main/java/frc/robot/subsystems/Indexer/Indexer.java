@@ -27,6 +27,8 @@ public class Indexer extends SubsystemBase {
     public Indexer() {
         indexerMotor = Constants.Indexer.INDEXER_CONFIG.createSparkMax();
         uprightRollers = Constants.Indexer.UPRIGHT_ROLLERS_CONFIG.createSparkMax();
+
+        indexerMotor.setOpenLoopRampRate(2.0);
         beamBreak = new DigitalInput(Constants.Indexer.BEAM_BREAK);
     }
 

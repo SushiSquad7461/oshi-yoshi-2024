@@ -1,5 +1,6 @@
 package frc.robot;
 
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter.Indenter;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
@@ -11,10 +12,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.StateMachine;
 import frc.robot.commands.StateMachine.RobotState;
 import frc.robot.subsystems.Swerve;
+import frc.robot.subsystems.Indexer.Indexer;
+import frc.robot.subsystems.Indexer.IndexerState;
+import frc.robot.subsystems.Intake.Intake;
+import frc.robot.subsystems.Intake.IntakeState;
 import frc.robot.subsystems.Shooter.Shooter;
+import frc.robot.subsystems.Shooter.ShooterState;
 
 public class AutoCommands {
     private SendableChooser<Command> chooser;
@@ -22,10 +29,31 @@ public class AutoCommands {
     public AutoCommands(Swerve swerve, StateMachine stateMachine) {
         NamedCommands.registerCommand("Nothing", new InstantCommand());
         NamedCommands.registerCommand("shoot_fendor", stateMachine.changeState(RobotState.SHOOT_FENDOR));
-        NamedCommands.registerCommand("schedule_intake", stateMachine.changeState(RobotState.INTAKE));
+
+        // NamedCommands.registerCommand("schedule_intake", new ParallelCommandGroup(
+        //     intake.changeState(IntakeState.INTAKE),
+        //     indexer.changeState(IndexerState.INDEX),
+        //     shooter.changeKickerState(ShooterState.FEED)
+        // ));
+
+        // NamedCommands.registerCommand("spit_out",  new ParallelCommandGroup(
+        //     intake.changeState(IntakeState.IDLE),
+        //     indexer.changeState(IndexerState.IDLE),
+        //     shooter.changeKickerState(ShooterState.SHOOT_CENTER_AUTO)
+        // ));
+
+        // NamedCommands.registerCommand("shoot_center_amp",  new ParallelCommandGroup(
+        //     intake.changeState(IntakeState.IDLE),
+        //     indexer.changeState(IndexerState.IDLE),
+        //     shooter.changeKickerState(ShooterState.SHOOT_CENTER_AUTO)
+        // ));
+
+        NamedCommands.registerCommand("schedule_intake", 
+            stateMachine.changeState(RobotState.INTAKE));
+
         NamedCommands.registerCommand("spit_out",  stateMachine.changeState(RobotState.SPIT_OUT));
 
-
+        NamedCommands.registerCommand("shoot_center_amp",  stateMachine.changeState(RobotState.SHOOT_CENTER_LINE_AUTO));
 
         AutoBuilder.configureHolonomic(
                 swerve::getOdomPose,

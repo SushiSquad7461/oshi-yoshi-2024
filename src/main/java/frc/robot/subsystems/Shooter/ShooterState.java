@@ -12,7 +12,8 @@ public enum ShooterState {
     SHOOT_STAGE(true, Direction.RUNNING, Manipulator.PIVOT_STAGE_ANGLE),
     SPIT_OUT(true, Direction.RUNNING, Manipulator.PIVOT_IDLE ),
     FEED(false, Direction.RUNNING, Manipulator.PIVOT_IDLE),
-    REVERSE(false, Direction.REVERSED, Manipulator.PIVOT_IDLE);
+    REVERSE(false, Direction.REVERSED, Manipulator.PIVOT_IDLE),
+    SHOOT_CENTER_AUTO(true, Direction.RUNNING, Manipulator.PIVOT_CENTER_ANGLE);
 
     public boolean runShooter;
     public Direction kickerDirection;

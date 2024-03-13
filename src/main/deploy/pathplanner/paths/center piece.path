@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.3066465080670275,
+        "y": 5.626804540922516
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.456292613329384,
+        "y": 5.613498894908237
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.45,
+        "y": 5.626804540922516
+      },
+      "prevControl": {
+        "x": 2.3657985804672172,
+        "y": 5.631228931949389
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "boney",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
+}

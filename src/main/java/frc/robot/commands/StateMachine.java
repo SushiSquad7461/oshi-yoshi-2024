@@ -25,7 +25,8 @@ public class StateMachine extends Command {
         SHOOT_AMP(IntakeState.IDLE, ShooterState.SHOOT_AMP, IndexerState.IDLE, ElevatorState.AMP),
         SHOOT_TRAP(IntakeState.IDLE, ShooterState.SHOOT_TRAP, IndexerState.IDLE, ElevatorState.TRAP),
         SHOOT_STAGE(IntakeState.IDLE, ShooterState.SHOOT_STAGE, IndexerState.IDLE, ElevatorState.IDLE), // 40 10
-        SPIT_OUT(IntakeState.IDLE, ShooterState.SPIT_OUT, IndexerState.IDLE, ElevatorState.IDLE);
+        SPIT_OUT(IntakeState.IDLE, ShooterState.SPIT_OUT, IndexerState.IDLE, ElevatorState.IDLE),
+        SHOOT_CENTER_LINE_AUTO(IntakeState.IDLE, ShooterState.SHOOT_CENTER_AUTO, IndexerState.IDLE, ElevatorState.IDLE);
 
         public IntakeState intakeState;
         public ShooterState shooterState;
@@ -75,17 +76,24 @@ public class StateMachine extends Command {
         changeState(newState).schedule();
     }
 
+    public boolean inShooter() {
+       return shooter.ringInShooter(); 
+    }
+
     public Command changeState(RobotState newState) {
         return Commands.sequence(
             Commands.runOnce(() -> {
                 state = newState;
                 System.out.println(newState.toString() + " scheduled");
             }),
-            elevator.changeState(newState.elevatorState),
+            Commands.parallel(
+                elevator.changeState(newState.elevatorState), 
+                shooter.changeState(newState.shooterState)
+            ),
             Commands.parallel(
                 intake.changeState(newState.intakeState),
                 indexer.changeState(newState.indexerState),
-                shooter.changeState(newState.shooterState)
+                shooter.changeKickerState(newState.shooterState)
             )
         );
     }

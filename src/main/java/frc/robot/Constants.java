@@ -58,8 +58,8 @@ public final class Constants {
         public static final class Swerve {
                 public static final boolean GYRO_INVERSION = false; // Always ensure Gyro is CCW+ CW-
 
-                public static final PIDConstants AUTO_TRANSLATION = new PIDConstants(13); // TODO: find pid
-                public static final PIDConstants AUTO_ROTATION = new PIDConstants(5);
+                public static final PIDConstants AUTO_TRANSLATION = new PIDConstants(15); // TODO: find pid
+                public static final PIDConstants AUTO_ROTATION = new PIDConstants(1.5);
 
                 /* Drivetrain Constants */
                 public static final double TRACK_WIDTH = Units.inchesToMeters(23);
@@ -98,7 +98,7 @@ public final class Constants {
                                 PIDConfig.getPid(0.2, 0.68),
                                 MotorConfig.Mode.BRAKE);
 
-                public static final PIDConfig autoRotate = PIDConfig.getPid(0.02);
+                public static final PIDConfig autoRotate = PIDConfig.getPid(0.008, 0.00, 0.00);
 
                 public static final SDSModules MODULE_TYPE = SDSModules.MK4i;
 
@@ -144,7 +144,7 @@ public final class Constants {
                                 PIDConfig.getPid(0.00009, 0.0, 0.000174),
                                 MotorConfig.Mode.BRAKE);
 
-                public static final int ENCODER_ID = 4;// set this
+                public static final int ENCODER_ID = 4;
                 public static final int BEAM_BREAK_ID = 3;
                 public static final double ENCODER_OFFSET = -19.0;// set this
                 public static final double PIVOT_GEAR_RATIO = 66.666; // set ratio
@@ -158,7 +158,12 @@ public final class Constants {
                 public static final double PIVOT_AMP_ANGLE = 20; // find angle
                 public static final double PIVOT_TRAP_ANGLE = 0; // find angle
                 public static final double PIVOT_STAGE_ANGLE = -41; // 31.5
+<<<<<<< HEAD
                 public static final double PIVOT_IDLE = -60;
+=======
+                public static final double PIVOT_CENTER_ANGLE = -31.5;
+                public static final double PIVOT_IDLE = -56.5;
+>>>>>>> b72632e (goofy)
                 public static final double SHOOTER_ERROR = 300;
                 public static final double PIVOT_ERROR = 1.0;
         }
@@ -178,7 +183,11 @@ public final class Constants {
                 }
 
                 public static final double UPRIGHT_ROLLERS_SPEED = 0.9;
+<<<<<<< HEAD
                 public static final double INDEXER_SPEED = 0.7;
+=======
+                public static final double INDEXER_SPEED = 0.6;
+>>>>>>> b72632e (goofy)
                 public static final MotorConfig INDEXER_CONFIG = new MotorConfig(
                                 24,
                                 40, // set later
@@ -194,7 +203,11 @@ public final class Constants {
         public static final class Intake {
                 public static final double G = 0.25; // retune
                 public static final int ENCODER_CHANNEL = 1;
+<<<<<<< HEAD
                 public static final double ENCODER_ANGLE_OFFSET = -58; //60
+=======
+                public static final double ENCODER_ANGLE_OFFSET = -47.4;
+>>>>>>> b72632e (goofy)
                 public static final double INTAKE_GEAR_RATIO = 21.701;
 
                 public static final double INTAKE_SPEED = 0.9;
@@ -203,7 +216,11 @@ public final class Constants {
                 public static final double MAX_ERROR = 3.0;
 
                 public static final double RAISED_POS = 110;
+<<<<<<< HEAD
                 public static final double LOWERED_POS = -9; //-26
+=======
+                public static final double LOWERED_POS = -3;
+>>>>>>> b72632e (goofy)
 
                 public static final MotorConfig INTAKE_CONFIG = new MotorConfig(
                                 21,
