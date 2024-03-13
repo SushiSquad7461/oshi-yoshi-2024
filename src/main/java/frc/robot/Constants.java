@@ -158,7 +158,7 @@ public final class Constants {
                 public static final double PIVOT_AMP_ANGLE = 20; // find angle
                 public static final double PIVOT_TRAP_ANGLE = 0; // find angle
                 public static final double PIVOT_STAGE_ANGLE = -41; // 31.5
-                public static final double PIVOT_IDLE = -57;
+                public static final double PIVOT_IDLE = -60;
                 public static final double SHOOTER_ERROR = 300;
                 public static final double PIVOT_ERROR = 1.0;
         }
@@ -178,7 +178,7 @@ public final class Constants {
                 }
 
                 public static final double UPRIGHT_ROLLERS_SPEED = 0.9;
-                public static final double INDEXER_SPEED = 0.5;
+                public static final double INDEXER_SPEED = 0.7;
                 public static final MotorConfig INDEXER_CONFIG = new MotorConfig(
                                 24,
                                 40, // set later
@@ -187,14 +187,14 @@ public final class Constants {
                 public static final MotorConfig UPRIGHT_ROLLERS_CONFIG = new MotorConfig(
                                 23, // set canID later
                                 20,
-                                false, // position motor
+                                true, // position motor
                                 MotorConfig.Mode.COAST);
         }
 
         public static final class Intake {
                 public static final double G = 0.25; // retune
                 public static final int ENCODER_CHANNEL = 1;
-                public static final double ENCODER_ANGLE_OFFSET = 106.1;
+                public static final double ENCODER_ANGLE_OFFSET = -58; //60
                 public static final double INTAKE_GEAR_RATIO = 21.701;
 
                 public static final double INTAKE_SPEED = 0.9;
@@ -203,7 +203,7 @@ public final class Constants {
                 public static final double MAX_ERROR = 3.0;
 
                 public static final double RAISED_POS = 110;
-                public static final double LOWERED_POS = -26;
+                public static final double LOWERED_POS = -9; //-26
 
                 public static final MotorConfig INTAKE_CONFIG = new MotorConfig(
                                 21,
