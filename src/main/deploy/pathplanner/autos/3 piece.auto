@@ -1,6 +1,12 @@
 {
   "version": 1.0,
-  "startingPose": null,
+  "startingPose": {
+    "position": {
+      "x": 1.31,
+      "y": 5.63
+    },
+    "rotation": 0
+  },
   "command": {
     "type": "sequential",
     "data": {
@@ -9,6 +15,12 @@
           "type": "named",
           "data": {
             "name": "shoot_fendor"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "schedule_intake"
           }
         },
         {
@@ -24,21 +36,21 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "shoot_fendor"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "2nd piece"
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 2.0
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "3d piece"
+            "name": "schedule_intake"
           }
         },
         {
@@ -48,9 +60,9 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "centerline"
+            "name": "shoot_fendor"
           }
         }
       ]

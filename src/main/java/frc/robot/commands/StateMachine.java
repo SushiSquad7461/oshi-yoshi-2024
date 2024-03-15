@@ -94,7 +94,10 @@ public class StateMachine extends Command {
                 intake.changeState(newState.intakeState),
                 indexer.changeState(newState.indexerState),
                 shooter.changeKickerState(newState.shooterState)
-            )
+            ),
+            Commands.runOnce(() -> {
+                System.out.println(newState.toString() + "  done");
+            })
         );
     }
 }

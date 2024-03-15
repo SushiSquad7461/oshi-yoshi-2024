@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.45,
-        "y": 7.023339503070249
+        "x": 1.31,
+        "y": 5.529703283100069
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8213473256042558,
-        "y": 6.926011768690204
+        "x": 1.4903508956029212,
+        "y": 4.4694074083840265
+      },
+      "isLocked": false,
+      "linkedName": "fender_shot"
+    },
+    {
+      "anchor": {
+        "x": 2.412614452700657,
+        "y": 4.148361275183002
+      },
+      "prevControl": {
+        "x": 2.4216057536236035,
+        "y": 4.140456532985959
+      },
+      "nextControl": {
+        "x": 2.0391825829555614,
+        "y": 4.476665564383389
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.45,
-        "y": 4.100678442352647
+        "x": 1.31,
+        "y": 5.529703283100069
       },
       "prevControl": {
-        "x": 1.4736961262411226,
-        "y": 5.048083856760933
+        "x": 1.6122729332323074,
+        "y": 4.473103398297192
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "fender_shot"
     }
   ],
   "rotationTargets": [],

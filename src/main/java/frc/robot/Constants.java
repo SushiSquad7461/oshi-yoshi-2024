@@ -145,7 +145,7 @@ public final class Constants {
                                 MotorConfig.Mode.BRAKE);
 
                 public static final int ENCODER_ID = 4;
-                public static final int BEAM_BREAK_ID = 3;
+                // public static final int BEAM_BREAK_ID = 5;
                 public static final double ENCODER_OFFSET = -19.0;// set this
                 public static final double PIVOT_GEAR_RATIO = 66.666; // set ratio
                 public static final double KS = 0;// set this
@@ -158,12 +158,8 @@ public final class Constants {
                 public static final double PIVOT_AMP_ANGLE = 20; // find angle
                 public static final double PIVOT_TRAP_ANGLE = 0; // find angle
                 public static final double PIVOT_STAGE_ANGLE = -41; // 31.5
-<<<<<<< HEAD
                 public static final double PIVOT_IDLE = -60;
-=======
                 public static final double PIVOT_CENTER_ANGLE = -31.5;
-                public static final double PIVOT_IDLE = -56.5;
->>>>>>> b72632e (goofy)
                 public static final double SHOOTER_ERROR = 300;
                 public static final double PIVOT_ERROR = 1.0;
         }
@@ -183,11 +179,7 @@ public final class Constants {
                 }
 
                 public static final double UPRIGHT_ROLLERS_SPEED = 0.9;
-<<<<<<< HEAD
                 public static final double INDEXER_SPEED = 0.7;
-=======
-                public static final double INDEXER_SPEED = 0.6;
->>>>>>> b72632e (goofy)
                 public static final MotorConfig INDEXER_CONFIG = new MotorConfig(
                                 24,
                                 40, // set later
@@ -203,24 +195,16 @@ public final class Constants {
         public static final class Intake {
                 public static final double G = 0.25; // retune
                 public static final int ENCODER_CHANNEL = 1;
-<<<<<<< HEAD
-                public static final double ENCODER_ANGLE_OFFSET = -58; //60
-=======
-                public static final double ENCODER_ANGLE_OFFSET = -47.4;
->>>>>>> b72632e (goofy)
+                public static final double ENCODER_ANGLE_OFFSET = 98.0; // 60
                 public static final double INTAKE_GEAR_RATIO = 21.701;
 
                 public static final double INTAKE_SPEED = 0.9;
 
                 public static final double ERROR_LIMIT = 1.0;
-                public static final double MAX_ERROR = 3.0;
+                public static final double MAX_ERROR = 4.0;
 
                 public static final double RAISED_POS = 110;
-<<<<<<< HEAD
-                public static final double LOWERED_POS = -9; //-26
-=======
-                public static final double LOWERED_POS = -3;
->>>>>>> b72632e (goofy)
+                public static final double LOWERED_POS = -9; // -26
 
                 public static final MotorConfig INTAKE_CONFIG = new MotorConfig(
                                 21,
@@ -232,7 +216,7 @@ public final class Constants {
                                 22,
                                 20,
                                 true,
-                                PIDConfig.getPid(0.009, 0.0, 0.0), // p:0.012d:0.6
+                                PIDConfig.getPid(0.009, 0.01, 0.0), // p:0.012d:0.6
                                 MotorConfig.Mode.BRAKE);
         }
 }

@@ -48,8 +48,7 @@ public class AutoCommands {
         //     shooter.changeKickerState(ShooterState.SHOOT_CENTER_AUTO)
         // ));
 
-        NamedCommands.registerCommand("schedule_intake", 
-            stateMachine.changeState(RobotState.INTAKE));
+        NamedCommands.registerCommand("schedule_intake", stateMachine.changeState(RobotState.INTAKE));
 
         NamedCommands.registerCommand("spit_out",  stateMachine.changeState(RobotState.SPIT_OUT));
 
@@ -80,6 +79,8 @@ public class AutoCommands {
         chooser.addOption("Line", makeAuto("Line"));
 
         chooser.addOption("TwoPieceCenterLine", makeAuto("TwoPieceCenter"));
+
+        chooser.addOption("3 Piece Center", makeAuto("3 piece"));
 
         SmartDashboard.putData("Auto Selecter", chooser);
     }
