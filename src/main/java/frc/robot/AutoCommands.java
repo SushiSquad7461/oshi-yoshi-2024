@@ -30,7 +30,7 @@ public class AutoCommands {
     public AutoCommands(Swerve swerve, StateMachine stateMachine) {
         NamedCommands.registerCommand("Nothing", new InstantCommand());
 
-        NamedCommands.registerCommand("suck_in", stateMachine.shooter.reverseKicker().andThen(
+        NamedCommands.registerCommand("suck_in", stateMachine.shooter.reverseKicker().andThen(new WaitCommand(0.2)).andThen(
             stateMachine.shooter.stopKicker()
         ));
 

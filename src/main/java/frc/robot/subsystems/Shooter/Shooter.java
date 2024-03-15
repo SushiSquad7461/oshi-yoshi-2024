@@ -40,6 +40,10 @@ abstract public class Shooter extends SubsystemBase {
         return runOnce(() -> kicker.set(-0.3));
     }
 
+    public Command reverseFastKicker() {
+        return runOnce(() -> kicker.set(-0.6));
+    }
+
     public Command stopKicker() {
         return runOnce(() -> kicker.set(0));
     }
