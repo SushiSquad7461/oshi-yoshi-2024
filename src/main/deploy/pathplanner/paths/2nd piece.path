@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 2.7092062358559748,
-        "y": 7.031689702503699
+        "x": 2.912987605636228,
+        "y": 7.0147611561112955
       },
       "prevControl": {
-        "x": 2.143993556172141,
-        "y": 6.6580296852331
+        "x": 2.4172230327158397,
+        "y": 6.523194497660182
       },
       "nextControl": {
-        "x": 2.7222020493244656,
-        "y": 7.040281186841591
+        "x": 2.924050349142189,
+        "y": 7.025730225212972
       },
       "isLocked": false,
       "linkedName": null
@@ -36,8 +36,8 @@
         "y": 5.529703283100069
       },
       "prevControl": {
-        "x": 2.3359568841312828,
-        "y": 6.754031099276888
+        "x": 2.572408979563722,
+        "y": 6.772879149571859
       },
       "nextControl": null,
       "isLocked": false,
@@ -51,7 +51,12 @@
       "rotateFast": true
     },
     {
-      "waypointRelativePos": 0.65,
+      "waypointRelativePos": 0.55,
+      "rotationDegrees": 30.0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 1.55,
       "rotationDegrees": 30.0,
       "rotateFast": false
     }
@@ -67,7 +72,7 @@
   "goalEndState": {
     "velocity": 0,
     "rotation": 0,
-    "rotateFast": false
+    "rotateFast": true
   },
   "reversed": false,
   "folder": "boney",

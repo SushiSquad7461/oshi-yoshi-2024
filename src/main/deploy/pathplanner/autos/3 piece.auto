@@ -32,7 +32,13 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 2.0
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "suck_in"
           }
         },
         {
@@ -42,9 +48,33 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "schedule_intake"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "2nd piece"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "suck_in"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot_fendor"
           }
         },
         {
@@ -54,9 +84,15 @@
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 2.0
+            "pathName": "3d piece"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "suck_in"
           }
         },
         {

@@ -16,6 +16,7 @@ public class StateMachine extends Command {
     public enum RobotState {
         IDLE(IntakeState.IDLE, ShooterState.IDLE, IndexerState.IDLE, ElevatorState.IDLE),
         INTAKE(IntakeState.INTAKE, ShooterState.IDLE, IndexerState.INDEX, ElevatorState.IDLE),
+        INTAKE_AUTOS(IntakeState.INTAKE, ShooterState.FEED, IndexerState.INDEX, ElevatorState.IDLE),
         INDEX(IntakeState.IDLE, ShooterState.FEED, IndexerState.INDEX, ElevatorState.IDLE),
         REVERSE(IntakeState.REVERSE, ShooterState.REVERSE, IndexerState.REVERSE, ElevatorState.IDLE),
         CLIMB_UP(IntakeState.IDLE, ShooterState.IDLE, IndexerState.IDLE, ElevatorState.CLIMB),
@@ -43,7 +44,7 @@ public class StateMachine extends Command {
 
     private RobotState state;
     private Intake intake;
-    private Shooter shooter;
+    public Shooter shooter;
     private Indexer indexer;
     private Elevator elevator;
 
@@ -91,13 +92,10 @@ public class StateMachine extends Command {
                 shooter.changeState(newState.shooterState)
             ),
             Commands.parallel(
-                intake.changeState(newState.intakeState),
+                // intake.changeState(newState.intakeState),
                 indexer.changeState(newState.indexerState),
                 shooter.changeKickerState(newState.shooterState)
-            ),
-            Commands.runOnce(() -> {
-                System.out.println(newState.toString() + "  done");
-            })
+            )
         );
     }
 }
