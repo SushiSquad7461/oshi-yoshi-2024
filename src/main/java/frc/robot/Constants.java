@@ -89,13 +89,13 @@ public final class Constants {
                 public static final MotorConfig DRIVE_CONFIG = new MotorConfig(
                                 40,
                                 true,
-                                PIDConfig.getPid(0.2, 0.68),
+                                PIDConfig.getPid(0.4, 0.68),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final MotorConfig DRIVE_FLIPPED_CONFIG = new MotorConfig(
                                 40,
                                 false,
-                                PIDConfig.getPid(0.2, 0.68),
+                                PIDConfig.getPid(0.4, 0.68),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final PIDConfig autoRotate = PIDConfig.getPid(0.008, 0.00, 0.00);

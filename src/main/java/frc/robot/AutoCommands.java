@@ -89,6 +89,10 @@ public class AutoCommands {
 
         chooser.addOption("3 Piece Center", makeAuto("3 piece"));
 
+        chooser.addOption("Center Amp", makeAuto("CenterAmp"));
+
+        chooser.addOption("Center Source", makeAuto("CenterSource"));
+
         SmartDashboard.putData("Auto Selecter", chooser);
     }
 

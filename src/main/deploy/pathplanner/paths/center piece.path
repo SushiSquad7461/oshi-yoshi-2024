@@ -16,15 +16,15 @@
     },
     {
       "anchor": {
-        "x": 3.327029734921052,
+        "x": 2.55,
         "y": 5.529703283100069
       },
       "prevControl": {
-        "x": 2.4950213389127343,
+        "x": 1.717991603991682,
         "y": 5.56210023172165
       },
       "nextControl": {
-        "x": 3.411283466844771,
+        "x": 2.6342537319237187,
         "y": 5.5264225904563355
       },
       "isLocked": false,
@@ -59,7 +59,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "boney",
+  "folder": null,
   "previewStartingState": null,
   "useDefaultConstraints": false
 }
