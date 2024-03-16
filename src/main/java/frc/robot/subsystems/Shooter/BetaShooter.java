@@ -45,7 +45,7 @@ public class BetaShooter extends Shooter {
 
         pivotTuning =  Manipulator.PIVOT_CONFIG.genPIDTuning("Pivot Shooter", Constants.TUNING_MODE);
         pivotPos = new TunableNumber("Pivot Pose", Manipulator.PIVOT_IDLE, Constants.TUNING_MODE);
-        beamBreak = new DigitalInput(5);
+        beamBreak = new DigitalInput(3);
         resetEncoder();
     }
 
