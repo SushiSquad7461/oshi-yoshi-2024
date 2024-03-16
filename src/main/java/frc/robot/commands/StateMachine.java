@@ -92,7 +92,7 @@ public class StateMachine extends Command {
                 shooter.changeState(newState.shooterState)
             ),
             Commands.parallel(
-                // intake.changeState(newState.intakeState),
+                intake.changeState(newState.intakeState),
                 indexer.changeState(newState.indexerState),
                 shooter.changeKickerState(newState.shooterState)
             )

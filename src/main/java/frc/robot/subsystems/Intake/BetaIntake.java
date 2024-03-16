@@ -92,9 +92,9 @@ public class BetaIntake extends Intake {
 
     @Override
     public void periodic() {
-        // if (getAbsoluteError() > Constants.Intake.ERROR_LIMIT) {
-        //     resetToAbsolutePosition();
-        // }
+        if (getAbsoluteError() > Constants.Intake.ERROR_LIMIT) {
+            resetToAbsolutePosition();
+        }
 
         SmartDashboard.putNumber("Intake Absolute Encoder", getAbsolutePosition());
         SmartDashboard.putNumber("Intake Relative Encoder", pivotMotor.getEncoder().getPosition());
