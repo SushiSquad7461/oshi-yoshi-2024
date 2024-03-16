@@ -1,0 +1,31 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.6347911126635363,
+      "y": 6.698598504187022
+    },
+    "rotation": 60.25511870305783
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot_fendor"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "center amp"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
