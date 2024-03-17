@@ -39,14 +39,14 @@ public final class Constants {
                                 29,
                                 10,
                                 true,
-                                PIDConfig.getPid(0.12),
+                                PIDConfig.getPid(0.05),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final MotorConfig ELEVATOR_RIGHT = new MotorConfig(
                                 30,
                                 10,
                                 true,
-                                PIDConfig.getPid(0.12, 0.0, 0.0),
+                                PIDConfig.getPid(0.05, 0.0, 0.0),
                                 MotorConfig.Mode.BRAKE);
 
                 public static final double G_DOWN = 0;
@@ -195,7 +195,7 @@ public final class Constants {
         public static final class Intake {
                 public static final double G = 0.20; // retune
                 public static final int ENCODER_CHANNEL = 1;
-                public static final double ENCODER_ANGLE_OFFSET = 64; // 60
+                public static final double ENCODER_ANGLE_OFFSET = 66; // 60
                 public static final double INTAKE_GEAR_RATIO = 21.701;
 
                 public static final double INTAKE_SPEED = 0.9;
