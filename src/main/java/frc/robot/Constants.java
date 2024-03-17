@@ -52,7 +52,7 @@ public final class Constants {
                 public static final double G_DOWN = 0;
                 public static final double G_UP = 0;
 
-                public static final double MAX_ERROR = 1.0;
+                public static final double MAX_ERROR = 3.0;
         }
 
         public static final class Swerve {

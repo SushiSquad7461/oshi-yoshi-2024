@@ -117,6 +117,10 @@ public class Elevator extends SubsystemBase {
          pid.updatePID(rightMotor);
       }
 
+      if (rightMotor.getPosition().getValueAsDouble()<5 && rightMotor.getSupplyCurrent().getValueAsDouble()>3 && !up) {
+         rightMotor.setPosition(0);
+      }
+
       if (!resetElevator || openLoop) {
          rightMotor.setControl(new PositionDutyCycle(setpoint.get()).withFeedForward(up ? ffu.calculate(0.0) : ffd.calculate(0.0)));
       }
