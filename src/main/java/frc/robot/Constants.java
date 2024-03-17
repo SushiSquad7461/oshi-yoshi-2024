@@ -195,7 +195,7 @@ public final class Constants {
         public static final class Intake {
                 public static final double G = 0.20; // retune
                 public static final int ENCODER_CHANNEL = 1;
-                public static final double ENCODER_ANGLE_OFFSET = -124; // 60
+                public static final double ENCODER_ANGLE_OFFSET = 64; // 60
                 public static final double INTAKE_GEAR_RATIO = 21.701;
 
                 public static final double INTAKE_SPEED = 0.9;
@@ -204,7 +204,7 @@ public final class Constants {
                 public static final double MAX_ERROR = 4.0;
 
                 public static final double RAISED_POS = 110;
-                public static final double LOWERED_POS = -10; // -26
+                public static final double LOWERED_POS = 0; // -26
 
                 public static final MotorConfig INTAKE_CONFIG = new MotorConfig(
                                 21,
