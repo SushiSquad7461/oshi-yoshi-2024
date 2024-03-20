@@ -1,20 +1,24 @@
 package frc.robot.subsystems;
 
-import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.List;
 
-import org.photonvision.EstimatedRobotPose;
+import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonPoseEstimator;
+import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 
 import SushiFrcLib.Sensors.gyro.Pigeon;
-import SushiFrcLib.SmartDashboard.AllianceColor;
+import SushiFrcLib.SmartDashboard.TunableNumber;
 import SushiFrcLib.Swerve.SwerveModules.SwerveModuleTalon;
 import SushiFrcLib.Swerve.SwerveTemplates.VisionBaseSwerve;
+
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
+
 import frc.robot.Constants;
 
 public class Swerve extends VisionBaseSwerve {
@@ -23,7 +27,9 @@ public class Swerve extends VisionBaseSwerve {
     private boolean locationLock;
     private PIDController rotationLockPID;
 
-    // private CameraSystem cameraSystem;
+    private final PhotonCamera camera;
+    private final PhotonPoseEstimator camFilter;
+    private final TunableNumber maxDistanceCamToTarget;
 
     public static Swerve getInstance() {
         if (instance == null) {
@@ -47,9 +53,13 @@ public class Swerve extends VisionBaseSwerve {
         locationLock = false;
         rotationLockPID = Constants.Swerve.autoRotate.getPIDController();
 
-        // cameraSystem = new CameraSystem(new String[] { "camera2" },
-        //         new Transform3d[] { new Transform3d(-0.176, 0, 0.686, new Rotation3d(0, 0.43633, 1.5708))},
-        //         "apriltags.json", field);
+        camera = new PhotonCamera("Arducam_OV9281_USB_Camera");
+        camFilter = new PhotonPoseEstimator(
+                AprilTagFields.k2024Crescendo.loadAprilTagLayoutField(),
+                PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
+                camera,
+                new Transform3d());
+        maxDistanceCamToTarget = new TunableNumber("Max Cam->Target (m)", 6, Constants.TUNING_MODE);
     }
 
     public void enableRotationLock(double angle) {
@@ -88,12 +98,28 @@ public class Swerve extends VisionBaseSwerve {
 
     @Override
     public void periodic() {
-        // ArrayList<EstimatedRobotPose> list = cameraSystem.getEstimatedPoses(getOdomPose());
-        // addVisionTargets(list);
-
-        // field.getObject("Estimated Poses").setPoses(
-        //         list.stream().map(
-        //                 (estimate) -> estimate.estimatedPose.toPose2d()).collect(Collectors.toList()));
         super.periodic();
+
+        if (!camera.isConnected())
+            return;
+
+        var pose = camFilter.update();
+
+        if (!pose.isPresent() || pose.get().targetsUsed.size() < 2)
+            return;
+
+        var targetsCloseEnough = true;
+        for (var target : pose.get().targetsUsed) {
+            var transform = target.getBestCameraToTarget();
+            double cameraToTagDistance = new Pose3d().transformBy(transform).getTranslation().getNorm();
+            if (cameraToTagDistance > maxDistanceCamToTarget.get()) {
+                targetsCloseEnough = false;
+                break;
+            }
+        }
+        if (targetsCloseEnough) {
+            super.addVisionTargets(List.of(pose.get()));
+        }
+
     }
 }
