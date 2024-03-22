@@ -5,6 +5,8 @@
 package frc.robot;
 
 import SushiFrcLib.Controllers.OI;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.StateMachine;
@@ -72,11 +74,15 @@ public class RobotContainer {
     oi.getOperatorController().a().onTrue(swerve.zeroGyro());
     oi.getOperatorController().b().onTrue(new InstantCommand(swerve::updateEncoders));
 
-    oi.getDriverController().x().onTrue(swerve.enableRotationLockCommand(20)).onFalse(swerve.disableRotationLockCommand());
+    oi.getDriverController().x().onTrue(swerve.enableRotationLockCommand(20 + (DriverStation.getAlliance().get() == Alliance.Red ? 180 : 0))).onFalse(swerve.disableRotationLockCommand());
 
     oi.getDriverController().y().whileTrue(elevator.runOpenLoopUp()).onFalse(elevator.stopElevator());
     oi.getDriverController().b().whileTrue(elevator.runOpenLoopDown()).onFalse(elevator.stopElevator());
     oi.getOperatorController().y().onTrue(stateMachine.changeState(RobotState.CLIMB_UP)).onFalse(stateMachine.changeState(RobotState.IDLE));
+
+    oi.getOperatorController().povDown().onTrue(elevator.resetElevator());
+
+    // oi.getDriverController().a().onTrue(shooter.runKicker()).onFalse(shooter.stopKicker());
   }
 
   public Command getAutonomousCommand() {

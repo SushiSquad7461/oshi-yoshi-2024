@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -35,7 +36,10 @@ public class AutoCommands {
         ));
 
         NamedCommands.registerCommand("shoot_fendor", 
-            stateMachine.changeState(RobotState.SHOOT_FENDOR));
+            stateMachine.changeState(RobotState.SHOOT_FENDOR).andThen(
+                new WaitCommand(0.05)
+            ).andThen(stateMachine.changeState(RobotState.IDLE))
+        );
 
         // NamedCommands.registerCommand("schedule_intake", new ParallelCommandGroup(
         //     intake.changeState(IntakeState.INTAKE),
@@ -55,11 +59,16 @@ public class AutoCommands {
         //     shooter.changeKickerState(ShooterState.SHOOT_CENTER_AUTO)
         // ));
 
-        NamedCommands.registerCommand("schedule_intake", stateMachine.changeState(RobotState.INTAKE_AUTOS));
+        NamedCommands.registerCommand("schedule_intake", stateMachine.changeState(RobotState.INTAKE_AUTOS
+            ).andThen(Commands.waitUntil(() -> stateMachine.inShooter())).andThen(stateMachine.shooter.reverseKicker()).andThen(stateMachine.shooter.stopKicker()).andThen(stateMachine.changeState(RobotState.IDLE))
+        );
 
         NamedCommands.registerCommand("spit_out",  stateMachine.changeState(RobotState.SPIT_OUT));
 
-        NamedCommands.registerCommand("shoot_center_amp",  stateMachine.changeState(RobotState.SHOOT_CENTER_LINE_AUTO));
+        NamedCommands.registerCommand("shoot_center_amp", 
+        stateMachine.changeState(RobotState.SHOOT_CENTER_LINE_AUTO).andThen(
+            new WaitCommand(0.05)
+        ));
 
         AutoBuilder.configureHolonomic(
                 swerve::getOdomPose,
@@ -92,6 +101,8 @@ public class AutoCommands {
         chooser.addOption("Center Amp", makeAuto("CenterAmp"));
 
         chooser.addOption("Center Source", makeAuto("CenterSource"));
+
+        chooser.addOption("2 piece center amp side", makeAuto("2 piece center amp side"));
 
         SmartDashboard.putData("Auto Selecter", chooser);
     }

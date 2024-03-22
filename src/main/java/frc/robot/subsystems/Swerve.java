@@ -53,7 +53,7 @@ public class Swerve extends VisionBaseSwerve {
         locationLock = false;
         rotationLockPID = Constants.Swerve.autoRotate.getPIDController();
 
-        camera = new PhotonCamera("Arducam_OV9281_USB_Camera");
+        camera = new PhotonCamera("23");
         camFilter = new PhotonPoseEstimator(
                 AprilTagFields.k2024Crescendo.loadAprilTagLayoutField(),
                 PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,

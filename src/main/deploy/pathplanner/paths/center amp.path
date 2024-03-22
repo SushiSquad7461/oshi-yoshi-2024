@@ -12,7 +12,7 @@
         "y": 7.483224552754384
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "fender_amp"
     },
     {
       "anchor": {
@@ -59,8 +59,8 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 5.65,
+    "maxAcceleration": 5.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

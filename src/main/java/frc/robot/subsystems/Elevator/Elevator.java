@@ -9,8 +9,10 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import SushiFrcLib.SmartDashboard.PIDTuning;
 import SushiFrcLib.SmartDashboard.TunableNumber;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.Constants;
@@ -26,6 +28,7 @@ public class Elevator extends SubsystemBase {
    private final TunableNumber setpoint;
    private final ElevatorFeedforward ffd;
    private final ElevatorFeedforward ffu;
+   private final DigitalInput limitSwitch;
 
    private boolean up;
    private boolean resetElevator;
@@ -40,6 +43,7 @@ public class Elevator extends SubsystemBase {
    public Elevator() {
       ffd = new ElevatorFeedforward(0, Constants.Elevator.G_DOWN, 0);
       ffu = new ElevatorFeedforward(0, Constants.Elevator.G_UP, 0);
+      limitSwitch = new DigitalInput(6);
       up = true;
 
       leftMotor = Constants.Elevator.ELEVATOR_LEFT.createTalon();
@@ -76,16 +80,12 @@ public class Elevator extends SubsystemBase {
       return runOnce(() -> {
          rightMotor.set(-0.1);
          resetElevator = true;
-         openLoop = true;
-      });
-   }
-
-   public Command resetElevatorEnd() {
-      return runOnce(() -> {
-         rightMotor.set(0);
-         rightMotor.setPosition(0);
-         resetElevator = false;
-      });
+      }).andThen(Commands.waitUntil(() -> elevatorAtBottom())).andThen(
+         runOnce(() -> {
+            rightMotor.set(0.0);
+            resetElevator = false;
+         })
+      );
    }
 
    public Command runOpenLoopUp() {
@@ -108,16 +108,25 @@ public class Elevator extends SubsystemBase {
       });
    }
 
+   public boolean elevatorAtBottom() {
+      return !limitSwitch.get();
+   }
+
    @Override
    public void periodic() {
       SmartDashboard.putNumber("Elevator Position", rightMotor.getPosition().getValueAsDouble());
       SmartDashboard.putNumber("Elevator Current Limit", rightMotor.getSupplyCurrent().getValueAsDouble());
+      SmartDashboard.putBoolean("Elevator Limit Switch", elevatorAtBottom());
 
       if (Constants.TUNING_MODE) {
          pid.updatePID(rightMotor);
       }
 
-      if (rightMotor.getPosition().getValueAsDouble()<5 && rightMotor.getSupplyCurrent().getValueAsDouble()>3 && !up) {
+      // if (rightMotor.getPosition().getValueAsDouble()<5 && rightMotor.getSupplyCurrent().getValueAsDouble()>3 && !up) {
+      //    rightMotor.setPosition(0);
+      // }
+
+      if (elevatorAtBottom()) {
          rightMotor.setPosition(0);
       }
 

@@ -2,19 +2,31 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.46,
-      "y": 7.29
+      "x": 0.65,
+      "y": 6.69
     },
-    "rotation": 0.0
+    "rotation": 60.26
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "shoot_fendor"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "1 close + 1far"
+            "pathName": "1 center amp"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "schedule_intake"
           }
         },
         {
