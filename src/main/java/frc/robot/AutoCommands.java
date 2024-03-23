@@ -59,9 +59,11 @@ public class AutoCommands {
         //     shooter.changeKickerState(ShooterState.SHOOT_CENTER_AUTO)
         // ));
 
-        NamedCommands.registerCommand("schedule_intake", stateMachine.changeState(RobotState.INTAKE_AUTOS
-            ).andThen(Commands.waitUntil(() -> stateMachine.inShooter())).andThen(stateMachine.shooter.reverseKicker()).andThen(stateMachine.shooter.stopKicker()).andThen(stateMachine.changeState(RobotState.IDLE))
-        );
+        // NamedCommands.registerCommand("schedule_intake", stateMachine.changeState(RobotState.INTAKE_AUTOS
+        //     ).andThen(Commands.waitUntil(() -> stateMachine.inShooter())).andThen(stateMachine.shooter.reverseKicker()).andThen(stateMachine.shooter.stopKicker()).andThen(stateMachine.changeState(RobotState.IDLE))
+        // );
+
+        NamedCommands.registerCommand("schedule_intake", stateMachine.changeState(RobotState.INTAKE_AUTOS));
 
         NamedCommands.registerCommand("spit_out",  stateMachine.changeState(RobotState.SPIT_OUT));
 

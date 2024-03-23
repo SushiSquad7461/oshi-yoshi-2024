@@ -72,13 +72,14 @@ public class RobotContainer {
     oi.getOperatorController().back().onTrue(stateMachine.changeState(RobotState.IDLE));
 
     oi.getOperatorController().a().onTrue(swerve.zeroGyro());
-    oi.getOperatorController().b().onTrue(new InstantCommand(swerve::updateEncoders));
+    oi.getOperatorController().x().onTrue(new InstantCommand(swerve::updateEncoders));
 
     oi.getDriverController().x().onTrue(swerve.enableRotationLockCommand(20 + (DriverStation.getAlliance().get() == Alliance.Red ? 180 : 0))).onFalse(swerve.disableRotationLockCommand());
 
-    oi.getDriverController().y().whileTrue(elevator.runOpenLoopUp()).onFalse(elevator.stopElevator());
-    oi.getDriverController().b().whileTrue(elevator.runOpenLoopDown()).onFalse(elevator.stopElevator());
-    oi.getOperatorController().y().onTrue(stateMachine.changeState(RobotState.CLIMB_UP)).onFalse(stateMachine.changeState(RobotState.IDLE));
+    oi.getOperatorController().y().whileTrue(elevator.runOpenLoopUp()).onFalse(elevator.stopElevator());
+    oi.getOperatorController().b().whileTrue(elevator.runOpenLoopDown()).onFalse(elevator.stopElevator());
+    //oi.getOperatorController().y().onTrue(stateMachine.changeState(RobotState.CLIMB_UP)).onFalse(stateMachine.changeState(RobotState.IDLE));
+    oi.getDriverController().y().onTrue(stateMachine.changeState(RobotState.INDEX));
 
     oi.getOperatorController().povDown().onTrue(elevator.resetElevator());
 

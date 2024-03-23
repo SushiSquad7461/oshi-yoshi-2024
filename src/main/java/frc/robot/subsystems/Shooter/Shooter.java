@@ -37,7 +37,7 @@ abstract public class Shooter extends SubsystemBase {
     }
 
     public Command reverseKicker() {
-        return runOnce(() -> kicker.set(-0.3));
+        return runOnce(() -> kicker.set(-0.15));
     }
 
     public Command reverseFastKicker() {
@@ -54,9 +54,9 @@ abstract public class Shooter extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Shooter Speed", shooterBottom.getEncoder().getVelocity());        SmartDashboard.putNumber("Shooter Top", shooterTop.getEncoder().getVelocity());
+        SmartDashboard.putNumber("Shooter Speed", shooterBottom.getEncoder().getVelocity());
+        SmartDashboard.putNumber("Shooter Top", shooterTop.getEncoder().getVelocity());
         SmartDashboard.putNumber("Error", shooterTop.getOutputCurrent());
-
 
         tuning.updatePID(shooterBottom);
         shooterBottom.getPIDController().setReference(shooterSpeed.get(), CANSparkBase.ControlType.kVelocity);
@@ -65,7 +65,7 @@ abstract public class Shooter extends SubsystemBase {
     public Command setPivotShooter(double angle, double speed) {
         return run(() -> {
             shooterSpeed.setDefault(speed);
-        }).until(() -> shooterAtSpeed(speed));    
+        }).until(() -> shooterAtSpeed(speed));
     }
 
     public Command changeKickerState(ShooterState newState) {
@@ -74,7 +74,7 @@ abstract public class Shooter extends SubsystemBase {
         } else if (newState.kickerDirection == Direction.REVERSED) {
             return reverseKicker();
         }
-        
+
         return stopKicker();
     }
 
