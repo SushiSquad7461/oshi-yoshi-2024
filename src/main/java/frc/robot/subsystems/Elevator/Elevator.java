@@ -63,12 +63,22 @@ public class Elevator extends SubsystemBase {
    }
 
    public Command changeState(ElevatorState state) {
-      return runOnce(
+      if(state == ElevatorState.IDLE) {
+         return runOnce(
+            () -> {
+               openLoop = false;
+               up = state.getPos() > rightMotor.getPosition().getValueAsDouble();
+               setpoint.setDefault(state.getPos());
+            }).andThen(new WaitUntilCommand(elevatorInPosition(state.getPos()))).andThen(resetElevator());   
+      } else {
+         return runOnce(
             () -> {
                openLoop = false;
                up = state.getPos() > rightMotor.getPosition().getValueAsDouble();
                setpoint.setDefault(state.getPos());
             }).andThen(new WaitUntilCommand(elevatorInPosition(state.getPos())));
+   
+      }
    }
 
    private BooleanSupplier elevatorInPosition(double elevatorPos) {
@@ -122,9 +132,9 @@ public class Elevator extends SubsystemBase {
          pid.updatePID(rightMotor);
       }
 
-      // if (rightMotor.getPosition().getValueAsDouble()<5 && rightMotor.getSupplyCurrent().getValueAsDouble()>3 && !up) {
-      //    rightMotor.setPosition(0);
-      // }
+      if (rightMotor.getPosition().getValueAsDouble()<5 && rightMotor.getSupplyCurrent().getValueAsDouble()>5 && !up) {
+         rightMotor.setPosition(0);
+      }
 
       if (elevatorAtBottom()) {
          rightMotor.setPosition(0);

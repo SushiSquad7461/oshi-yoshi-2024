@@ -37,7 +37,7 @@ public class AutoCommands {
 
         NamedCommands.registerCommand("shoot_fendor", 
             stateMachine.changeState(RobotState.SHOOT_FENDOR).andThen(
-                new WaitCommand(0.05)
+                new WaitCommand(0.08)
             ).andThen(stateMachine.changeState(RobotState.IDLE))
         );
 

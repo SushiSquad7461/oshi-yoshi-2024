@@ -147,7 +147,7 @@ public final class Constants {
                                 MotorConfig.Mode.BRAKE);
 
                 public static final int ENCODER_ID = 4;
-                public static final double ENCODER_OFFSET = -142.1;
+                public static final double ENCODER_OFFSET = 73.4;//-142.1;
                 public static final double PIVOT_GEAR_RATIO = 66.666;
                 public static final double KS = 0;
                 public static final double KG = 0.21;
@@ -159,7 +159,7 @@ public final class Constants {
                 public static final double PIVOT_AMP_ANGLE = 20; // find angle
                 public static final double PIVOT_TRAP_ANGLE = 0; // find angle
                 public static final double PIVOT_STAGE_ANGLE = -41; // 31.5
-                public static final double PIVOT_IDLE = -49; // -60
+                public static final double PIVOT_IDLE = -55; // -60
                 public static final double PIVOT_CENTER_ANGLE = -29;
                 public static final double SHOOTER_ERROR = 300;
                 public static final double PIVOT_ERROR = 1.0;
@@ -196,7 +196,7 @@ public final class Constants {
         public static final class Intake {
                 public static final double G = 0.25; // retune
                 public static final int ENCODER_CHANNEL = 1;
-                public static final double ENCODER_ANGLE_OFFSET = 72; // 60
+                public static final double ENCODER_ANGLE_OFFSET = 71; // 60
                 public static final double INTAKE_GEAR_RATIO = 21.701;
 
                 public static final double INTAKE_SPEED = 0.9;
