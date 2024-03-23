@@ -1,8 +1,8 @@
 package frc.robot.subsystems.Elevator;
 
 public enum ElevatorState {
-    IDLE(0),
-    SPEAKER(0),
+    IDLE(2),
+    SPEAKER(2),
     TRAP(0),
     CLIMB(30),
     AMP(55);

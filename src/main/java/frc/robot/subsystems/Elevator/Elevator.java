@@ -69,7 +69,7 @@ public class Elevator extends SubsystemBase {
                openLoop = false;
                up = state.getPos() > rightMotor.getPosition().getValueAsDouble();
                setpoint.setDefault(state.getPos());
-            }).andThen(new WaitUntilCommand(elevatorInPosition(state.getPos()))).andThen(resetElevator());   
+            }).andThen(new WaitUntilCommand(elevatorInPosition(state.getPos())));   
       } else {
          return runOnce(
             () -> {
@@ -119,7 +119,11 @@ public class Elevator extends SubsystemBase {
    }
 
    public boolean elevatorAtBottom() {
-      return !limitSwitch.get();
+      return !limitSwitch.get() || currentSpike();
+   }
+
+   public boolean currentSpike() {
+      return rightMotor.getPosition().getValueAsDouble()<5 && rightMotor.getSupplyCurrent().getValueAsDouble()>2 && !up;
    }
 
    @Override
@@ -132,7 +136,7 @@ public class Elevator extends SubsystemBase {
          pid.updatePID(rightMotor);
       }
 
-      if (rightMotor.getPosition().getValueAsDouble()<5 && rightMotor.getSupplyCurrent().getValueAsDouble()>5 && !up) {
+      if (rightMotor.getPosition().getValueAsDouble()<5 && rightMotor.getSupplyCurrent().getValueAsDouble()>1.4 && !up) {
          rightMotor.setPosition(0);
       }
 
