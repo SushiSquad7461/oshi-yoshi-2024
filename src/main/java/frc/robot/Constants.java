@@ -58,7 +58,7 @@ public final class Constants {
         public static final class Swerve {
                 public static final boolean GYRO_INVERSION = false; // Always ensure Gyro is CCW+ CW-
 
-                public static final PIDConstants AUTO_TRANSLATION = new PIDConstants(10); // Previouse value modified on
+                public static final PIDConstants AUTO_TRANSLATION = new PIDConstants(3); // Previouse value modified on
                                                                                           // 3/20/24 15 25
                 public static final PIDConstants AUTO_ROTATION = new PIDConstants(0.8); // Previouse value modified on
                                                                                         // 3/20/24 1.5 2.0
