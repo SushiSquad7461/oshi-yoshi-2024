@@ -123,7 +123,7 @@ public class Elevator extends SubsystemBase {
    }
 
    public boolean currentSpike() {
-      return rightMotor.getPosition().getValueAsDouble()<5 && rightMotor.getSupplyCurrent().getValueAsDouble()>4 && !up;
+      return rightMotor.getPosition().getValueAsDouble()<5 && rightMotor.getSupplyCurrent().getValueAsDouble()>5 && !up;
    }
 
    @Override
@@ -136,7 +136,7 @@ public class Elevator extends SubsystemBase {
          pid.updatePID(rightMotor);
       }
 
-      if (rightMotor.getPosition().getValueAsDouble()<5 && rightMotor.getSupplyCurrent().getValueAsDouble()>4 && !up) {
+      if (rightMotor.getPosition().getValueAsDouble()<5 && rightMotor.getSupplyCurrent().getValueAsDouble()>5 && !up) {
          rightMotor.setPosition(0);
       }
 
