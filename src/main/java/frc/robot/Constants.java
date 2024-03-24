@@ -147,7 +147,7 @@ public final class Constants {
                                 MotorConfig.Mode.BRAKE);
 
                 public static final int ENCODER_ID = 4;
-                public static final double ENCODER_OFFSET = 73.4;//-142.1;
+                public static final double ENCODER_OFFSET = 80.3;//82;//-142.1;
                 public static final double PIVOT_GEAR_RATIO = 66.666;
                 public static final double KS = 0;
                 public static final double KG = 0.21;
@@ -156,7 +156,7 @@ public final class Constants {
 
                 public static final double SHOOTER_SPEED = 5000;
 
-                public static final double PIVOT_AMP_ANGLE = 20; // find angle
+                public static final double PIVOT_AMP_ANGLE = 22; // find angle
                 public static final double PIVOT_TRAP_ANGLE = 0; // find angle
                 public static final double PIVOT_STAGE_ANGLE = -41; // 31.5
                 public static final double PIVOT_IDLE = -55; // -60
@@ -205,7 +205,7 @@ public final class Constants {
                 public static final double MAX_ERROR = 4.0;
 
                 public static final double RAISED_POS = 110;
-                public static final double LOWERED_POS = -9; // -26
+                public static final double LOWERED_POS = -10; // -26
 
                 public static final MotorConfig INTAKE_CONFIG = new MotorConfig(
                                 21,

@@ -69,6 +69,8 @@ abstract public class Shooter extends SubsystemBase {
     }
 
     public Command changeKickerState(ShooterState newState) {
+        SmartDashboard.putString("Shooter State", newState.name());
+        SmartDashboard.putString("Kicker Direction", newState.kickerDirection.name());
         if (newState.kickerDirection == Direction.RUNNING) {
             return runKicker();
         } else if (newState.kickerDirection == Direction.REVERSED) {
