@@ -2,31 +2,25 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.0,
-      "y": 1.0
+      "x": 0.6347911126635363,
+      "y": 6.698598504187022
     },
-    "rotation": 0
+    "rotation": 60.26
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "3 close end close"
+            "name": "shoot_fendor"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "2 close center"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "3rd piece center close"
+            "pathName": "center amp"
           }
         }
       ]

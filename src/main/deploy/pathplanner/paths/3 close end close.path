@@ -52,15 +52,26 @@
         "y": 7.002304301218772
       },
       "prevControl": {
-        "x": 1.620166837614749,
-        "y": 6.455754089121172
+        "x": 1.6201729064686492,
+        "y": 6.455745896415505
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "1st close piece"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 3,
+      "rotationDegrees": 30.0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 2,
+      "rotationDegrees": 0.0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [
     {
       "name": "New Constraints Zone",
@@ -88,6 +99,9 @@
   },
   "reversed": false,
   "folder": "Close",
-  "previewStartingState": null,
+  "previewStartingState": {
+    "rotation": 0.0,
+    "velocity": 0
+  },
   "useDefaultConstraints": false
 }

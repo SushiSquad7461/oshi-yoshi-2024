@@ -41,7 +41,7 @@ public class BetaIntake extends Intake {
 
         intakeFeedforward = new ArmFeedforward(0.0, Constants.Intake.G, 0.0);
         absoluteEncoder = new AbsoluteEncoder(Constants.Intake.ENCODER_CHANNEL, Constants.Intake.ENCODER_ANGLE_OFFSET,
-                true);
+                false);
         MotorHelper.setDegreeConversionFactor(pivotMotor, Constants.Intake.INTAKE_GEAR_RATIO);
 
         resetToAbsolutePosition();

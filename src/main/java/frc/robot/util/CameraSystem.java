@@ -47,10 +47,10 @@ public class CameraSystem {
             }
             // System.out.println(cameras[i].camera);
         }
-        if(ret.size() > 0) {
-            SmartDashboard.putNumber("Pose X", ret.get(0).estimatedPose.getX());
-            SmartDashboard.putNumber("Pose Y", ret.get(0).estimatedPose.getY());
-        }
+        // if(ret.size() > 0) {
+        //     SmartDashboard.putNumber("Pose X", ret.get(0).estimatedPose.getX());
+        //     SmartDashboard.putNumber("Pose Y", ret.get(0).estimatedPose.getY());
+        // }
         return ret;
     }
 }

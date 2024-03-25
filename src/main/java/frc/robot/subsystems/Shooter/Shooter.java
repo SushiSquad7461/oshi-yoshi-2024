@@ -7,7 +7,6 @@ import SushiFrcLib.SmartDashboard.PIDTuning;
 import SushiFrcLib.SmartDashboard.TunableNumber;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.Manipulator;
@@ -19,7 +18,7 @@ abstract public class Shooter extends SubsystemBase {
     private final CANSparkMax shooterBottom;
 
     private final PIDTuning tuning;
-    private final TunableNumber shooterSpeed;
+    protected final TunableNumber shooterSpeed;
 
     public Shooter() {
         kicker = Manipulator.KICKER_CONFIG.createSparkMax();
@@ -38,17 +37,15 @@ abstract public class Shooter extends SubsystemBase {
     }
 
     public Command reverseKicker() {
-        return runOnce(() -> kicker.set(-0.3));
+        return runOnce(() -> kicker.set(-0.2));
+    }
+
+    public Command reverseFastKicker() {
+        return runOnce(() -> kicker.set(-0.6));
     }
 
     public Command stopKicker() {
         return runOnce(() -> kicker.set(0));
-    }
-
-    public Command runShooter(double speed) {
-        return run(() -> {
-            shooterSpeed.setDefault(speed);
-        }).until(() -> shooterAtSpeed(speed));
     }
 
     public boolean shooterAtSpeed(double speed) {
@@ -57,36 +54,39 @@ abstract public class Shooter extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Shooter Speed", shooterBottom.getEncoder().getVelocity());        SmartDashboard.putNumber("Shooter Top", shooterTop.getEncoder().getVelocity());
+        SmartDashboard.putNumber("Shooter Speed", shooterBottom.getEncoder().getVelocity());
+        SmartDashboard.putNumber("Shooter Top", shooterTop.getEncoder().getVelocity());
         SmartDashboard.putNumber("Error", shooterTop.getOutputCurrent());
 
         tuning.updatePID(shooterBottom);
         shooterBottom.getPIDController().setReference(shooterSpeed.get(), CANSparkBase.ControlType.kVelocity);
     }
 
-    public Command setPivotPos(double angle) {
-        return Commands.none();
+    public Command setPivotShooter(double angle, double speed) {
+        return run(() -> {
+            shooterSpeed.setDefault(speed);
+        }).until(() -> shooterAtSpeed(speed));
+    }
+
+    public Command changeKickerState(ShooterState newState) {
+        SmartDashboard.putString("Shooter State", newState.name());
+        SmartDashboard.putString("Kicker Direction", newState.kickerDirection.name());
+        if (newState.kickerDirection == Direction.RUNNING) {
+            return runKicker();
+        } else if (newState.kickerDirection == Direction.REVERSED) {
+            return reverseKicker();
+        }
+
+        return stopKicker();
     }
 
     public Command changeState(ShooterState newState) {
-        Command kickerCommmand;
-
-        if (newState.kickerDirection == Direction.RUNNING) {
-            kickerCommmand = runKicker();
-        } else if (newState.kickerDirection == Direction.REVERSED) {
-            kickerCommmand = reverseKicker();
-        } else {
-            kickerCommmand = stopKicker();
-        }
-
-        Command pivotCommand = setPivotPos(newState.pivotAngle);
-
         if (newState == ShooterState.SHOOT_AMP) {
-            return pivotCommand.andThen(runShooter(1200))
-                .andThen(kickerCommmand);
+            return setPivotShooter(newState.pivotAngle, 1200);
+        } else if (newState == ShooterState.SPIT_OUT) {
+            return setPivotShooter(newState.pivotAngle, 1000);
         }
 
-        return pivotCommand.andThen(runShooter(newState.runShooter ? Manipulator.SHOOTER_SPEED : 0))
-                .andThen(kickerCommmand);
+        return setPivotShooter(newState.pivotAngle, newState.runShooter ? Manipulator.SHOOTER_SPEED : 0);
     }
 }

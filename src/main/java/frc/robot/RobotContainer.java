@@ -5,6 +5,8 @@
 package frc.robot;
 
 import SushiFrcLib.Controllers.OI;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.StateMachine;
@@ -46,7 +48,7 @@ public class RobotContainer {
     elevator = Elevator.getInstance();
 
     stateMachine = new StateMachine(intake, shooter, indexer, elevator);
-    autos = new AutoCommands(swerve);
+    autos = new AutoCommands(swerve, stateMachine);
 
     configureBindings();
   }
@@ -58,21 +60,30 @@ public class RobotContainer {
     () -> oi.getDriveTrainTranslationY(),
     () -> oi.getDriveTrainRotation()));
 
-    oi.getDriverController().a().onTrue(stateMachine.changeState(RobotState.INTAKE));
+    oi.getDriverController().rightTrigger().onTrue(stateMachine.changeState(RobotState.INTAKE));
 
-    oi.getDriverController().x().onTrue(stateMachine.changeState(RobotState.SHOOT_FENDOR)).onFalse(stateMachine.changeState(RobotState.IDLE));
-    oi.getDriverController().rightTrigger().onTrue(stateMachine.changeState(RobotState.SHOOT_AMP)).onFalse(stateMachine.changeState(RobotState.IDLE));
+    oi.getDriverController().leftTrigger().onTrue(stateMachine.changeState(RobotState.SHOOT_FENDOR)).onFalse(stateMachine.changeState(RobotState.IDLE));
+    
+    oi.getDriverController().rightBumper().onTrue(stateMachine.changeState(RobotState.SHOOT_AMP)).onFalse(stateMachine.changeState(RobotState.IDLE));
+
     oi.getDriverController().leftBumper().onTrue(stateMachine.changeState(RobotState.SHOOT_STAGE)).onFalse(stateMachine.changeState(RobotState.IDLE));
 
     oi.getDriverController().back().onTrue(stateMachine.changeState(RobotState.IDLE));
     oi.getOperatorController().back().onTrue(stateMachine.changeState(RobotState.IDLE));
 
     oi.getOperatorController().a().onTrue(swerve.zeroGyro());
-    oi.getOperatorController().b().onTrue(new InstantCommand(swerve::updateEncoders));
+    oi.getOperatorController().x().onTrue(new InstantCommand(swerve::updateEncoders));
 
-    // oi.getDriverController().y().whileTrue(elevator.runOpenLoopUp()).onFalse(elevator.stopElevator());
-    // oi.getDriverController().b().whileTrue(elevator.runOpenLoopDown()).onFalse(elevator.stopElevator());
-    oi.getOperatorController().y().onTrue(stateMachine.changeState(RobotState.CLIMB_UP)).onFalse(stateMachine.changeState(RobotState.IDLE));
+    oi.getDriverController().x().onTrue(swerve.enableRotationLockCommand(20 + (DriverStation.getAlliance().get() == Alliance.Red ? 180 : 0))).onFalse(swerve.disableRotationLockCommand());
+
+    oi.getOperatorController().y().whileTrue(elevator.runOpenLoopUp()).onFalse(elevator.stopElevator());
+    oi.getOperatorController().b().whileTrue(elevator.runOpenLoopDown()).onFalse(elevator.stopElevator());
+    //oi.getOperatorController().y().onTrue(stateMachine.changeState(RobotState.CLIMB_UP)).onFalse(stateMachine.changeState(RobotState.IDLE));
+    oi.getDriverController().y().onTrue(stateMachine.changeState(RobotState.INDEX));
+
+    oi.getOperatorController().povDown().onTrue(elevator.resetElevator());
+
+    // oi.getDriverController().a().onTrue(shooter.runKicker()).onFalse(shooter.stopKicker());
   }
 
   public Command getAutonomousCommand() {

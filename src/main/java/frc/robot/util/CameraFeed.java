@@ -21,7 +21,7 @@ public class CameraFeed {
 
         photonPoseEstimator = new PhotonPoseEstimator(
             aprilTagFieldLayout, 
-            PoseStrategy.LOWEST_AMBIGUITY, 
+            PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, 
             camera, 
             robotToCam
         ); // Change later to process on orange pi

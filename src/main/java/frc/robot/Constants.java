@@ -58,14 +58,17 @@ public final class Constants {
         public static final class Swerve {
                 public static final boolean GYRO_INVERSION = false; // Always ensure Gyro is CCW+ CW-
 
-                public static final PIDConstants AUTO_TRANSLATION = new PIDConstants(0.2); // TODO: find pid
-                public static final PIDConstants AUTO_ROTATION = new PIDConstants(0.5); // TODO: find pid
+                public static final PIDConstants AUTO_TRANSLATION = new PIDConstants(3); // Previouse value modified on
+                                                                                          // 3/20/24 15 25
+                public static final PIDConstants AUTO_ROTATION = new PIDConstants(0.8); // Previouse value modified on
+                                                                                        // 3/20/24 1.5 2.0
 
                 /* Drivetrain Constants */
-                public static final double TRACK_WIDTH = Units.inchesToMeters(28);
-                public static final double WHEEL_BASE = Units.inchesToMeters(28);
+                public static final double TRACK_WIDTH = Units.inchesToMeters(23);
+                public static final double WHEEL_BASE = Units.inchesToMeters(23);
+
                 public static final double DRIVE_BASE_RADIUS = Math
-                                .sqrt(TRACK_WIDTH * TRACK_WIDTH + WHEEL_BASE * WHEEL_BASE);
+                                .sqrt(TRACK_WIDTH * TRACK_WIDTH + WHEEL_BASE * WHEEL_BASE) / 2;
 
                 public static final SwerveDriveKinematics SWERVE_KINEMATICS = new SwerveDriveKinematics(
                                 new Translation2d(WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
@@ -86,32 +89,32 @@ public final class Constants {
                                 MotorConfig.Mode.COAST);
 
                 public static final MotorConfig DRIVE_CONFIG = new MotorConfig(
-                                60,
-                                false,
-                                PIDConfig.getPid(0.2, 0.68),
-                                MotorConfig.Mode.BRAKE);
-
-                public static final MotorConfig DRIVE_FLIPPED_CONFIG = new MotorConfig(
                                 40,
                                 true,
                                 PIDConfig.getPid(0.2, 0.68),
                                 MotorConfig.Mode.BRAKE);
 
-                public static final PIDConfig autoRotate = PIDConfig.getPid(0.1);
+                public static final MotorConfig DRIVE_FLIPPED_CONFIG = new MotorConfig(
+                                40,
+                                false,
+                                PIDConfig.getPid(0.2, 0.68),
+                                MotorConfig.Mode.BRAKE);
+
+                public static final PIDConfig autoRotate = PIDConfig.getPid(0.008, 0.00, 0.00);
 
                 public static final SDSModules MODULE_TYPE = SDSModules.MK4i;
 
                 public static final boolean SWERVE_TUNING_MODE = false;
 
                 public static final SwerveModuleConstants[] SWERVE_MODULE_CONSTANTS = new SwerveModuleConstants[] {
-                        new SwerveModuleConstants(0, Rotation2d.fromDegrees(166.8), MODULE_TYPE,
-                                SWERVE_TUNING_MODE, DRIVE_CONFIG, ANGLE_CONFIG),
-                        new SwerveModuleConstants(1, Rotation2d.fromDegrees(201.7), MODULE_TYPE,
-                                SWERVE_TUNING_MODE, DRIVE_FLIPPED_CONFIG, ANGLE_FLIPPED_CONFIG),
-                        new SwerveModuleConstants(2, Rotation2d.fromDegrees(205.05), MODULE_TYPE,
-                                SWERVE_TUNING_MODE, DRIVE_CONFIG, ANGLE_CONFIG),
-                        new SwerveModuleConstants(3, Rotation2d.fromDegrees(312.2), MODULE_TYPE,
-                                SWERVE_TUNING_MODE, DRIVE_FLIPPED_CONFIG, ANGLE_FLIPPED_CONFIG),
+                                new SwerveModuleConstants(0, Rotation2d.fromDegrees(346.81), MODULE_TYPE,
+                                                SWERVE_TUNING_MODE, DRIVE_CONFIG, ANGLE_CONFIG),
+                                new SwerveModuleConstants(1, Rotation2d.fromDegrees(21.09), MODULE_TYPE,
+                                                SWERVE_TUNING_MODE, DRIVE_FLIPPED_CONFIG, ANGLE_FLIPPED_CONFIG),
+                                new SwerveModuleConstants(2, Rotation2d.fromDegrees(25.48), MODULE_TYPE,
+                                                SWERVE_TUNING_MODE, DRIVE_CONFIG, ANGLE_CONFIG),
+                                new SwerveModuleConstants(3, Rotation2d.fromDegrees(126.29), MODULE_TYPE,
+                                                SWERVE_TUNING_MODE, DRIVE_FLIPPED_CONFIG, ANGLE_FLIPPED_CONFIG),
                 };
         }
 
@@ -126,7 +129,7 @@ public final class Constants {
                                 26,
                                 20,
                                 false,
-                                PIDConfig.getPid(0.02),
+                                PIDConfig.getPid(0.03, 0.000, 2.0, 0.0), // 0.04 1.5
                                 MotorConfig.Mode.BRAKE);
 
                 public static final MotorConfig SHOOTER_CONFIG_TOP = new MotorConfig(
@@ -143,22 +146,22 @@ public final class Constants {
                                 PIDConfig.getPid(0.00009, 0.0, 0.000174),
                                 MotorConfig.Mode.BRAKE);
 
-                public static final int ENCODER_ID = 4;// set this
-                public static final int BEAM_BREAK_ID = 3;
-                public static final double ENCODER_OFFSET = -19.0;// set this
-                public static final double PIVOT_GEAR_RATIO = 66.666; // set ratio
-                public static final double KS = 0;// set this
-                public static final double KG = 0;// set this
-                public static final double KV = 0;// set this
+                public static final int ENCODER_ID = 4;
+                public static final double ENCODER_OFFSET = 82.5;//82;//-142.1;
+                public static final double PIVOT_GEAR_RATIO = 66.666;
+                public static final double KS = 0;
+                public static final double KG = 0.21;
+                public static final double KV = 0;
                 public static final double KICKER_SPEED = 0.6;// set this
 
                 public static final double SHOOTER_SPEED = 5000;
 
-                public static final double PIVOT_AMP_ANGLE = 20; // find angle
+                public static final double PIVOT_AMP_ANGLE = 22; // find angle
                 public static final double PIVOT_TRAP_ANGLE = 0; // find angle
-                public static final double PIVOT_STAGE_ANGLE = -32.5; //41
-                public static final double PIVOT_IDLE = -57;
-                public static final double SHOOTER_ERROR = 100;
+                public static final double PIVOT_STAGE_ANGLE = -41; // 31.5
+                public static final double PIVOT_IDLE = -54.4; // -60
+                public static final double PIVOT_CENTER_ANGLE = -25;
+                public static final double SHOOTER_ERROR = 300;
                 public static final double PIVOT_ERROR = 1.0;
         }
 
@@ -177,7 +180,7 @@ public final class Constants {
                 }
 
                 public static final double UPRIGHT_ROLLERS_SPEED = 0.9;
-                public static final double INDEXER_SPEED = 0.9;
+                public static final double INDEXER_SPEED = 0.7;
                 public static final MotorConfig INDEXER_CONFIG = new MotorConfig(
                                 24,
                                 40, // set later
@@ -186,23 +189,23 @@ public final class Constants {
                 public static final MotorConfig UPRIGHT_ROLLERS_CONFIG = new MotorConfig(
                                 23, // set canID later
                                 20,
-                                false, // position motor
+                                true, // position motor
                                 MotorConfig.Mode.COAST);
         }
 
         public static final class Intake {
                 public static final double G = 0.25; // retune
                 public static final int ENCODER_CHANNEL = 1;
-                public static final double ENCODER_ANGLE_OFFSET = -55.1;
+                public static final double ENCODER_ANGLE_OFFSET = 71; // 60
                 public static final double INTAKE_GEAR_RATIO = 21.701;
 
                 public static final double INTAKE_SPEED = 0.9;
 
                 public static final double ERROR_LIMIT = 1.0;
-                public static final double MAX_ERROR = 3.0;
+                public static final double MAX_ERROR = 4.0;
 
                 public static final double RAISED_POS = 110;
-                public static final double LOWERED_POS = -10;
+                public static final double LOWERED_POS = -10; // -26
 
                 public static final MotorConfig INTAKE_CONFIG = new MotorConfig(
                                 21,
@@ -214,7 +217,7 @@ public final class Constants {
                                 22,
                                 20,
                                 true,
-                                PIDConfig.getPid(0.009, 0.0, 0.0), // p:0.012d:0.6
+                                PIDConfig.getPid(0.009, 0.01, 0.0), // p:0.012d:0.6
                                 MotorConfig.Mode.BRAKE);
         }
 }

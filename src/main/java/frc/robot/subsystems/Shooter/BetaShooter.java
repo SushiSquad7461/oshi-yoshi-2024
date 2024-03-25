@@ -61,13 +61,6 @@ public class BetaShooter extends Shooter {
         return !beamBreak.get();
     }
 
-    @Override
-    public Command setPivotPos(double pos) {
-        return run(() -> {
-            pivotPos.setDefault(pos);
-        }).until(() -> pivotAtPos(pos));
-    }
-
     public double getPosition() {
         return pivot.getEncoder().getPosition();
     }
@@ -83,6 +76,14 @@ public class BetaShooter extends Shooter {
     public void resetToAbsolutePosition() {
         pivot.getEncoder().setPosition(getAbsolutePosition());
     }
+
+    @Override
+    public Command setPivotShooter(double angle, double speed) {
+        return run(() -> {
+            shooterSpeed.setDefault(speed);
+            pivotPos.setDefault(angle);
+        }).until(() -> shooterAtSpeed(speed) && pivotAtPos(angle));    
+     }
 
     @Override
     public void periodic() {
