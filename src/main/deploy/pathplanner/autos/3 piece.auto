@@ -1,0 +1,109 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.31,
+      "y": 5.63
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot_fendor"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "schedule_intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "center piece"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "suck_in"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot_fendor"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "schedule_intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2nd piece"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.2
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "suck_in"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot_fendor"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "schedule_intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3d piece"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "suck_in"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot_fendor"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

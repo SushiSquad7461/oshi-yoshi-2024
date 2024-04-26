@@ -3,32 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.1910213421415545,
-        "y": 2.212894557321601
+        "x": 1.4404875861990531,
+        "y": 1.4907109739592623
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3933588015481124,
-        "y": 2.1897147687303855
+        "x": 2.6428250456056115,
+        "y": 1.467531185368047
       },
       "isLocked": false,
       "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 4.419673864065242,
-        "y": 1.6729149939585197
-      },
-      "prevControl": {
-        "x": 2.950814465364807,
-        "y": 1.9314973993648554
-      },
-      "nextControl": {
-        "x": 5.856817914499802,
-        "y": 1.4199158533971004
-      },
-      "isLocked": false,
-      "linkedName": "Center Far Shot"
     },
     {
       "anchor": {
@@ -52,7 +36,7 @@
         "y": 1.6729149939585197
       },
       "prevControl": {
-        "x": 4.5332913317662795,
+        "x": 4.533291331766279,
         "y": 1.5280413152634218
       },
       "nextControl": {
@@ -84,7 +68,7 @@
         "y": 1.6729149939585197
       },
       "prevControl": {
-        "x": 5.315969798433382,
+        "x": 5.315969798433381,
         "y": 1.5786376137890505
       },
       "nextControl": {
@@ -126,12 +110,12 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 6,
+      "waypointRelativePos": 5.0,
       "rotationDegrees": 90.0,
       "rotateFast": false
     },
     {
-      "waypointRelativePos": 5,
+      "waypointRelativePos": 4.0,
       "rotationDegrees": -30.0,
       "rotateFast": false
     }

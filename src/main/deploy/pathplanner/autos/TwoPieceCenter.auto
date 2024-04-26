@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.6332428049471499,
+      "y": 4.430257322053106
+    },
+    "rotation": -60.110000000000014
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot_fendor"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "schedule_intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "center line 2nd"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "suck_in"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot_fendor"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

@@ -2,12 +2,13 @@ package frc.robot.subsystems.Elevator;
 
 public enum ElevatorState {
     IDLE(0),
-    SPEAKER(45),
+    SPEAKER(0),
     TRAP(0),
-    CLIMB(20),
-    AMP(55);
+    CLIMB(30),
+    AMP(47);
 
     double position;
+    
 
     private ElevatorState(double position) {
         this.position = position;

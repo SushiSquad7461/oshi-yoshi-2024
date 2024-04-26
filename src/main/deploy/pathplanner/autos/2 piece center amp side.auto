@@ -1,0 +1,61 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.65,
+      "y": 6.69
+    },
+    "rotation": 60.26
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot_fendor"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1 center amp"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "suck_in"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot_center_amp"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2nd far"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "suck_in"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot_center_amp"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

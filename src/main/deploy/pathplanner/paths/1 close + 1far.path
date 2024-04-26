@@ -1,0 +1,116 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.46,
+        "y": 7.287904363122159
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.619004905972781,
+        "y": 7.789642973080861
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.1064508546927545,
+        "y": 7.65251735354217
+      },
+      "prevControl": {
+        "x": 3.229223380115271,
+        "y": 7.681702911183059
+      },
+      "nextControl": {
+        "x": 5.648613517376289,
+        "y": 7.601209250925964
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.1448101440979,
+        "y": 7.1651861027602655
+      },
+      "prevControl": {
+        "x": 8.013838800283956,
+        "y": 7.5987257360795235
+      },
+      "nextControl": {
+        "x": 8.270256540513083,
+        "y": 6.749935078228365
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.411887452482532,
+        "y": 6.54769754189932
+      },
+      "prevControl": {
+        "x": 6.849327980348661,
+        "y": 6.881200208904655
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "close center shot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "shoot_fender",
+      "waypointRelativePos": 0.0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "spit_out"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "intake first center",
+      "waypointRelativePos": 1.0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "schedule_intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.0,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0.0,
+    "rotation": 0,
+    "rotateFast": true
+  },
+  "reversed": false,
+  "folder": "Center Close",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
+}
